@@ -50,6 +50,8 @@ sudo make install
 sudo ldconfig
 ```
 
+---
+
 ## Modbus function code
 | FC    | Description            | API                                                                                             |
 |:-----:|------------------------|-------------------------------------------------------------------------------------------------|
@@ -61,8 +63,6 @@ sudo ldconfig
 | 0x06  | write single register  | [modbus_write_register](http://libmodbus.org/docs/v3.1.4/modbus_write_register.html)            |
 | 0x0F  | write multi coil       | [modbus_write_bits](http://libmodbus.org/docs/v3.1.4/modbus_write_bits.html)                    |
 | 0x10  | write multi registers  | [modbus_write_registers](http://libmodbus.org/docs/v3.1.4/modbus_write_registers.html)          |
-
-
 
 ---
 
