@@ -50,12 +50,26 @@ sudo make install
 sudo ldconfig
 ```
 
+## Modbus function code
+| FC    | Description            | API                                                                                             |
+|:-----:|------------------------|-------------------------------------------------------------------------------------------------|
+| 0x01  | read coils             | [modbus_read_bits](http://libmodbus.org/docs/v3.1.4/modbus_read_bits.html)                      |   
+| 0x02  | read discrete input    | [modbus_read_input_bits](http://libmodbus.org/docs/v3.1.4/modbus_read_input_bits.html)          |
+| 0x03  | read holding registers | [modbus_read_registers](http://libmodbus.org/docs/v3.1.4/modbus_read_registers.html)            |
+| 0x04  | read input registers   | [modbus_read_input_registers](http://libmodbus.org/docs/v3.1.4/modbus_read_input_registers.html)|
+| 0x05  | write single coil      | [modbus_write_bit](http://libmodbus.org/docs/v3.1.4/modbus_write_bit.html)                      |
+| 0x06  | write single register  | [modbus_write_register](http://libmodbus.org/docs/v3.1.4/modbus_write_register.html)            |
+| 0x0F  | write multi coil       | [modbus_write_bits](http://libmodbus.org/docs/v3.1.4/modbus_write_bits.html)                    |
+| 0x10  | write multi registers  | [modbus_write_registers](http://libmodbus.org/docs/v3.1.4/modbus_write_registers.html)          |
+
+
+
 ---
 
 ## TODO List
 - libmodbus version number
 - keep connection 
-- FC
+- FC(1~6, 15, 16)
 - FC argument
 - daemon version number
 - daemon pid
