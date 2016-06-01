@@ -40,10 +40,10 @@ void test_hash()
     tcp_hash_t ff, *p, *h1, *tmp, *servers = NULL;
     h1 = (tcp_hash_t*)malloc(sizeof(tcp_hash_t));
     memset(h1, 0, sizeof(h1));
-    h1.connected = false;
+    h1->connected = false;
     h1->key.ip   = "192.168.10.1";
     h1->key.port = 555;
-    h1.ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
+    h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
     HASH_ADD(hh, servers, key, sizeof(tcp_port_key_t), h1);
     
     memset(&ff, 0, sizeof(tcp_hash_t));
