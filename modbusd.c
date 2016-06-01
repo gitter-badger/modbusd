@@ -45,7 +45,7 @@ int init_mbtcp_ctx(const char *ip, int port)
     mb_handler->key.port = port;
     mb_handler->ctx = ctx;
     HASH_ADD(hh, mbtcp_htable, key, sizeof(key_mbtcp_t), mb_handler);
-    //printf("Add %s:%n to hashtable\n", mb_handler->key.ip, mb_handler->key.port);
+    //printf("Add %s to hashtable\n", mb_handler->key.ip);
     return 0;
 /*
     if (modbus_connect(ctx) == -1) {
