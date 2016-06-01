@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
@@ -19,9 +20,58 @@
 #define IPC_PUB "ipc:///tmp/from.modbus"
 #define DEFAULT_TCP_PORT 502
 
+
+// hash key struct for modbus tcp
+typedef struct {
+    const char *ip;
+    int port;
+} tcp_port_key_t
+
+typedef struct {
+    tcp_port_key_t key; // key
+    bool connected; 
+    modbus_t *ctx;  // modbus context
+    UT_hash_handle hh; // makes this structure hashable
+} tcp_hash_t;
+
+
+void test_hash()
+{
+    tcp_hash_t ff, *p, *h1, *tmp, *servers = NULL;
+    h1 = (tcp_hash_t*)malloc(sizeof(tcp_hash_t));
+    memset(h1, 0, sizeof(h1));
+    h1.connected = false;
+    h1->key.ip   = "192.168.10.1";
+    h1->key.port = 555;
+    h1.ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
+    HASH_ADD(hh, servers, key, sizeof(tcp_port_key_t), h1);
+    
+    memset(&ff, 0, sizeof(tcp_hash_t));
+    ff.key.ip = "hello";
+    ff.key.port = 1234;
+    HASH_FIND(hh, servers, &ff.key, sizeof(tcp_port_key_t), p);
+    if (p)
+    {
+        printf("found\n");
+        printf("%s, %d\n", p->key.ip, p->key.port);
+    }
+    else
+    {
+        printf("not found\n");
+    }
+    
+    HASH_ITER(hh, servers, p, tmp)
+    {
+        HASH_DEL(servers, p);
+        free(p);
+    }    
+}
+
 // ENTRY
 int main(int argc, char *argv[])
 {
+    test_hash();
+    
     // @load external config
     // TODO
     
@@ -39,9 +89,8 @@ int main(int argc, char *argv[])
     // bind zmq publisher
     zsocket_bind (zmq_pub, IPC_PUB);
     
-    
     // try
-    modbus_t *ctx;
+    modbus_t *ctx = NULL;
     
     // @start receiving zmq command
     printf("start command listener\n");
@@ -57,5 +106,5 @@ int main(int argc, char *argv[])
     // @resource clean up
     printf("clean up\n");
     zctx_destroy(&zmq_context);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
