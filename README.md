@@ -68,10 +68,10 @@ sudo ldconfig
 - max client (255)
 
 ## External libraries list
-- libmodbus
-- libzmq
-- czmq
-- uthash
+- [libmodbus](http://libmodbus.org/)
+- [libzmq](https://github.com/zeromq/libzmq)
+- [czmq](https://github.com/zeromq/czmq)
+- [uthash](https://troydhanson.github.io/uthash/)
 
 ---
 
