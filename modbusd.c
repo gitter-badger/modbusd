@@ -4,14 +4,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
 #include <errno.h>
 #include <czmq.h>
-#include <modbus.h> // libmodbus
-#include "uthash.h" // utHash
+
 #include "modbusd.h"
 
 // Marco
@@ -20,25 +19,14 @@
 #define IPC_PUB "ipc:///tmp/from.modbus"
 #define DEFAULT_TCP_PORT 502
 
-
-// hash key struct for modbus tcp
-typedef struct {
-    const char *ip;
-    int port;
-} tcp_port_key_t;
-
-typedef struct {
-    tcp_port_key_t key; // key
-    bool connected; 
-    modbus_t *ctx;  // modbus context
-    UT_hash_handle hh; // makes this structure hashable
-} tcp_hash_t;
-
-
-void test_hash()
+void test_tcp_context_hashtable()
 {
-    tcp_hash_t ff, *p, *h1, *tmp, *servers = NULL;
+    // important! initialize to NULL
+    tcp_hash_t *servers = NULL;
+    tcp_hash_t ff, *p, *h1, *tmp;
     h1 = (tcp_hash_t*)malloc(sizeof(tcp_hash_t));
+    // let alignment bytes being set to zero-value.
+    // ref: https://troydhanson.github.io/uthash/userguide.html#_structure_keys
     memset(h1, 0, sizeof(h1));
     h1->connected = false;
     h1->key.ip   = "192.168.10.1";
@@ -50,6 +38,7 @@ void test_hash()
     ff.key.ip = "192.168.10.1";
     ff.key.port = 555;
     HASH_FIND(hh, servers, &ff.key, sizeof(tcp_port_key_t), p);
+    
     if (p)
     {
         printf("found\n");
@@ -70,7 +59,7 @@ void test_hash()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    test_hash();
+    test_tcp_context_hashtable();
     
     // @load external config
     // TODO
