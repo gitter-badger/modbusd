@@ -12,7 +12,7 @@ typedef struct {
 } key_mbtcp_t;
 
 typedef struct {
-    tcp_port_key_t key; // key
+    key_mbtcp_t key;    // key
     bool connected;     // is connect to modbus slave?
     modbus_t *ctx;      // modbus context pointer
     UT_hash_handle hh;  // makes this structure hashable
