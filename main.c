@@ -14,7 +14,8 @@
 
 int main(int argc, char *argv[])
 {
-    zctx_t *zmq_context = zctx_new ();
+    zctx_t *zmq_context = zctx_new();
+/*    
     void *zmq_sub = zsocket_new (zmq_context, ZMQ_SUB);
     zsocket_connect (zmq_sub, end_point);
     zsocket_set_subscribe (zmq_sub, ""); // set filter    
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
     {
         zmsg_t *msg = zmsg_recv(zmq_sub);
     }
-    
+*/    
     // clean up section
     zctx_destroy(&zmq_context);
     exit(0);

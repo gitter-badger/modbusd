@@ -5,7 +5,7 @@ Modbus daemon
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git autoconf libtool 
+sudo apt-get install -y git build-essential autoconf libtool pkg-config cmake
 ```
 
 ---
