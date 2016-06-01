@@ -47,8 +47,8 @@ void test_hash()
     HASH_ADD(hh, servers, key, sizeof(tcp_port_key_t), h1);
     
     memset(&ff, 0, sizeof(tcp_hash_t));
-    ff.key.ip = "hello";
-    ff.key.port = 1234;
+    ff.key.ip = "192.168.10.1";
+    ff.key.port = 555;
     HASH_FIND(hh, servers, &ff.key, sizeof(tcp_port_key_t), p);
     if (p)
     {
