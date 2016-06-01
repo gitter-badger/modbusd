@@ -19,7 +19,8 @@ git clone https://github.com/stephane/libmodbus/
 cd libmodbus
 ./autogen.sh
 ./configure
-# ./configure --prefix=/usr/local/
+# ./configure --prefix=/usr/
+make
 sudo make install
 sudo ldconfig
 ```
