@@ -25,7 +25,7 @@
 typedef struct {
     const char *ip;
     int port;
-} tcp_port_key_t
+} tcp_port_key_t;
 
 typedef struct {
     tcp_port_key_t key; // key
