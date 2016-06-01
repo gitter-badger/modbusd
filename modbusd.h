@@ -3,19 +3,19 @@
 
 #include <stdbool.h>
 #include <modbus.h> // libmodbus
-#include "uthash.h" // utHash
+#include "uthash.h" // uthash
 
-// hash key struct for modbus tcp
+// `structure key` for modbus tcp hash table
 typedef struct {
     const char *ip;
     int port;
-} tcp_port_key_t;
+} key_mbtcp_t;
 
 typedef struct {
     tcp_port_key_t key; // key
     bool connected;     // is connect to modbus slave?
-    modbus_t *ctx;      // modbus context
+    modbus_t *ctx;      // modbus context pointer
     UT_hash_handle hh;  // makes this structure hashable
-} tcp_hash_t;
+} hash_mbtcp_t;
 
 #endif  // MODBUSD_H

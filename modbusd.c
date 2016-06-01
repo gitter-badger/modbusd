@@ -22,11 +22,8 @@
 // ENTRY
 int main(int argc, char *argv[])
 {
-    test_tcp_context_hashtable();
-    
     // @load external config
     // TODO
-    
     
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
