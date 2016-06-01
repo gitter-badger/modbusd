@@ -46,7 +46,7 @@ int init_mbtcp_ctx(const char *ip, int port)
     mb_handler->key.port = port;
     mb_handler->ctx = ctx;
     HASH_ADD(hh, mbtcp_htable, key, sizeof(key_mbtcp_t), mb_handler);
-    printf("Add %s to hashtable\n", mb_handler->key.ip);
+    printf("Add %s,%n to hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
     return 0;
 /*
     if (modbus_connect(ctx) == -1) {
@@ -66,7 +66,7 @@ void get_mbtcp_ctx()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    int i = init_mbtcp_ctx("127.0.0.1", 1502);
+    int i = init_mbtcp_ctx("192.168.1.234", 1502);
     // @load external config
     // TODO
     
