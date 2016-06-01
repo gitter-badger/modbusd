@@ -18,6 +18,9 @@ void test_tcp_context_hashtable()
     // important! initialize to NULL
     hash_mbtcp_t *servers = NULL;
     hash_mbtcp_t ff, *p, *h1, *h2, *tmp;
+    
+    
+    // server #1
     h1 = (hash_mbtcp_t*)malloc(sizeof(hash_mbtcp_t));
     // let alignment bytes being set to zero-value.
     // ref: https://troydhanson.github.io/uthash/userguide.html#_structure_keys
@@ -28,6 +31,7 @@ void test_tcp_context_hashtable()
     h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
     HASH_ADD(hh, servers, key, sizeof(key_mbtcp_t), h1);
     
+    // server #2
     h2 = (hash_mbtcp_t*)malloc(sizeof(hash_mbtcp_t));
     memset(h2, 0, sizeof(h2));
     h2->connected = false;
@@ -36,6 +40,7 @@ void test_tcp_context_hashtable()
     h2->ctx = modbus_new_tcp(h2->key.ip, h2->key.port);
     HASH_ADD(hh, servers, key, sizeof(key_mbtcp_t), h2);
     
+    // find #1
     memset(&ff, 0, sizeof(hash_mbtcp_t));
     ff.key.ip = "192.168.10.1";
     ff.key.port = 555;
@@ -51,6 +56,7 @@ void test_tcp_context_hashtable()
         printf("not found\n");
     }
     
+    // find #2
     memset(&ff, 0, sizeof(hash_mbtcp_t));
     ff.key.ip = "192.168.10.2";
     ff.key.port = 556;
@@ -66,12 +72,13 @@ void test_tcp_context_hashtable()
         printf("not found\n");
     }
     
+    // delete
     HASH_ITER(hh, servers, p, tmp)
     {
-        HASH_DEL(servers, p);
-        modbus_free(p->ctx); // release modbus context
+        HASH_DEL(servers, p); // remove from hash
+        modbus_free(p->ctx);  // release modbus context
         free(p);
-    }    
+    }
 }
 
 // ENTRY

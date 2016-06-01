@@ -19,9 +19,33 @@
 #define IPC_PUB "ipc:///tmp/from.modbus"
 #define DEFAULT_TCP_PORT 502
 
+
+int init_mbtcp_ctx(const char *ip, int port)
+{
+    modbus_t *ctx;
+    ctx = modbus_new_tcp("127.0.0.1", 1502);
+    if (ctx == NULL) {
+        fprintf(stderr, "Unable to allocate libmodbus context\n");
+        return -1;
+    }
+
+    if (modbus_connect(ctx) == -1) {
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        modbus_free(ctx);
+        return -1;
+    }
+}
+
+void get_mbtcp_ctx()
+{
+    
+}
+
+
 // ENTRY
 int main(int argc, char *argv[])
 {
+    int i = init_mbtcp_ctx("127.0.0.1", 1502);
     // @load external config
     // TODO
     
