@@ -11,3 +11,4 @@ set(bin_source main.c uthash.h)
 
 add_executable(${bin_name} ${bin_source})
 target_link_libraries(${bin_name} LINK_PUBLIC zmq czmq modbus)
+
