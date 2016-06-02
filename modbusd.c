@@ -26,7 +26,7 @@ hash_mbtcp_t *mbtcp_htable = NULL;
 int init_mbtcp_ctx(modbus_t **_ctx, const char *ip, int port)
 {
     printf("init_mbtcp_ctx\n");
-    //modbus_t *ctx;
+    modbus_t *ctx;
     ctx = modbus_new_tcp(ip, port);
     if (ctx == NULL)
     {
