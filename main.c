@@ -17,6 +17,11 @@ int main(int argc, char *argv[])
 {
     // @load external config
     load_config();
+    
+    mbtcp_handle_t *handle = NULL;
+    int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
+    ret = mbtcp_connect(&handle);
+    
 
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
@@ -32,7 +37,6 @@ int main(int argc, char *argv[])
     zsocket_bind (zmq_pub, IPC_PUB);
     
     // @start receiving zmq command
-    //printf("start command listener\n");
     LOG(enable_syslog, "start command listener\n");
 
     while (!zctx_interrupted) // handle ctrl+c
@@ -46,7 +50,6 @@ int main(int argc, char *argv[])
     
     // @resource clean up
     LOG(enable_syslog, "clean up\n");
-    //printf("clean up\n");
     zctx_destroy(&zmq_context);
     closelog();
     exit(EXIT_SUCCESS);
