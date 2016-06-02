@@ -22,10 +22,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
         fprintf(stderr, "Unable to allocate mbtcp context\n");
         return -1;
     }
-    
-    // call by reference to `mbtcp handle address`
-    *ptr_handle = ctx;
-    
+        
     // set response timeout
     modbus_set_response_timeout(ctx, MBTCP_RESP_TIMEOUT_SEC, 0);
     
@@ -38,10 +35,14 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     mb_handler->key.ip   = ip;
     mb_handler->key.port = port;
     mb_handler->ctx = ctx;
+
     HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_t), mb_handler);
     printf("Add %s:%d to tcp hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
 
-    // @connect to slave
+    // call by reference to `mbtcp handle address`
+    *ptr_handle = ctx;
+
+    // @connect to server with slave id
     if (modbus_connect(ctx) == -1) 
     {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
