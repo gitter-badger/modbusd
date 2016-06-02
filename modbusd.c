@@ -1,12 +1,11 @@
 //
+// modbusd.c
 // taka-wang
 //
 
-
-
 #include "modbusd.h"
 
-// hashtable
+// hashtable header
 mbtcp_handle_t *mbtcp_htable = NULL;
 
 // init mbtcp handle and try to connect
@@ -20,7 +19,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     if (ctx == NULL)
     {
         fprintf(stderr, "Unable to allocate mbtcp context\n");
-        return -1;
+        return -1; // fail to allocate context
     }
         
     // set response timeout
@@ -29,7 +28,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     // @add context to mbtcp hashtable
     mbtcp_handle_t *mb_handler;
     mb_handler = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
-    // let alignment bytes being set to zero-value.
+    // let alignment bytes being set to zero-value!!
     memset(mb_handler, 0, sizeof(mb_handler));
     mb_handler->connected = false;
     mb_handler->key.ip   = ip;
@@ -55,6 +54,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     return 0;
 }
 
+// get mbtcp handle from hashtable
 int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
     printf("get_mbtcp_handle\n");
@@ -77,9 +77,6 @@ int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     {
         printf("not found\n");
         *ptr_handle = NULL; 
-        return -1;
+        return -1; // not found
     }
-    
 }
-
-

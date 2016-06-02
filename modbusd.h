@@ -1,3 +1,8 @@
+//
+// modbusd.h
+// taka-wang
+//
+
 #ifndef MODBUSD_H
 #define MODBUSD_H
 
@@ -14,7 +19,6 @@
 #include "uthash.h" // uthash
 
 // Marco
-#define VERSION "0.0.1"
 #define IPC_SUB "ipc:///tmp/to.modbus"
 #define IPC_PUB "ipc:///tmp/from.modbus"
 #define MBTCP_RESP_TIMEOUT_SEC 3
@@ -27,6 +31,7 @@ typedef struct {
     int port;
 } mbtcp_key_t;
 
+// mbtcp handle type
 typedef struct {
     mbtcp_key_t key;    // key
     bool connected;     // is connect to modbus slave?
@@ -34,7 +39,9 @@ typedef struct {
     UT_hash_handle hh;  // makes this structure hashable
 } mbtcp_handle_t;
 
-// init mbtcp handle and try to connect
+
+
+// init mbtcp handle (to hash) and try to connect
 int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port);
 
 // get mbtcp handle from hashtable
