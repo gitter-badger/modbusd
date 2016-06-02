@@ -14,6 +14,29 @@
 
 #include "../modbusd.h"
 
+
+void set_and_connect()
+{
+    mbtcp_handle_t *handle = NULL;
+    int i = init_mbtcp_handle (&handle, "172.16.9.170", 502);
+    if (modbus_connect(handle->ctx) == -1) 
+    {
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        //modbus_free(ctx);
+        return -1;
+    }
+    
+    handle = NULL;
+    i = get_mbtcp_handle (&handle, "172.16.9.170", 502);
+    if (modbus_connect(handle->ctx) == -1) 
+    {
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        //modbus_free(ctx);
+        return -1;
+    }
+    return 0;
+}
+
 // add 1000 key-value pair to hashtable, then find these items
 void multiple_add_find()
 {
@@ -130,7 +153,8 @@ void single_add_find()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    multiple_add_find();
+    set_and_connect();
+    //multiple_add_find();
     //single_add_find();
     exit(EXIT_SUCCESS);
 }
