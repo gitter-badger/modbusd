@@ -7,7 +7,7 @@ project(modbusd C)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(bin_name modbusd)
 set(modbus_include /usr/local/include/modbus)
-set(bin_source modbusd.c modbusd.h uthash.h ${modbus_include}/modbus.h)
+set(bin_source main.c modbusd.c modbusd.h uthash.h ${modbus_include}/modbus.h)
 
 include_directories(${modbus_include})
 add_executable(${bin_name} ${bin_source})

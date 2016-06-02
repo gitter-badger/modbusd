@@ -16,12 +16,12 @@
 void test_tcp_context_hashtable()
 {
     // important! initialize to NULL
-    hash_mbtcp_t *servers = NULL;
-    hash_mbtcp_t ff, *p, *h1, *h2, *tmp;
+    mbtcp_handle_t *servers = NULL;
+    mbtcp_handle_t ff, *p, *h1, *h2, *tmp;
     
     
     // server #1
-    h1 = (hash_mbtcp_t*)malloc(sizeof(hash_mbtcp_t));
+    h1 = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
     // let alignment bytes being set to zero-value.
     // ref: https://troydhanson.github.io/uthash/userguide.html#_structure_keys
     memset(h1, 0, sizeof(h1));
@@ -29,22 +29,22 @@ void test_tcp_context_hashtable()
     h1->key.ip   = "192.168.10.1";
     h1->key.port = 555;
     h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
-    HASH_ADD(hh, servers, key, sizeof(key_mbtcp_t), h1);
+    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), h1);
     
     // server #2
-    h2 = (hash_mbtcp_t*)malloc(sizeof(hash_mbtcp_t));
+    h2 = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
     memset(h2, 0, sizeof(h2));
     h2->connected = false;
     h2->key.ip   = "192.168.10.2";
     h2->key.port = 556;
     h2->ctx = modbus_new_tcp(h2->key.ip, h2->key.port);
-    HASH_ADD(hh, servers, key, sizeof(key_mbtcp_t), h2);
+    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), h2);
     
     // find #1
-    memset(&ff, 0, sizeof(hash_mbtcp_t));
+    memset(&ff, 0, sizeof(mbtcp_handle_t));
     ff.key.ip = "192.168.10.1";
     ff.key.port = 555;
-    HASH_FIND(hh, servers, &ff.key, sizeof(key_mbtcp_t), p);
+    HASH_FIND(hh, servers, &ff.key, sizeof(mbtcp_key_t), p);
     
     if (p)
     {
@@ -57,10 +57,10 @@ void test_tcp_context_hashtable()
     }
     
     // find #2
-    memset(&ff, 0, sizeof(hash_mbtcp_t));
+    memset(&ff, 0, sizeof(mbtcp_handle_t));
     ff.key.ip = "192.168.10.2";
     ff.key.port = 556;
-    HASH_FIND(hh, servers, &ff.key, sizeof(key_mbtcp_t), p);
+    HASH_FIND(hh, servers, &ff.key, sizeof(mbtcp_key_t), p);
     
     if (p)
     {

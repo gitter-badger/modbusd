@@ -9,17 +9,18 @@
 typedef struct {
     const char *ip;
     int port;
-} key_mbtcp_t;
+} mbtcp_key_t;
 
 typedef struct {
-    key_mbtcp_t key;    // key
+    mbtcp_key_t key;    // key
     bool connected;     // is connect to modbus slave?
     modbus_t *ctx;      // modbus context pointer
     UT_hash_handle hh;  // makes this structure hashable
-} hash_mbtcp_t;
+} mbtcp_handle_t;
 
 // init modbus tcp context and try to connect
 int init_mbtcp_ctx (modbus_t **ptr_ctx, const char *ip, int port);
 
+int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port);
 
 #endif  // MODBUSD_H
