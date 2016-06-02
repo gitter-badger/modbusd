@@ -14,23 +14,23 @@ uint32_t tcp_conn_timeout_usec = 200000;
 int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 {
     printf("mbtcp_connect\n");
-    mbtcp_handle_t * handle = *ptr_handle;
+    //mbtcp_handle_t * handle = *ptr_handle;
     
-    if (handle == NULL)
+    if ((*ptr_handle) == NULL)
     {
         printf("NULL handle");
         return -1;
     }
     
-    if (modbus_connect(handle->ctx) == -1) 
+    if (modbus_connect((*ptr_handle)->ctx) == -1) 
     {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
         return -2;
     }
     else
     {
-        printf("%s:%d connected\n", handle->key.ip, handle->key.port);
-        handle->connected = true;
+        printf("%s:%d connected\n", (*ptr_handle)->key.ip, (*ptr_handle)->key.port);
+        (*ptr_handle)->connected = true;
         return 0;
     }
 }
