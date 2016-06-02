@@ -23,10 +23,10 @@
 // hashtable
 hash_mbtcp_t *mbtcp_htable = NULL;
 
-int init_mbtcp_ctx(const char *ip, int port)
+int init_mbtcp_ctx(modbus_t **_ctx, const char *ip, int port)
 {
     printf("init_mbtcp_ctx\n");
-    modbus_t *ctx;
+    //modbus_t *ctx;
     ctx = modbus_new_tcp(ip, port);
     if (ctx == NULL)
     {
@@ -47,14 +47,14 @@ int init_mbtcp_ctx(const char *ip, int port)
     mb_handler->ctx = ctx;
     HASH_ADD(hh, mbtcp_htable, key, sizeof(key_mbtcp_t), mb_handler);
     printf("Add %s,%d to hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
-    return 0;
-/*
+    //return 0;
+    *_ctx = ctx; 
     if (modbus_connect(ctx) == -1) {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
         modbus_free(ctx);
         return -1;
     }
-*/
+
 }
 
 void get_mbtcp_ctx()
@@ -66,7 +66,13 @@ void get_mbtcp_ctx()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    int i = init_mbtcp_ctx("192.168.1.234", 1502);
+    modbus_t *ctx = NULL;
+    int i = init_mbtcp_ctx(&ctx, "192.168.1.234", 1502);
+        if (modbus_connect(ctx) == -1) {
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        modbus_free(ctx);
+        return -1;
+    }
     // @load external config
     // TODO
     
