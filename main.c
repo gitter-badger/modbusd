@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 {    
     // @load external config
     load_config();
-    void * pub, sub;
+    void * pub, *sub;
     zctx_t *zmq_context;
 
     init_zmq(&zmq_context, &pub, &sub);
