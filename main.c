@@ -4,16 +4,16 @@
 //
 
 #include "modbusd.h"
-
+    
 void load_config()
 {
     // TODO
 }
 
-void init_zmq(void ** pub, void ** sub)
+void init_zmq(zctx_t **zmq_context, void ** pub, void ** sub)
 {
     // @setup zmq
-    zctx_t *zmq_context = zctx_new ();
+    *zmq_context = zctx_new ();
     // init zmq subscriber: zmq_sub
     *sub = zsocket_new (zmq_context, ZMQ_SUB);
     // bind zmq subscriber
@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
 {    
     // @load external config
     load_config();
-    
-    void * pub;
-    void * sub;
-    init_zmq(&pub, &sub);
+    void * pub, sub;
+    zctx_t *zmq_context;
+
+    init_zmq(&zmq_context, &pub, &sub);
     /*
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
