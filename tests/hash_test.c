@@ -19,7 +19,7 @@ void multiple_add_get()
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
     
-    for (int idx = 0; idx < 200; idx++)
+    for (int idx = 0; idx < 255; idx++)
     {
         mbtcp_handle_t *handle;
         handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
@@ -38,7 +38,7 @@ void multiple_add_get()
     
     printf("==========================\n");
     
-    for (int idx = 0; idx < 200; idx++)
+    for (int idx = 0; idx < 255; idx++)
     {
         mbtcp_handle_t query, *ptr;
         memset(&query, 0, sizeof(mbtcp_handle_t));
