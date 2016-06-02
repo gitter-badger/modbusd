@@ -18,35 +18,37 @@ void multiple_add_get()
 {
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
-    mbtcp_handle_t query, *ptr, *handle, *tmp;
-    handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
-    memset(handle, 0, sizeof(handle));
-    handle->connected = false;
-    handle->key.ip   = "192.168.10.1";
-    handle->key.port = 1;
-    handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
-    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
-    printf("handle:%p\n", handle);
+    mbtcp_handle_t query, *ptr, *tmp;
     
-    // find #1
-    memset(&query, 0, sizeof(mbtcp_handle_t));
-    query.key.ip = "192.168.10.1";
-    query.key.port = 1;
-    HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_t), ptr);
-    
-    if (ptr)
+    for (size_t idx = 0; idx < 255; idx++)
     {
-        printf("found\n");
-        printf("%s, %d, %p\n", ptr->key.ip, ptr->key.port, ptr);
-    }
-    else
-    {
-        printf("not found\n");
+        mbtcp_handle_t *handle;
+        handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
+        memset(handle, 0, sizeof(handle));
+        handle->connected = false;
+        handle->key.ip   = "192.168.10.1";
+        handle->key.port = idx;
+        handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
+        HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
+        printf("handle:%p\n", handle);
     }
     
     for (size_t idx = 0; idx < 255; idx++)
     {
-        //
+        memset(&query, 0, sizeof(mbtcp_handle_t));
+        query.key.ip = "192.168.10.1";
+        query.key.port = idx;
+        HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_t), ptr);
+        
+        if (ptr)
+        {
+            printf("found\n");
+            printf("%s, %d, %p\n", ptr->key.ip, ptr->key.port, ptr);
+        }
+        else
+        {
+            printf("not found\n");
+        }
     }
     
 }
