@@ -26,7 +26,7 @@ void multiple_add_get()
         if (handle == NULL) printf("allocate faile\n");
         memset(handle, 0, sizeof(handle));
         handle->connected = false;
-        handle->key.ip   = "192.168.10.1";
+        handle->key.ip   = "192.168.10.12";
         handle->key.port = idx;
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
         HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
@@ -43,7 +43,7 @@ void multiple_add_get()
     {
         mbtcp_handle_t query, *ptr;
         memset(&query, 0, sizeof(mbtcp_handle_t));
-        query.key.ip = "192.168.10.1";
+        query.key.ip = "192.168.10.12";
         query.key.port = idx;
         HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_t), ptr);
         
