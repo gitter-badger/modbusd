@@ -14,6 +14,37 @@
 
 #include "../modbusd.h"
 
+void multiple_add_get()
+{
+    // important! initialize to NULL
+    mbtcp_handle_t *servers = NULL;
+    mbtcp_handle_t query, *ptr, *handle, *tmp;
+    handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
+    memset(handle, 0, sizeof(handle));
+    handle->connected = false;
+    handle->key.ip   = "192.168.10.1";
+    handle->key.port = 1;
+    handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
+    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
+    
+    // find #1
+    memset(&query, 0, sizeof(mbtcp_handle_t));
+    query.key.ip = "192.168.10.1";
+    query.key.port = 1;
+    HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_t), ptr);
+    
+    if (ptr)
+    {
+        printf("found\n");
+        printf("%s, %d\n", ptr->key.ip, ptr->key.port);
+    }
+    else
+    {
+        printf("not found\n");
+    }
+}
+
+
 void test_tcp_context_hashtable()
 {
     // important! initialize to NULL
@@ -85,6 +116,7 @@ void test_tcp_context_hashtable()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    test_tcp_context_hashtable();
+    multiple_add_get();
+    //test_tcp_context_hashtable();
     exit(EXIT_SUCCESS);
 }
