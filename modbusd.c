@@ -30,7 +30,7 @@ int mbtcp_connect(mbtcp_handle_t **ptr_handle)
     else
     {
         printf("%s:%d connected\n", handle->key.ip, handle->key.port);
-        *ptr_handle.connected = true;
+        handle.connected = true;
         return 0;
     }
 }
