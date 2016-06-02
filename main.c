@@ -4,18 +4,16 @@
 // ENTRY
 int main(int argc, char *argv[])
 {
-    modbus_t *ctx = NULL;
-    int i = init_mbtcp_ctx(&ctx, "192.168.1.234", 1502);
-    /*
-    if (modbus_connect(ctx) == -1) 
+    mbtcp_handle_t *handle = NULL;
+    int i = init_mbtcp_ctx(&handle, "192.168.1.234", 1502);
+    if (modbus_connect(handle->ctx) == -1) 
     {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
         //modbus_free(ctx);
         return -1;
     }
-    */
     
-    mbtcp_handle_t *handle = NULL;
+    handle = NULL;
     i = get_mbtcp_handle (&handle, "192.168.1.234", 1502);
     if (modbus_connect(handle->ctx) == -1) 
     {
