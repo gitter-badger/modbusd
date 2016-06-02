@@ -10,7 +10,7 @@ set(modbus_include /usr/local/include/modbus)
 set(bin_source hash_test.c ../modbusd.h ${modbus_include}/modbus.h)
 
 # cflag
-set(EXT_C_FLAGS "-O3 -std=c99 -DHASH_DEBUG=1 -DHASH_BLOOM=32")
+set(EXT_C_FLAGS "-O3 -std=c99 -DHASH_DEBUG=1")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXT_C_FLAGS}")
 
 include_directories(${modbus_include})
