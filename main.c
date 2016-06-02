@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     printf("start command listener\n");
     while (!zctx_interrupted) // handle ctrl+c
     {
-        zmsg_t *msg = zmsg_recv(sub);
+        zmsg_t *msg = zmsg_recv(zmq_sub);
         if (msg != NULL)
         {
             //zmsg_dump(msg);
