@@ -14,8 +14,12 @@ void load_config()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    openlog("modbusd", LOG_CONS | LOG_PID, 0);
-  
+    openlog("modbusd", LOG_CONS | LOG_PID, LOG_USER);
+
+    mbtcp_handle_t *handle = NULL;
+    int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
+    ret = mbtcp_connect(&handle);
+    
     // @load external config
     load_config();
 
