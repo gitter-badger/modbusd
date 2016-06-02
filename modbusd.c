@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
     zsocket_bind (zmq_pub, IPC_PUB);
     
     // try
-    modbus_t *ctx = NULL;
+    //modbus_t *ctx = NULL;
     
     // @start receiving zmq command
     printf("start command listener\n");
