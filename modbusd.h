@@ -13,6 +13,14 @@
 #include <modbus.h> // libmodbus
 #include "uthash.h" // uthash
 
+// Marco
+#define VERSION "0.0.1"
+#define IPC_SUB "ipc:///tmp/to.modbus"
+#define IPC_PUB "ipc:///tmp/from.modbus"
+#define MBTCP_RESP_TIMEOUT_SEC 3
+//#define DEFAULT_TCP_PORT 502
+
+
 // `structure key` for modbus tcp hash table
 typedef struct {
     const char *ip;

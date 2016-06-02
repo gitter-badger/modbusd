@@ -2,22 +2,9 @@
 // taka-wang
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <time.h>
-#include <errno.h>
-#include <czmq.h>
+
 
 #include "modbusd.h"
-
-// Marco
-#define VERSION "0.0.1"
-#define IPC_SUB "ipc:///tmp/to.modbus"
-#define IPC_PUB "ipc:///tmp/from.modbus"
-#define MBTCP_RESP_TIMEOUT_SEC 3
-//#define DEFAULT_TCP_PORT 502
 
 // hashtable
 mbtcp_handle_t *mbtcp_htable = NULL;
