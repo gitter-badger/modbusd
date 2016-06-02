@@ -33,6 +33,10 @@ void multiple_add_get()
         printf("handle:%d, %p\n", idx, handle);
     }
     
+    unsigned int num_users;
+    num_users = HASH_COUNT(servers);
+    printf("there are %u users\n", num_users);
+    
     printf("==========================\n");
     
     for (size_t idx = 0; idx < 255; idx++)
