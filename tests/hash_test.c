@@ -14,6 +14,7 @@
 
 #include "../modbusd.h"
 
+int enable_syslog = 1;
 
 int set_and_connect()
 {
@@ -32,6 +33,7 @@ int set_and_connect()
 // add 1000 key-value pair to hashtable, then find these items
 void multiple_add_find()
 {
+    BEGIN(enable_syslog);
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
     
@@ -45,14 +47,13 @@ void multiple_add_find()
         handle->key.port = idx;
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
         HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
-        printf("handle:%d, %p\n", idx, handle);
+        LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
     }
     
     unsigned int num_users;
     num_users = HASH_COUNT(servers);
-    printf("there are %u users\n", num_users);
-    
-    printf("==========================\n");
+    LOG(enable_syslog, "there are %u users\n", num_users);
+    LOG(enable_syslog,"==========================\n");
     
     for (int idx = 0; idx < 1000; idx++)
     {
@@ -64,11 +65,11 @@ void multiple_add_find()
         
         if (ptr)
         {
-            printf("found: %d, %s, %d, %p\n", idx, ptr->key.ip, ptr->key.port, ptr);
+            LOG(enable_syslog, "found: %d, %s, %d, %p\n", idx, ptr->key.ip, ptr->key.port, ptr);
         }
         else
         {
-            printf("not found: %d\n", idx);
+            LOG(enable_syslog, "not found: %d\n", idx);
         }
     }
 }
@@ -76,10 +77,11 @@ void multiple_add_find()
 
 void single_add_find()
 {
+    BEGIN(enable_syslog);
+    
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
     mbtcp_handle_t ff, *p, *h1, *h2, *tmp;
-    
     
     // server #1
     h1 = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
@@ -109,12 +111,11 @@ void single_add_find()
     
     if (p)
     {
-        printf("found\n");
-        printf("%s, %d\n", p->key.ip, p->key.port);
+        LOG(enable_syslog, "Found %s, %d\n", p->key.ip, p->key.port);
     }
     else
     {
-        printf("not found\n");
+        LOG(enable_syslog, "Not found\n");
     }
     
     // find #2
@@ -125,12 +126,11 @@ void single_add_find()
     
     if (p)
     {
-        printf("found\n");
-        printf("%s, %d\n", p->key.ip, p->key.port);
+        LOG(enable_syslog, "Found %s, %d\n", p->key.ip, p->key.port);
     }
     else
     {
-        printf("not found\n");
+        LOG(enable_syslog, "Not found\n");
     }
     
     // delete
@@ -145,6 +145,7 @@ void single_add_find()
 // ENTRY
 int main(int argc, char *argv[])
 {
+    BEGIN(enable_syslog);
     set_and_connect();
     //multiple_add_find();
     //single_add_find();

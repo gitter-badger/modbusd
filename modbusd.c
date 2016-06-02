@@ -15,13 +15,12 @@ uint32_t tcp_conn_timeout_usec = 200000;
 bool is_mbtcp_connected(mbtcp_handle_t **ptr_handle)
 {
     BEGIN(enable_syslog);
-    //printf("is_mbtcp_connected\n");
     if ((*ptr_handle) == NULL)
     {
-        printf("NULL handle");
+        ERR(enable_syslog, "NULL handle");
         return false;
     }
-    printf("Does %s:%d connected? %s\n", (*ptr_handle)->key.ip, (*ptr_handle)->key.port, (*ptr_handle)->connected ? "true" : "false");
+    LOG(enable_syslog, "Does %s:%d connected? %s\n", (*ptr_handle)->key.ip, (*ptr_handle)->key.port, (*ptr_handle)->connected ? "true" : "false");
     return (*ptr_handle)->connected;
 }
 
@@ -29,22 +28,21 @@ bool is_mbtcp_connected(mbtcp_handle_t **ptr_handle)
 int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 {
     BEGIN(enable_syslog);
-    //printf("mbtcp_connect\n");
     
     if ((*ptr_handle) == NULL)
     {
-        printf("NULL handle");
+        ERR(enable_syslog, "NULL handle");
         return -1;
     }
     
     if (modbus_connect((*ptr_handle)->ctx) == -1) 
     {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        ERR(enable_syslog, "Connection failed: %s\n", modbus_strerror(errno));
         return -2;
     }
     else
     {
-        printf("%s:%d connected\n", (*ptr_handle)->key.ip, (*ptr_handle)->key.port);
+        LOG(enable_syslog, "%s:%d connected\n", (*ptr_handle)->key.ip, (*ptr_handle)->key.port);
         (*ptr_handle)->connected = true;
         return 0;
     }
@@ -54,15 +52,13 @@ int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
-    //printf("init_mbtcp_handle\n");
-    //syslog(LOG_INFO, "init_mbtcp_handle\n");
-    
+
     // create a mbtcp context
     modbus_t *ctx = modbus_new_tcp(ip, port);
     
     if (ctx == NULL)
     {
-        fprintf(stderr, "Unable to allocate mbtcp context\n");
+        ERR(enable_syslog, "Unable to allocate mbtcp context\n");
         return -1; // fail to allocate context
     }
         
@@ -80,7 +76,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     mb_handler->ctx = ctx;
 
     HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_t), mb_handler);
-    printf("Add %s:%d to tcp hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
+    LOG(enable_syslog, "Add %s:%d to tcp hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
 
     // call by reference to `mbtcp handle address`
     *ptr_handle = mb_handler;
@@ -94,7 +90,6 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
-    //printf("get_mbtcp_handle\n");
     
     mbtcp_handle_t query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_t));
@@ -104,15 +99,14 @@ int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     
     if (hash_ctx)
     {
-        printf("found\n");
-        printf("%s, %d\n", hash_ctx->key.ip, hash_ctx->key.port);
+        LOG(enable_syslog, "Found %s:%d\n", hash_ctx->key.ip, hash_ctx->key.port);
         // call by reference to `mbtcp handle address`
         *ptr_handle = hash_ctx; 
         return 0;
     }
     else
     {
-        printf("not found\n");
+        ERR(enable_syslog, "Not found %s:%d\n", query.key.ip, query.key.port);
         *ptr_handle = NULL; 
         return -1; // not found
     }
