@@ -18,4 +18,8 @@ typedef struct {
     UT_hash_handle hh;  // makes this structure hashable
 } hash_mbtcp_t;
 
+// init modbus tcp context and try to connect
+int init_mbtcp_ctx (modbus_t **ptr_ctx, const char *ip, int port);
+
+
 #endif  // MODBUSD_H
