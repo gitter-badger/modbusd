@@ -51,6 +51,5 @@ int main(int argc, char *argv[])
     // @resource clean up
     LOG(enable_syslog, "clean up");
     zctx_destroy(&zmq_context);
-    closelog();
     exit(EXIT_SUCCESS);
 }
