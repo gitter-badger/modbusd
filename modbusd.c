@@ -54,7 +54,9 @@ int init_mbtcp_ctx(modbus_t **ptr_ctx, const char *ip, int port)
 
 int init_mbtcp_ctx_connect(modbus_t **ptr_ctx, const char *ip, int port)
 {
+    printf("init_mbtcp_ctx_connect\n");
     int i = init_mbtcp_ctx(ptr_ctx, ip, port);
+    printf("init_mbtcp_ctx_connect2\n");
     if (i == 0)
     {
         if (modbus_connect(*ptr_ctx) == -1) 
