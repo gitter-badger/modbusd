@@ -6,7 +6,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-
 // marco
 #define VERSION "0.0.2"
 

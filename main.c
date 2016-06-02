@@ -6,13 +6,15 @@
 #include "modbusd.h"
 
 int enable_syslog = 1;
-    
+
+// load configuration file
 void load_config()
 {
+    BEGIN(enable_syslog);
     // TODO
 }
 
-// ENTRY
+// entry
 int main(int argc, char *argv[])
 {
     // @load external config
@@ -37,7 +39,6 @@ int main(int argc, char *argv[])
     
     // @start receiving zmq command
     LOG(enable_syslog, "start command listener");
-
     while (!zctx_interrupted) // handle ctrl+c
     {
         zmsg_t *msg = zmsg_recv(zmq_sub);

@@ -25,7 +25,7 @@
 #define MBTCP_RESP_TIMEOUT_SEC 30
 
 //==================================================
-// Structure
+// structure
 //==================================================
 
 // `structure key` for modbus tcp hash table
@@ -45,7 +45,7 @@ typedef struct
 } mbtcp_handle_t;
 
 //==================================================
-// API
+// api
 //==================================================
 
 // get mbtcp handle's connection status
@@ -55,10 +55,9 @@ bool get_mbtcp_connection_status(mbtcp_handle_t **ptr_handle);
 int mbtcp_connect(mbtcp_handle_t **ptr_handle);
 
 // init mbtcp handle (to hash) and try to connect
-int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port);
+int init_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port);
 
 // get mbtcp handle from hashtable
-int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port);
-
+int get_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port);
 
 #endif  // MODBUSD_H

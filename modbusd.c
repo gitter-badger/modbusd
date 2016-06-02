@@ -24,8 +24,8 @@ bool get_mbtcp_connection_status(mbtcp_handle_t **ptr_handle)
     }
     
     LOG(enable_syslog, "%s:%d connected? %s", (*ptr_handle)->key.ip, 
-                                               (*ptr_handle)->key.port, 
-                                               (*ptr_handle)->connected ? "true" : "false");
+                                              (*ptr_handle)->key.port, 
+                                              (*ptr_handle)->connected ? "true" : "false");
     return (*ptr_handle)->connected;
 }
 
@@ -54,7 +54,7 @@ int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 }
 
 // init mbtcp handle and try to connect
-int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
+int init_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
 
@@ -81,7 +81,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     mb_handler->ctx = ctx;
 
     HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_t), mb_handler);
-    LOG(enable_syslog, "Add %s:%d to tcp hashtable", mb_handler->key.ip, mbtcp_htable->key.port);
+    LOG(enable_syslog, "Add %s:%d to mbtcp hashtable", mb_handler->key.ip, mbtcp_htable->key.port);
 
     // call by reference to `mbtcp handle address`
     *ptr_handle = mb_handler;
@@ -92,7 +92,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 }
 
 // get mbtcp handle from hashtable
-int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
+int get_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
     
@@ -104,14 +104,14 @@ int get_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     
     if (hash_ctx)
     {
-        LOG(enable_syslog, "TCP server %s:%d found", hash_ctx->key.ip, hash_ctx->key.port);
+        LOG(enable_syslog, "tcp server %s:%d found", hash_ctx->key.ip, hash_ctx->key.port);
         // call by reference to `mbtcp handle address`
         *ptr_handle = hash_ctx; 
         return 0;
     }
     else
     {
-        ERR(enable_syslog, "TCP server %s:%d not found", query.key.ip, query.key.port);
+        ERR(enable_syslog, "tcp server %s:%d not found", query.key.ip, query.key.port);
         *ptr_handle = NULL; 
         return -1; // not found
     }
