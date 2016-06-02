@@ -10,11 +10,24 @@ mbtcp_handle_t *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
+// check mbtcp handle is connected or not
+bool is_mbtcp_connected(mbtcp_handle_t **ptr_handle)
+{
+    printf("is_mbtcp_connected\n");
+    if ((*ptr_handle) == NULL)
+    {
+        printf("NULL handle");
+        return false;
+    }
+    printf("Is %s:%d connected? %s", (*ptr_handle)->key.ip, (*ptr_handle)->key.port, (*ptr_handle)->connected ? "true" : "false");
+    return (*ptr_handle)->connected;
+}
+
+
 // connect to mbtcp client via handle
 int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 {
     printf("mbtcp_connect\n");
-    //mbtcp_handle_t * handle = *ptr_handle;
     
     if ((*ptr_handle) == NULL)
     {

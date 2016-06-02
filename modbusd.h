@@ -39,6 +39,10 @@ typedef struct {
     UT_hash_handle hh;  // makes this structure hashable
 } mbtcp_handle_t;
 
+
+// check mbtcp handle is connected or not
+bool is_mbtcp_connected(mbtcp_handle_t **ptr_handle);
+
 // connect to mbtcp client via handle
 int mbtcp_connect(mbtcp_handle_t **ptr_handle);
 

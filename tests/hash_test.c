@@ -18,23 +18,15 @@
 int set_and_connect()
 {
     mbtcp_handle_t *handle = NULL;
-    int i = init_mbtcp_handle (&handle, "172.16.9.170", 502);
-    if (modbus_connect(handle->ctx) == -1) 
-    {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-        //modbus_free(ctx);
-        return -1;
-    }
-    
+    int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
+    ret = mbtcp_connect(&handle);
+
     handle = NULL;
-    i = get_mbtcp_handle (&handle, "172.16.9.170", 502);
-    if (modbus_connect(handle->ctx) == -1) 
-    {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-        //modbus_free(ctx);
-        return -1;
-    }
-    return 0;
+    ret = get_mbtcp_handle (&handle, "172.16.9.170", 502);
+    
+    ret = mbtcp_connect(&handle);
+    ret = is_mbtcp_connected(&handle);
+    return ret;
 }
 
 // add 1000 key-value pair to hashtable, then find these items
