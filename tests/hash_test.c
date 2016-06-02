@@ -30,8 +30,10 @@ void multiple_add_get()
         handle->key.port = idx;
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
         HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
-        printf("handle:%p\n", handle);
+        printf("handle:%d, %p\n", idx, handle);
     }
+    
+    printf("==========================\n");
     
     for (size_t idx = 0; idx < 255; idx++)
     {
