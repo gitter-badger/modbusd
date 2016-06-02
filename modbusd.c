@@ -40,7 +40,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     printf("Add %s:%d to tcp hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
 
     // call by reference to `mbtcp handle address`
-    *ptr_handle = ctx;
+    *ptr_handle = mb_handler;
 
     // @connect to server with slave id
     if (modbus_connect(ctx) == -1) 
