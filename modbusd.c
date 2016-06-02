@@ -10,6 +10,30 @@ mbtcp_handle_t *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
+// connect to mbtcp client via handle
+int mbtcp_connect(mbtcp_handle_t **ptr_handle)
+{
+    printf("mbtcp_connect\n");
+    
+    if (*ptr_handle == NULL)
+    {
+        printf("NULL handle");
+        return -1;
+    }
+    
+    if (modbus_connect(*ptr_handle->ctx) == -1) 
+    {
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        return -2;
+    }
+    else
+    {
+        printf("%s:%d connected\n", *ptr_handle->key.ip, *ptr_handle->key.port);
+        *ptr_handle->connected = true;
+        return 0;
+    }
+}
+
 // init mbtcp handle and try to connect
 int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
@@ -43,16 +67,8 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     // call by reference to `mbtcp handle address`
     *ptr_handle = mb_handler;
 
-    // @connect to server with slave id
-    if (modbus_connect(ctx) == -1) 
-    {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-    }
-    else
-    {
-        printf("%s:%d connected\n", mb_handler->key.ip, mbtcp_htable->key.port);
-        mb_handler->connected = true;
-    }
+    // @connect to server without slave id
+    int ret = mbtcp_connect(ptr_handle);
     return 0;
 }
 
