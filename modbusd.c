@@ -97,12 +97,14 @@ int main(int argc, char *argv[])
 {
     modbus_t *ctx = NULL;
     int i = init_mbtcp_ctx(&ctx, "192.168.1.234", 1502);
+    /*
     if (modbus_connect(ctx) == -1) 
     {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
         //modbus_free(ctx);
         return -1;
     }
+    */
     
     ctx = NULL;
     i = get_mbtcp_ctx(&ctx, "192.168.1.234", 1502);
