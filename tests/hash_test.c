@@ -14,13 +14,13 @@
 
 #include "../modbusd.h"
 
-// add 255 kv to hash, then find these items
+// add 1000 key-value pair to hashtable, then find these items
 void multiple_add_find()
 {
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
     
-    for (int idx = 0; idx < 255; idx++)
+    for (int idx = 0; idx < 1000; idx++)
     {
         mbtcp_handle_t *handle;
         handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
@@ -39,7 +39,7 @@ void multiple_add_find()
     
     printf("==========================\n");
     
-    for (int idx = 0; idx < 255; idx++)
+    for (int idx = 0; idx < 1000; idx++)
     {
         mbtcp_handle_t query, *ptr;
         memset(&query, 0, sizeof(mbtcp_handle_t));
