@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <modbus.h> // libmodbus
 #include "uthash.h" // uthash
+#include "log.h"
 
 // Marco
 #define IPC_SUB "ipc:///tmp/to.modbus"
