@@ -19,10 +19,9 @@ bool is_mbtcp_connected(mbtcp_handle_t **ptr_handle)
         printf("NULL handle");
         return false;
     }
-    printf("Is %s:%d connected? %s", (*ptr_handle)->key.ip, (*ptr_handle)->key.port, (*ptr_handle)->connected ? "true" : "false");
+    printf("Does %s:%d connected? %s\n", (*ptr_handle)->key.ip, (*ptr_handle)->key.port, (*ptr_handle)->connected ? "true" : "false");
     return (*ptr_handle)->connected;
 }
-
 
 // connect to mbtcp client via handle
 int mbtcp_connect(mbtcp_handle_t **ptr_handle)

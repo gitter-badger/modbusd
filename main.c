@@ -5,12 +5,38 @@
 
 #include "modbusd.h"
 
+void load_config()
+{
+    // TODO
+}
+
+void init_zmq(void ** pub, void ** sub)
+{
+    // @setup zmq
+    zctx_t *zmq_context = zctx_new ();
+    // init zmq subscriber: zmq_sub
+    *sub = zsocket_new (zmq_context, ZMQ_SUB);
+    // bind zmq subscriber
+    zsocket_bind (*sub, IPC_SUB);
+    // set zmq subscriber filter
+    zsocket_set_subscribe (*sub, ""); 
+    // init zmq publisher: zmq_pub
+    *pub = zsocket_new (zmq_context, ZMQ_PUB);
+    // bind zmq publisher
+    zsocket_bind (*pub, IPC_PUB);
+}
+
+
 // ENTRY
 int main(int argc, char *argv[])
 {    
     // @load external config
-    // TODO
+    load_config();
     
+    void * pub;
+    void * sub;
+    init_zmq(&pub, &sub);
+    /*
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
     // init zmq subscriber: zmq_sub
@@ -23,15 +49,13 @@ int main(int argc, char *argv[])
     void *zmq_pub = zsocket_new (zmq_context, ZMQ_PUB);
     // bind zmq publisher
     zsocket_bind (zmq_pub, IPC_PUB);
-    
-    // try
-    //modbus_t *ctx = NULL;
+    */
     
     // @start receiving zmq command
     printf("start command listener\n");
     while (!zctx_interrupted) // handle ctrl+c
     {
-        zmsg_t *msg = zmsg_recv(zmq_sub);
+        zmsg_t *msg = zmsg_recv(sub);
         if (msg != NULL)
         {
             //zmsg_dump(msg);
