@@ -38,7 +38,7 @@ void multiple_add_get()
     
     printf("==========================\n");
     
-    for (int idx = 0; idx < 255; idx++)
+    for (int idx = 0; idx < 100; idx++)
     {
         mbtcp_handle_t query, *ptr;
         memset(&query, 0, sizeof(mbtcp_handle_t));
@@ -58,7 +58,7 @@ void multiple_add_get()
     
     printf("2==========================\n");
     
-    for (int idx = 0; idx < 255; idx++)
+    for (int idx = 0; idx < 100; idx++)
     {
         mbtcp_handle_t query, *ptr;
         memset(&query, 0, sizeof(mbtcp_handle_t));
