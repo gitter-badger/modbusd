@@ -68,7 +68,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     *ptr_handle = mb_handler;
 
     // @connect to server without slave id
-    int ret = mbtcp_connect(ptr_handle);
+    int ret = mbtcp_connect(&mb_handler);
     return 0;
 }
 
