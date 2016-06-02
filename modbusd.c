@@ -48,24 +48,13 @@ int init_mbtcp_ctx(modbus_t **ptr_ctx, const char *ip, int port)
     mb_handler->ctx = ctx;
     HASH_ADD(hh, mbtcp_htable, key, sizeof(key_mbtcp_t), mb_handler);
     printf("Add %s,%d to hashtable\n", mb_handler->key.ip, mbtcp_htable->key.port);
-    return 0;
-    
-}
 
-int init_mbtcp_ctx_connect(modbus_t **ptr_ctx, const char *ip, int port)
-{
-    printf("init_mbtcp_ctx_connect\n");
-    int i = init_mbtcp_ctx(ptr_ctx, ip, port);
-    printf("init_mbtcp_ctx_connect2\n");
-    if (i == 0)
-    {
-        if (modbus_connect(*ptr_ctx) == -1) 
-        {
-            fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-            return -1;
-        }
+    
+    if (modbus_connect(ctx) == -1) {
+        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+        return -1;
     }
-    return 0;
+
 }
 
 void get_mbtcp_ctx()
@@ -85,7 +74,6 @@ int main(int argc, char *argv[])
         //modbus_free(ctx);
         return -1;
     }
-
     // @load external config
     // TODO
     
