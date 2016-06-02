@@ -10,20 +10,20 @@ void load_config()
     // TODO
 }
 
-void init_zmq(zctx_t **zmq_context, void ** pub, void ** sub)
+void init_zmq(zctx_t **zmq_context, struct zctx_t ** pub, struct zctx_t ** sub)
 {
     // @setup zmq
-    *zmq_context = zctx_new ();
+    (*zmq_context) = zctx_new ();
     // init zmq subscriber: zmq_sub
-    *sub = zsocket_new (zmq_context, ZMQ_SUB);
+    (*sub) = zsocket_new ((*zmq_context), ZMQ_SUB);
     // bind zmq subscriber
-    zsocket_bind (*sub, IPC_SUB);
+    zsocket_bind ((*sub), IPC_SUB);
     // set zmq subscriber filter
-    zsocket_set_subscribe (*sub, ""); 
+    zsocket_set_subscribe ((*sub), ""); 
     // init zmq publisher: zmq_pub
-    *pub = zsocket_new (zmq_context, ZMQ_PUB);
+    (*pub) = zsocket_new ((*zmq_context), ZMQ_PUB);
     // bind zmq publisher
-    zsocket_bind (*pub, IPC_PUB);
+    zsocket_bind ((*pub), IPC_PUB);
 }
 
 
@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
 {    
     // @load external config
     load_config();
-    void * pub, *sub;
+    struct zctx_t * pub;
+    struct zctx_t * sub;
     zctx_t *zmq_context;
 
     init_zmq(&zmq_context, &pub, &sub);
