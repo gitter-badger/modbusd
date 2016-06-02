@@ -14,7 +14,8 @@
 
 #include "../modbusd.h"
 
-void multiple_add_get()
+// add 255 kv to hash, then find these items
+void multiple_add_find()
 {
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
@@ -58,7 +59,7 @@ void multiple_add_get()
 }
 
 
-void test_tcp_context_hashtable()
+void single_add_find()
 {
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
@@ -129,7 +130,7 @@ void test_tcp_context_hashtable()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    multiple_add_get();
-    //test_tcp_context_hashtable();
+    multiple_add_find();
+    //single_add_find();
     exit(EXIT_SUCCESS);
 }

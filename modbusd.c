@@ -29,7 +29,7 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
     mbtcp_handle_t *mb_handler;
     mb_handler = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
     // let alignment bytes being set to zero-value!!
-    memset(mb_handler, 0, sizeof(mb_handler));
+    memset(mb_handler, 0, sizeof(mbtcp_handle_t));
     mb_handler->connected = false;
     mb_handler->key.ip   = ip;
     mb_handler->key.port = port;
