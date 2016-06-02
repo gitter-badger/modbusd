@@ -7,6 +7,8 @@
 
 // hashtable header
 mbtcp_handle_t *mbtcp_htable = NULL;
+// tcp connection timeout in usec
+uint32_t tcp_conn_timeout_usec = 200000;
 
 // init mbtcp handle and try to connect
 int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
@@ -22,8 +24,8 @@ int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
         return -1; // fail to allocate context
     }
         
-    // set response timeout
-    modbus_set_response_timeout(ctx, MBTCP_RESP_TIMEOUT_SEC, 0);
+    // set tcp connection timeout
+    modbus_set_response_timeout(ctx, 0, tcp_conn_timeout_usec);
     
     // @add context to mbtcp hashtable
     mbtcp_handle_t *mb_handler;
