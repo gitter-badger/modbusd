@@ -51,7 +51,7 @@ int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 int init_mbtcp_handle (mbtcp_handle_t **ptr_handle, const char *ip, int port)
 {
     printf("init_mbtcp_handle\n");
-
+    syslog(LOG_INFO, "init_mbtcp_handle\n");
     // create a mbtcp context
     modbus_t *ctx = modbus_new_tcp(ip, port);
     

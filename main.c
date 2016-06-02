@@ -4,6 +4,7 @@
 //
 
 #include "modbusd.h"
+
     
 void load_config()
 {
@@ -12,7 +13,9 @@ void load_config()
 
 // ENTRY
 int main(int argc, char *argv[])
-{    
+{
+    openlog("modbusd", LOG_CONS | LOG_PID, 0);
+  
     // @load external config
     load_config();
 
@@ -31,6 +34,8 @@ int main(int argc, char *argv[])
     
     // @start receiving zmq command
     printf("start command listener\n");
+    syslog(LOG_INFO, "start command listener\n");
+
     while (!zctx_interrupted) // handle ctrl+c
     {
         zmsg_t *msg = zmsg_recv(zmq_sub);
@@ -41,7 +46,9 @@ int main(int argc, char *argv[])
     }
     
     // @resource clean up
+    syslog(LOG_INFO, "clean up\n");
     printf("clean up\n");
     zctx_destroy(&zmq_context);
+    closelog();
     exit(EXIT_SUCCESS);
 }
