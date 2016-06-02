@@ -14,7 +14,6 @@
 #include <errno.h>
 #include <czmq.h>
 
-#include <syslog.h>
 #include <stdbool.h>
 #include <modbus.h> // libmodbus
 #include "uthash.h" // uthash

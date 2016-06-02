@@ -5,6 +5,7 @@
 
 #include "modbusd.h"
 
+int enable_syslog = 1;
     
 void load_config()
 {
@@ -14,12 +15,6 @@ void load_config()
 // ENTRY
 int main(int argc, char *argv[])
 {
-    openlog("modbusd", LOG_CONS | LOG_PID, LOG_USER);
-
-    mbtcp_handle_t *handle = NULL;
-    int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
-    ret = mbtcp_connect(&handle);
-    
     // @load external config
     load_config();
 
@@ -37,8 +32,8 @@ int main(int argc, char *argv[])
     zsocket_bind (zmq_pub, IPC_PUB);
     
     // @start receiving zmq command
-    printf("start command listener\n");
-    syslog(LOG_INFO, "start command listener\n");
+    //printf("start command listener\n");
+    LOG(enable_syslog, "start command listener\n");
 
     while (!zctx_interrupted) // handle ctrl+c
     {
@@ -50,8 +45,8 @@ int main(int argc, char *argv[])
     }
     
     // @resource clean up
-    syslog(LOG_INFO, "clean up\n");
-    printf("clean up\n");
+    LOG(enable_syslog, "clean up\n");
+    //printf("clean up\n");
     zctx_destroy(&zmq_context);
     closelog();
     exit(EXIT_SUCCESS);

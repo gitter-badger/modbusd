@@ -1,0 +1,3 @@
+## Solve
+- Fix uthash sizeof issue (1000 items)
+- modbus_connect hang issue

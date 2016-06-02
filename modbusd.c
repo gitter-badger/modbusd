@@ -4,6 +4,7 @@
 //
 
 #include "modbusd.h"
+extern int enable_syslog;
 
 // hashtable header
 mbtcp_handle_t *mbtcp_htable = NULL;
