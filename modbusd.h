@@ -15,34 +15,41 @@
 #include <czmq.h>
 
 #include <stdbool.h>
-#include <modbus.h> // libmodbus
-#include "uthash.h" // uthash
+#include <modbus.h>
+#include "uthash.h"
 #include "log.h"
 
-// Marco
+// marco
 #define IPC_SUB "ipc:///tmp/to.modbus"
 #define IPC_PUB "ipc:///tmp/from.modbus"
 #define MBTCP_RESP_TIMEOUT_SEC 30
-//#define DEFAULT_TCP_PORT 502
 
+//==================================================
+// Structure
+//==================================================
 
 // `structure key` for modbus tcp hash table
-typedef struct {
+typedef struct 
+{
     const char *ip;
     int port;
 } mbtcp_key_t;
 
 // mbtcp handle type
-typedef struct {
+typedef struct 
+{
     mbtcp_key_t key;    // key
     bool connected;     // is connect to modbus slave?
     modbus_t *ctx;      // modbus context pointer
     UT_hash_handle hh;  // makes this structure hashable
 } mbtcp_handle_t;
 
+//==================================================
+// API
+//==================================================
 
-// check mbtcp handle is connected or not
-bool is_mbtcp_connected(mbtcp_handle_t **ptr_handle);
+// get mbtcp handle's connection status
+bool get_mbtcp_connection_status(mbtcp_handle_t **ptr_handle);
 
 // connect to mbtcp client via handle
 int mbtcp_connect(mbtcp_handle_t **ptr_handle);

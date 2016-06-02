@@ -7,7 +7,7 @@
 #define MAIN_H
 
 
-// Marco
+// marco
 #define VERSION "0.0.2"
 
 #endif  // MAIN_H

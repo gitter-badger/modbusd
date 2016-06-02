@@ -26,7 +26,7 @@ int set_and_connect()
     ret = get_mbtcp_handle (&handle, "172.16.9.170", 502);
     
     ret = mbtcp_connect(&handle);
-    ret = is_mbtcp_connected(&handle);
+    ret = get_mbtcp_connection_status(&handle);
     return ret;
 }
 

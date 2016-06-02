@@ -10,15 +10,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*===================================================================
-              Logging functions
-===================================================================*/
+//==================================================
+// Logging functions
+//==================================================
 
-/* MAX ERROR MESSAGE LENGTH */
+// MAX ERROR MESSAGE LENGTH
 #define MSG_LEN 256
 static char cstr[MSG_LEN];
 
-/* Error Message */
+// Error Message
 #define ERR(flag, fmt, ...) \
     do { \
         snprintf(cstr, sizeof(cstr), "[%s:%d]: " fmt, __func__, __LINE__, ##__VA_ARGS__); \
@@ -30,7 +30,7 @@ static char cstr[MSG_LEN];
         } \
     } while (0)
 
-/* Normal Message */
+// Normal Message
 #define LOG(flag, fmt, ...) \
     do { \
         snprintf(cstr, sizeof(cstr), "[%s:%d]: " fmt, __func__, __LINE__, ##__VA_ARGS__); \
@@ -42,7 +42,7 @@ static char cstr[MSG_LEN];
         } \
     } while (0)
 
-/* FUNCTION BEGIN */
+// FUNCTION BEGIN
 #define BEGIN(flag) \
     do { \
         snprintf(cstr, sizeof(cstr), "[BEGIN][%s:%d]", __func__, __LINE__); \
@@ -54,7 +54,7 @@ static char cstr[MSG_LEN];
         } \
     } while (0)
 
-/* FUNCTION END */
+// FUNCTION END
 #define END(flag) \
     do { \
         snprintf(cstr, sizeof(cstr), "[END][%s:%d]", __func__, __LINE__); \
@@ -66,4 +66,4 @@ static char cstr[MSG_LEN];
         } \
     } while (0)
 
-#endif /* END OF _LOG_H_ */
+#endif // END OF _LOG_H_
