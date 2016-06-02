@@ -21,7 +21,7 @@
 // Marco
 #define IPC_SUB "ipc:///tmp/to.modbus"
 #define IPC_PUB "ipc:///tmp/from.modbus"
-#define MBTCP_RESP_TIMEOUT_SEC 3
+#define MBTCP_RESP_TIMEOUT_SEC 30
 //#define DEFAULT_TCP_PORT 502
 
 
