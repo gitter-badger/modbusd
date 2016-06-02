@@ -76,8 +76,8 @@ int init_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
     // let alignment bytes being set to zero-value!!
     memset(mb_handler, 0, sizeof(mbtcp_handle_t));
     mb_handler->connected = false;
-    mb_handler->key.ip   = ip;
-    mb_handler->key.port = port;
+    mb_handler->key.ip    = ip;
+    mb_handler->key.port  = port;
     mb_handler->ctx = ctx;
 
     HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_t), mb_handler);
@@ -98,7 +98,7 @@ int get_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
     
     mbtcp_handle_t query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_t));
-    query.key.ip = ip;
+    query.key.ip   = ip;
     query.key.port = port;
     HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_t), hash_ctx);
     
