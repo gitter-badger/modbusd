@@ -27,8 +27,8 @@ int init_mbtcp_ctx(modbus_t **ptr_ctx, const char *ip, int port)
 {
     printf("init_mbtcp_ctx\n");
     modbus_t *ctx;
-    *ptr_ctx = ctx; 
     ctx = modbus_new_tcp(ip, port);
+    *ptr_ctx = ctx;
     if (ctx == NULL)
     {
         fprintf(stderr, "Unable to allocate mbtcp context\n");
