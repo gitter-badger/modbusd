@@ -85,16 +85,7 @@ int main(int argc, char *argv[])
         //modbus_free(ctx);
         return -1;
     }
-    
-    
-    i = init_mbtcp_ctx_connect(&ctx, "192.168.1.234", 1502);
-    if (modbus_connect(ctx) == -1) 
-    {
-        fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-        //modbus_free(ctx);
-        return -1;
-    }
-    
+
     // @load external config
     // TODO
     
