@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     */
     
     mbtcp_handle_t *handle = NULL;
-    i = get_mbtcp_ctx(&handle, "192.168.1.234", 1502);
+    i = get_mbtcp_handle (&handle, "192.168.1.234", 1502);
     if (modbus_connect(handle->ctx) == -1) 
     {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
