@@ -15,7 +15,7 @@
 #include "../modbusd.h"
 
 
-void set_and_connect()
+int set_and_connect()
 {
     mbtcp_handle_t *handle = NULL;
     int i = init_mbtcp_handle (&handle, "172.16.9.170", 502);
