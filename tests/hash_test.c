@@ -19,7 +19,7 @@ void multiple_add_get()
     // important! initialize to NULL
     mbtcp_handle_t *servers = NULL;
     
-    for (int idx = 0; idx < 255; idx++)
+    for (int idx = 0; idx < 200; idx++)
     {
         mbtcp_handle_t *handle;
         handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
@@ -38,7 +38,7 @@ void multiple_add_get()
     
     printf("==========================\n");
     
-    for (int idx = 0; idx < 100; idx++)
+    for (int idx = 0; idx < 200; idx++)
     {
         mbtcp_handle_t query, *ptr;
         memset(&query, 0, sizeof(mbtcp_handle_t));
@@ -55,27 +55,6 @@ void multiple_add_get()
             printf("not found: %d\n", idx);
         }
     }
-    
-    printf("2==========================\n");
-    
-    for (int idx = 0; idx < 100; idx++)
-    {
-        mbtcp_handle_t query, *ptr;
-        memset(&query, 0, sizeof(mbtcp_handle_t));
-        query.key.ip = "192.168.10.1";
-        query.key.port = idx;
-        HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_t), ptr);
-        
-        if (ptr)
-        {
-            printf("found: %d, %s, %d, %p\n", idx, ptr->key.ip, ptr->key.port, ptr);
-        }
-        else
-        {
-            printf("not found: %d\n", idx);
-        }
-    }
-    
 }
 
 
