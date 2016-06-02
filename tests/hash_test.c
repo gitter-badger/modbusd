@@ -23,8 +23,7 @@ void multiple_add_get()
     {
         mbtcp_handle_t *handle;
         handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
-        if (handle == NULL) printf("allocate faile\n");
-        memset(handle, 0, sizeof(handle));
+        memset(handle, 0, sizeof(mbtcp_handle_t));
         handle->connected = false;
         handle->key.ip   = "192.168.10.12";
         handle->key.port = idx;
