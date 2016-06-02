@@ -26,6 +26,7 @@ void multiple_add_get()
     handle->key.port = 1;
     handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
     HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
+    printf("handle:%p\n", handle);
     
     // find #1
     memset(&query, 0, sizeof(mbtcp_handle_t));
@@ -36,12 +37,18 @@ void multiple_add_get()
     if (ptr)
     {
         printf("found\n");
-        printf("%s, %d\n", ptr->key.ip, ptr->key.port);
+        printf("%s, %d, %p\n", ptr->key.ip, ptr->key.port, ptr);
     }
     else
     {
         printf("not found\n");
     }
+    
+    for (size_t idx = 0; idx < 255; idx++)
+    {
+        //
+    }
+    
 }
 
 
