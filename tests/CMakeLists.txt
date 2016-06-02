@@ -7,7 +7,7 @@ project(test_hash C)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(bin_name hash)
 set(modbus_include /usr/local/include/modbus)
-set(bin_source hash_test.c ../modbusd.h ${modbus_include}/modbus.h)
+set(bin_source hash_test.c ../modbusd.c ../modbusd.h ${modbus_include}/modbus.h)
 
 # cflag
 set(EXT_C_FLAGS "-O3 -std=c99 -DHASH_DEBUG=1")
