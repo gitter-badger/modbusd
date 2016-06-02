@@ -1,6 +1,14 @@
 #ifndef MODBUSD_H
 #define MODBUSD_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <time.h>
+#include <errno.h>
+#include <czmq.h>
+
 #include <stdbool.h>
 #include <modbus.h> // libmodbus
 #include "uthash.h" // uthash
