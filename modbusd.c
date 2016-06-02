@@ -21,15 +21,15 @@ int mbtcp_connect(mbtcp_handle_t **ptr_handle)
         return -1;
     }
     
-    if (modbus_connect(*ptr_handle->ctx) == -1) 
+    if (modbus_connect(*ptr_handle.ctx) == -1) 
     {
         fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
         return -2;
     }
     else
     {
-        printf("%s:%d connected\n", *ptr_handle->key.ip, *ptr_handle->key.port);
-        *ptr_handle->connected = true;
+        printf("%s:%d connected\n", *ptr_handle.key.ip, *ptr_handle.key.port);
+        *ptr_handle.connected = true;
         return 0;
     }
 }
