@@ -44,7 +44,7 @@ void json_decode()
     "    \"len\": 10,\n"
     "    \"data\": [1,2,3,4]\n"
     "}";
-    char *json = cJSON_Parse(jstr);
+    cJSON *json = cJSON_Parse(jstr);
     if (json)
     {
         printf("%s\n", cJSON_Print(json));
@@ -54,14 +54,14 @@ void json_decode()
         printf("mode:%s\n", cJSON_GetObjectItem(json, "mode")->valuestring);
         printf("addr:%d\n",cJSON_GetObjectItem(json, "addr")->valueint);
         
+        // handle array
         cJSON * data = cJSON_GetObjectItem(json, "data");
-        int i;
-        for (i = 0 ; i < cJSON_GetArraySize(data) ; i++)
+        for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
         {
             int subitem = cJSON_GetArrayItem(data, i)->valueint;
             printf("idx:%d,v:%d\n", i, subitem);
         }
-        
+        cJSON_Delete(data);
         cJSON_Delete(json);
     }
 }
