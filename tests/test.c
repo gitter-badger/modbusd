@@ -33,8 +33,7 @@ int enable_syslog = 1;
 // decode json string
 void json_decode()
 {
-    char jstr = 
-    "{"
+    char jstr[] = "{\n"
     "    \"ip\": \"192.168.3.2\",\n"
     "    \"port\": 502,\n"
     "    \"slave\": 22,\n"
