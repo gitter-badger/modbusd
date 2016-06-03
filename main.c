@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
             zframe_t *frame_mode = zmsg_pop(msg);
             zframe_t *frame_json = zmsg_pop(msg);
             LOG(enable_syslog, "5");
-            char *buf_mode = zframe_strdup(frame_mode);
+            char *mode = zframe_strdup(frame_mode);
             char *buf_json = zframe_strdup(frame_json);
             printf("%s,%s\n", buf_mode, buf_json);
             LOG(enable_syslog, "6");
@@ -58,7 +58,6 @@ int main(int argc, char *argv[])
             cJSON *json = cJSON_Parse(buf_json);
             if (json != NULL)
             {
-                char *mode = json_get_char(json, "mode");
                 char *cmd  = json_get_char(json, "cmd");
                 
                 if (mode == NULL)
