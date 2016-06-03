@@ -19,11 +19,7 @@ int main(int argc, char *argv[])
 {
     // @load external config
     load_config();
-    
-    mbtcp_handle_t *handle = NULL;
-    int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
-    ret = mbtcp_connect(&handle);
-    
+
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
     // init zmq subscriber: zmq_sub
