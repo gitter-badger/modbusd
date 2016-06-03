@@ -63,7 +63,7 @@ var fc3 = function(){
 }
 
 // FC4
-var fc3 = function(){
+var fc4 = function(){
     var cmd = {
         "ip": "192.168.3.2",
         "port": 502,
