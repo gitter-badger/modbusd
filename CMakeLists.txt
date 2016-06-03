@@ -8,7 +8,7 @@ project(modbusd C)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(bin_name modbusd)
 set(modbus_include /usr/local/include/modbus)
-set(bin_source json/cJSON.c main.c modbusd.c)
+set(bin_source json/cJSON.c json.c main.c modbusd.c)
 
 # cflag
 set(EXT_C_FLAGS "-W -Wall -Os -std=c99 -DHASH_DEBUG=1")

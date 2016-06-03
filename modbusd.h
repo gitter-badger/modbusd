@@ -18,7 +18,7 @@
 #include <modbus.h>
 #include "uthash.h"
 #include "log.h"
-#include "json/cJSON.h"
+#include "json.h"
 
 // marco
 #define IPC_SUB "ipc:///tmp/to.modbus"

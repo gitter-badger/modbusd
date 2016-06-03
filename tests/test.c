@@ -213,7 +213,7 @@ int main(int argc, char *argv[])
     json_decode();
     json_encode();
     init_tcp_handle_and_connect();
-    multiple_add_find();
+    //multiple_add_find();
     single_add_find();
     
     exit(EXIT_SUCCESS);
