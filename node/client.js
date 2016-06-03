@@ -5,8 +5,8 @@ zmq = require('zmq')
 , ipc_pub = "ipc:///tmp/to.modbus"
 , ipc_sub = "ipc:///tmp/from.modbus"
 
-pub.connect("ipc:///tmp/dummy"); // connect to zmq endpoint
-sub.bindSync("ipc:///tmp/dummy"); // bind to zmq endpoint
+pub.connect(ipc_pub); // connect to zmq endpoint
+sub.connect(ipc_sub); // bind to zmq endpoint
 sub.subscribe(""); // filter topic
 
 // start listening response
