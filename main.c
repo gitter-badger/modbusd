@@ -10,14 +10,14 @@ int enable_syslog = 1;
 extern cJSON * config_json;
 
 // load configuration file
-void load_config()
+static void load_config()
 {
     BEGIN(enable_syslog);
     // TODO
 }
 
 // entry
-int main(int argc, char *argv[])
+int main()
 {
     LOG(enable_syslog, "modbusd version: %s", VERSION);
     
@@ -169,5 +169,4 @@ int main(int argc, char *argv[])
     // @resource clean up
     LOG(enable_syslog, "clean up");
     zctx_destroy(&zmq_context);
-    exit(EXIT_SUCCESS);
 }

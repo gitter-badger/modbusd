@@ -79,7 +79,7 @@ void json_encode()
 int init_tcp_handle_and_connect()
 {
     LOG(enable_syslog, "Init TCP handle");
-    mbtcp_handle_t *handle = NULL;
+    mbtcp_handle_s *handle = NULL;
     int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
     ret = mbtcp_connect(&handle);
 
@@ -98,18 +98,18 @@ void multiple_add_find()
 {
     BEGIN(enable_syslog);
     // important! initialize to NULL
-    mbtcp_handle_t *servers = NULL;
+    mbtcp_handle_s *servers = NULL;
     
     for (int idx = 0; idx < 1000; idx++)
     {
-        mbtcp_handle_t *handle;
-        handle = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
-        memset(handle, 0, sizeof(mbtcp_handle_t));
+        mbtcp_handle_s *handle;
+        handle = (mbtcp_handle_s*)malloc(sizeof(mbtcp_handle_s));
+        memset(handle, 0, sizeof(mbtcp_handle_s));
         handle->connected = false;
         handle->key.ip   = "192.168.10.12";
         handle->key.port = idx;
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
-        HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), handle);
+        HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), handle);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
     }
     
@@ -120,11 +120,11 @@ void multiple_add_find()
     
     for (int idx = 0; idx < 1000; idx++)
     {
-        mbtcp_handle_t query, *ptr;
-        memset(&query, 0, sizeof(mbtcp_handle_t));
+        mbtcp_handle_s query, *ptr;
+        memset(&query, 0, sizeof(mbtcp_handle_s));
         query.key.ip = "192.168.10.12";
         query.key.port = idx;
-        HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_t), ptr);
+        HASH_FIND(hh, servers, &query.key, sizeof(mbtcp_key_s), ptr);
         
         if (ptr)
         {
@@ -143,11 +143,11 @@ void single_add_find()
     BEGIN(enable_syslog);
     
     // important! initialize to NULL
-    mbtcp_handle_t *servers = NULL;
-    mbtcp_handle_t ff, *p, *h1, *h2, *tmp;
+    mbtcp_handle_s *servers = NULL;
+    mbtcp_handle_s ff, *p, *h1, *h2, *tmp;
     
     // server #1
-    h1 = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
+    h1 = (mbtcp_handle_s*)malloc(sizeof(mbtcp_handle_s));
     // let alignment bytes being set to zero-value.
     // ref: https://troydhanson.github.io/uthash/userguide.html#_structure_keys
     memset(h1, 0, sizeof(h1));
@@ -155,22 +155,22 @@ void single_add_find()
     h1->key.ip   = "192.168.10.1";
     h1->key.port = 555;
     h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
-    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), h1);
+    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), h1);
     
     // server #2
-    h2 = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
+    h2 = (mbtcp_handle_s*)malloc(sizeof(mbtcp_handle_s));
     memset(h2, 0, sizeof(h2));
     h2->connected = false;
     h2->key.ip   = "192.168.10.2";
     h2->key.port = 556;
     h2->ctx = modbus_new_tcp(h2->key.ip, h2->key.port);
-    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_t), h2);
+    HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), h2);
     
     // find #1
-    memset(&ff, 0, sizeof(mbtcp_handle_t));
+    memset(&ff, 0, sizeof(mbtcp_handle_s));
     ff.key.ip = "192.168.10.1";
     ff.key.port = 555;
-    HASH_FIND(hh, servers, &ff.key, sizeof(mbtcp_key_t), p);
+    HASH_FIND(hh, servers, &ff.key, sizeof(mbtcp_key_s), p);
     
     if (p)
     {
@@ -182,10 +182,10 @@ void single_add_find()
     }
     
     // find #2
-    memset(&ff, 0, sizeof(mbtcp_handle_t));
+    memset(&ff, 0, sizeof(mbtcp_handle_s));
     ff.key.ip = "192.168.10.2";
     ff.key.port = 556;
-    HASH_FIND(hh, servers, &ff.key, sizeof(mbtcp_key_t), p);
+    HASH_FIND(hh, servers, &ff.key, sizeof(mbtcp_key_s), p);
     
     if (p)
     {

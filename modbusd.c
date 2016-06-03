@@ -8,12 +8,12 @@
 // syslog flag
 extern int enable_syslog;
 // hashtable header
-mbtcp_handle_t *mbtcp_htable = NULL;
+mbtcp_handle_s *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
 // check mbtcp handle is connected or not
-bool get_mbtcp_connection_status(mbtcp_handle_t **ptr_handle)
+bool get_mbtcp_connection_status(mbtcp_handle_s **ptr_handle)
 {
     BEGIN(enable_syslog);
     
@@ -30,7 +30,7 @@ bool get_mbtcp_connection_status(mbtcp_handle_t **ptr_handle)
 }
 
 // connect to mbtcp client via handle
-int mbtcp_connect(mbtcp_handle_t **ptr_handle)
+int mbtcp_connect(mbtcp_handle_s **ptr_handle)
 {
     BEGIN(enable_syslog);
     
@@ -54,7 +54,7 @@ int mbtcp_connect(mbtcp_handle_t **ptr_handle)
 }
 
 // init mbtcp handle and try to connect
-int init_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
+int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
 
@@ -71,36 +71,36 @@ int init_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
     modbus_set_response_timeout(ctx, 0, tcp_conn_timeout_usec);
     
     // @add context to mbtcp hashtable
-    mbtcp_handle_t *mb_handler;
-    mb_handler = (mbtcp_handle_t*)malloc(sizeof(mbtcp_handle_t));
+    mbtcp_handle_s *handle;
+    handle = (mbtcp_handle_s*)malloc(sizeof(mbtcp_handle_s));
     // let alignment bytes being set to zero-value!!
-    memset(mb_handler, 0, sizeof(mbtcp_handle_t));
-    mb_handler->connected = false;
-    mb_handler->key.ip    = ip;
-    mb_handler->key.port  = port;
-    mb_handler->ctx = ctx;
+    memset(handle, 0, sizeof(mbtcp_handle_s));
+    handle->connected = false;
+    handle->key.ip    = ip;
+    handle->key.port  = port;
+    handle->ctx = ctx;
 
-    HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_t), mb_handler);
-    LOG(enable_syslog, "Add %s:%d to mbtcp hashtable", mb_handler->key.ip, mbtcp_htable->key.port);
+    HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_s), handle);
+    LOG(enable_syslog, "Add %s:%d to mbtcp hashtable", handle->key.ip, mbtcp_htable->key.port);
 
     // call by reference to `mbtcp handle address`
-    *ptr_handle = mb_handler;
+    *ptr_handle = handle;
 
     // @connect to server without slave id
-    int ret = mbtcp_connect(&mb_handler);
+    int ret = mbtcp_connect(&handle);
     return 0;
 }
 
 // get mbtcp handle from hashtable
-int get_mbtcp_handle(mbtcp_handle_t **ptr_handle, const char *ip, int port)
+int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
     
-    mbtcp_handle_t query, *hash_ctx;
-    memset(&query, 0, sizeof(mbtcp_handle_t));
+    mbtcp_handle_s query, *hash_ctx;
+    memset(&query, 0, sizeof(mbtcp_handle_s));
     query.key.ip   = ip;
     query.key.port = port;
-    HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_t), hash_ctx);
+    HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_s), hash_ctx);
     
     if (hash_ctx)
     {
