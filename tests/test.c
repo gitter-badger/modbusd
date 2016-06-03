@@ -52,7 +52,7 @@ void json_decode()
         printf("ip:%s\n", cJSON_GetObjectItem(json, "ip")->valuestring);
         printf("port:%d\n",cJSON_GetObjectItem(json, "port")->valueint);
         printf("mode:%s\n", cJSON_GetObjectItem(json, "mode")->valuestring);
-        printf("addr:%d\n",cJSON_GetObjectItem(json, "addr")->valueint;);
+        printf("addr:%d\n",cJSON_GetObjectItem(json, "addr")->valueint);
         
         cJSON * data = cJSON_GetObjectItem(json, "data");
         int i;
