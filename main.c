@@ -39,21 +39,18 @@ int main(int argc, char *argv[])
     LOG(enable_syslog, "start command listener");
     while (!zctx_interrupted) // handle ctrl+c
     {
-        LOG(enable_syslog, "1");
         zmsg_t *msg = zmsg_recv(zmq_sub); // recv zmsg
-        LOG(enable_syslog, "2");
         if (msg != NULL)
         {
-            LOG(enable_syslog, "3");
+            LOG(enable_syslog, "recv msg:");
             zmsg_dump(msg);
-            LOG(enable_syslog, "4");
+
             zframe_t *frame_mode = zmsg_pop(msg);
             zframe_t *frame_json = zmsg_pop(msg);
-            LOG(enable_syslog, "5");
             char *mode = zframe_strdup(frame_mode);
             char *buf_json = zframe_strdup(frame_json);
-            printf("%s,%s\n", buf_mode, buf_json);
-            LOG(enable_syslog, "6");
+            LOG(enable_syslog, "%s,%s\n", mode, buf_json);
+
             // parse json string
             cJSON *json = cJSON_Parse(buf_json);
             if (json != NULL)
