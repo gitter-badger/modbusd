@@ -19,6 +19,8 @@ void load_config()
 // entry
 int main(int argc, char *argv[])
 {
+    LOG(enable_syslog, "modbusd version: %s", VERSION);
+    
     // @load external config
     load_config();
 
@@ -35,7 +37,7 @@ int main(int argc, char *argv[])
     // bind zmq publisher
     zsocket_bind (zmq_pub, IPC_PUB);
     
-    LOG(enable_syslog, "start recv command listener");
+    LOG(enable_syslog, "start request listener");
     while (!zctx_interrupted) // handle ctrl+c
     {
         zmsg_t *msg = zmsg_recv(zmq_sub); // recv zmsg
