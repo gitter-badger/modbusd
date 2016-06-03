@@ -48,18 +48,22 @@ int main(int argc, char *argv[])
             cJSON *json = cJSON_Parse(msg);
             if (json != NULL)
             {
-                char mode[] = json_get_char(json, "mode");
-                char cmd[]  = json_get_char(json, "cmd");
+                char *mode = json_get_char(json, "mode");
+                char *cmd  = json_get_char(json, "cmd");
                 LOG(enable_syslog, "Mode:%s, CMD:%s", mode, cmd);
             }
             else
             {
-                ERR(enable_syslog, "Recv NULL message from sender");
+                ERR(enable_syslog, "Fail to parse command");
             }
             
             
             // release zstring
             zstr_free (&msg);
+        }
+        else
+        {
+            ERR(enable_syslog, "Recv NULL message");
         }
     }
     
