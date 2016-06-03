@@ -39,13 +39,17 @@ int main(int argc, char *argv[])
     LOG(enable_syslog, "start command listener");
     while (!zctx_interrupted) // handle ctrl+c
     {
-        char *msg = zstr_recv(zmq_sub); // recv json string
+        zmsg_t *msg = zmsg_recv(zmq_sub); // recv zmsg
         if (msg != NULL)
         {
-            LOG(enable_syslog, "recv: %s", msg);
+            zmsg_dump(msg);
+            zframe_t *frame_mode = zmsg_pop(msg);
+            zframe_t *frame_json = zmsg_pop(msg);
+            char *buf_mode = zframe_strdup(frame_mode);
+            char *buf_json = zframe_strdup(frame_json);
             
             // parse json string
-            cJSON *json = cJSON_Parse(msg);
+            cJSON *json = cJSON_Parse(buf_json);
             if (json != NULL)
             {
                 char *mode = json_get_char(json, "mode");
@@ -75,8 +79,10 @@ int main(int argc, char *argv[])
                 ERR(enable_syslog, "Fail to parse command");
             }
             
-            // release zstring
-            zstr_free (&msg);
+            // cleanup
+            zframe_destroy(&frame_mode);
+            zframe_destroy(&frame_json);
+            zmsg_destroy(&msg);
         }
         else
         {

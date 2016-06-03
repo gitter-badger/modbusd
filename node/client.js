@@ -21,11 +21,11 @@ var fc1 = function(){
         "port": 502,
         "slave": 22,
         "tid": 1,
-        "mode": "tcp",
         "cmd": "fc1",
         "addr": 250,
         "len": 10
     };
+    pub.send("tcp", zmq.ZMQ_SNDMORE);
     pub.send(JSON.stringify(cmd));
     console.log("FC1");
 }
