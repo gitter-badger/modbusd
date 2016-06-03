@@ -33,7 +33,24 @@ int enable_syslog = 1;
 // decode json string
 void json_decode()
 {
-    
+    char jstr = 
+    "{"
+    "    \"ip\": \"192.168.3.2\",\n"
+    "    \"port\": 502,\n"
+    "    \"slave\": 22,\n"
+    "    \"tid\": 1,\n"
+    "    \"mode\": \"tcp\",\n"
+    "    \"cmd\": \"fc5\",\n"
+    "    \"addr\": 250,\n"
+    "    \"len\": 10,\n"
+    "    \"data\": [1,2,3,4]\n"
+    "}";
+    char *json = cJSON_Parse(jstr);
+    if (json)
+    {
+        printf("%s\n", cJSON_Print(json));
+        cJSON_Delete(json);
+    }
 }
 
 /*
@@ -191,7 +208,8 @@ void single_add_find()
 int main(int argc, char *argv[])
 {
     BEGIN(enable_syslog);
-    json_encode();
+    json_decode();
+    //json_encode();
     //init_tcp_handle_and_connect();
     //multiple_add_find();
     //single_add_find();
