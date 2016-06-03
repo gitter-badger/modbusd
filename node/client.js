@@ -26,7 +26,7 @@ var fc1 = function(){
         "addr": 250,
         "len": 10
     };
-    pub.send(JSON.stringify(command));
+    pub.send(JSON.stringify(cmd));
 }
 // FC2
 
