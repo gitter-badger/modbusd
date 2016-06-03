@@ -39,7 +39,6 @@ int file_to_json(const char *fname, cJSON **outJson)
     {
         return -1;
     }
-
 }
 
 // save cJSON to json file

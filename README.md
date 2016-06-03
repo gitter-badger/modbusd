@@ -50,6 +50,16 @@ sudo make install
 sudo ldconfig
 ```
 
+## Setup testing environment
+
+### Install node.js 4.x & zmq binding on ubuntu
+
+```bash
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install -g zmq              # zmq lib
+```
+
 ---
 
 ## Modbus function code

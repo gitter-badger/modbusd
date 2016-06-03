@@ -8,28 +8,6 @@
 int enable_syslog = 1;
 extern cJSON * config_json;
 
-int file_to_json(const char *fname, cJSON **outJson)
-{
-    FILE *fPtr = fopen(fname,"rb");
-    if (fPtr) 
-    {
-        fseek(fPtr, 0, SEEK_END);
-        long len = ftell(fPtr);
-        fseek(fPtr, 0, SEEK_SET);
-        char *data = (char*) malloc (len+1);
-        int _ = fread(data, 1, len, fPtr); _=_;
-        fclose(fPtr);
-        *outJson = cJSON_Parse(data);
-        free(data);
-        return outJson ? 0 : 1;
-    }
-    else
-    {
-        return -1;
-    }
-}
-
-
 // load configuration file
 void load_config()
 {

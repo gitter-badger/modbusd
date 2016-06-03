@@ -21,8 +21,6 @@
 #include "json.h"
 
 // marco
-#define IPC_SUB "ipc:///tmp/to.modbus"
-#define IPC_PUB "ipc:///tmp/from.modbus"
 #define MBTCP_RESP_TIMEOUT_SEC 30
 
 //==================================================
