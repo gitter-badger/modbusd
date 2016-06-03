@@ -50,20 +50,37 @@ int main(int argc, char *argv[])
             {
                 char *mode = json_get_char(json, "mode");
                 char *cmd  = json_get_char(json, "cmd");
-                LOG(enable_syslog, "Mode:%s, CMD:%s", mode, cmd);
+                
+                if (mode == NULL)
+                {
+                    ERR(enable_syslog, "Wrong command format");
+                }
+                else if (strcmp(mode, "tcp") == 0)
+                {
+                    LOG(enable_syslog, "TCP:%s", cmd);
+                } 
+                else if (strcmp(mode, "rtu") == 0)
+                {
+                    LOG(enable_syslog, "rtu:%s", cmd);
+                }
+                else
+                {
+                    ERR(enable_syslog, "unsupport mode");
+                }
+                // release cJSON
+                cJSON_Delete(json);
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command");
             }
             
-            
             // release zstring
             zstr_free (&msg);
         }
         else
         {
-            ERR(enable_syslog, "Recv NULL message");
+            ERR(enable_syslog, "Recv null message");
         }
     }
     
