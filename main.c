@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-                ERR("Recv NULL message from sender");
+                ERR(enable_syslog, "Recv NULL message from sender");
             }
             
             
