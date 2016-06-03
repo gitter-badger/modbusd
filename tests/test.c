@@ -16,20 +16,10 @@
 
 int enable_syslog = 1;
 
-/*
-{
-	"ip": "192.168.3.2",
-	"port": 502,
-	"slave": 22,
-	"tid": 1,
-    "mode": "tcp",
-	"cmd": "fc5",
-	"addr": 250,
-	"len": 10,
-	"data": [1,2,3,4]
-}
+//=================================
+// Test functions
+//=================================
 
-*/
 // decode json string
 void json_decode()
 {
@@ -65,13 +55,6 @@ void json_decode()
     }
 }
 
-/*
-{
-	"tid": 22,
-	"data": [1,2,3,4],
-	"status": "ok"
-}
-*/
 // encode to json string
 void json_encode()
 {
@@ -83,7 +66,13 @@ void json_encode()
     cJSON_AddStringToObject(root, "status", "ok");
     printf("%s\n", cJSON_Print(root));
     cJSON_Delete(root);
-    
+    /*
+    {
+        "tid": 22,
+        "data": [1,2,3,4],
+        "status": "ok"
+    }
+    */
 }
 
 // init mbtcp handle and try to connect
@@ -220,11 +209,12 @@ void single_add_find()
 int main(int argc, char *argv[])
 {
     BEGIN(enable_syslog);
+    
     json_decode();
-    //json_encode();
-    //init_tcp_handle_and_connect();
-    //multiple_add_find();
-    //single_add_find();
+    json_encode();
+    init_tcp_handle_and_connect();
+    multiple_add_find();
+    single_add_find();
     
     exit(EXIT_SUCCESS);
 }
