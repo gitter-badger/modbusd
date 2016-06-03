@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
             
             if (req_json_obj != NULL)
             {
-                char *cmd = json_get_char(req_obj, "cmd");
+                char *cmd = json_get_char(req_json_obj, "cmd");
                 
                 // @handle modbus tcp requests
                 if (strcmp(mode, "tcp") == 0)
