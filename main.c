@@ -39,13 +39,26 @@ int main(int argc, char *argv[])
     LOG(enable_syslog, "start command listener");
     while (!zctx_interrupted) // handle ctrl+c
     {
-        char *msg = zstr_recv(zmq_sub);
-        
-        printf("here\n");
+        char *msg = zstr_recv(zmq_sub); // recv json string
         if (msg != NULL)
         {
-            // test
-            printf("%s\n", msg);
+            LOG(enable_syslog, "recv: %s", msg);
+            
+            // parse json string
+            cJSON *json = cJSON_Parse(msg);
+            if (json)
+            {
+                char mode[] = json_get_char(json, "mode");
+                char cmd[ = json_get_char(json, "cmd");
+                LOG(enable_syslog, "Mode:%s, CMD:%s", mode, cmd);
+            }
+            else
+            {
+                ERR("Recv NULL message from sender");
+            }
+            
+            
+            // release zstring
             zstr_free (&msg);
         }
     }

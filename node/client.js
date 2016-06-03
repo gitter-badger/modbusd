@@ -48,9 +48,3 @@ var fc1 = function(){
 
 // main
 fc1();
-
-/*
-setInterval(function() {
-    console.log(".");
-}, 1000); // emit every 1 seconds
-*/
