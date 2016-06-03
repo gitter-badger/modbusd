@@ -98,10 +98,10 @@ int main(int argc, char *argv[])
                         
                         // @create zmsg for response
                         zmsg_t * zmq_resp = zmsg_new();
-                        zmsg_addstr(zmq_resp, "tcp");     // frame 1
-                        zmsg_addstr(zmq_resp, json_resp); // frame 2
-                        zmsg_send(&zmq_resp, zmq_pub);    // send
-                        zmsg_destroy(&zmq_resp);          // cleanup
+                        zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
+                        zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
+                        zmsg_send(&zmq_resp, zmq_pub);           // send zmq msg
+                        zmsg_destroy(&zmq_resp);                 // cleanup
 
                     }
                     else if (strcmp(cmd, "fc2") == 0)
