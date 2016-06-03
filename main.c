@@ -62,13 +62,37 @@ int main(int argc, char *argv[])
                 char *cmd = json_get_char(json, "cmd");
                 if (strcmp(mode, "tcp") == 0)
                 {
-                    LOG(enable_syslog, "TCP:%s", cmd);
+                    char *cmd = json_get_char(json, "cmd");
+                    int tid   = json_get_int(json,  "tid");
+                    int port  = json_get_int(json,  "port");
+                    int slave = json_get_int(json,  "slave");
+                    int addr  = json_get_int(json,  "addr");
+                    int len   = json_get_int(json,  "len");
                     
                     // c doesn't support string switch case,
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
                     {
                         LOG(enable_syslog, "FC1 trigger");
+                        
+                        int mdata[4]={116,943,234,38793};
+                        cJSON *root;
+                        root = cJSON_CreateObject();
+                        cJSON_AddNumberToObject(root, "tid", tid);
+                        cJSON_AddItemToObject(root,"data", cJSON_CreateIntArray(mdata, 4));
+                        cJSON_AddStringToObject(root, "status", "ok");
+                        char * json_resp = cJSON_PrintUnformatted(root);
+                        LOG(enable_syslog, "resp:%s", json_resp);
+                        // clean up cJSON object
+                        cJSON_Delete(root);
+                        
+                        zmsg_t *resp = zmsg_new();
+                        zmsg_addstr(resp, "tcp");     // frame 1
+                        zmsg_addstr(resp, json_resp); // frame 2
+                        zmsg_send(&resp, zmq_pub);
+                        // cleanup zmsg resp
+                        zmsg_destroy(&resp); 
+
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {

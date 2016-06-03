@@ -10,8 +10,9 @@ sub.connect(ipc_sub); // bind to zmq endpoint
 sub.subscribe(""); // filter topic
 
 // start listening response
-sub.on("message", function(resp) {
-    console.log(resp.toString());
+sub.on("message", function(mode, jstr) {
+    console.log(mode.toString());
+    console.log(jstr.toString());
 });
 
 // FC1
