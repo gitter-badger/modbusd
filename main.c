@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
             LOG(enable_syslog, "5");
             char *buf_mode = zframe_strdup(frame_mode);
             char *buf_json = zframe_strdup(frame_json);
-            
+            printf("%s,%s\n", buf_mode, buf_json);
             LOG(enable_syslog, "6");
             // parse json string
             cJSON *json = cJSON_Parse(buf_json);

@@ -4,6 +4,7 @@ var zmq = require('zmq')
 sub.bindSync("ipc:///tmp/to.modbus"); // bind to zmq endpoint
 sub.subscribe(""); // filter topic
 
-sub.on("message", function(msg) {
-    console.log(msg.toString());
+sub.on("message", function(mode, jstr) {
+    console.log(mode.toString());
+    console.log(jstr.toString());
 });
