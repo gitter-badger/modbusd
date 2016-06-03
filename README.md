@@ -54,16 +54,16 @@ sudo ldconfig
 
 ## Modbus function code
 
-| FC    | Description            | Document                                                                                        | API                                                                             |
-|:-----:|------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| 0x01  | read coils             | [modbus_read_bits](http://libmodbus.org/docs/v3.1.4/modbus_read_bits.html)                      |int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest);            |  
-| 0x02  | read discrete input    | [modbus_read_input_bits](http://libmodbus.org/docs/v3.1.4/modbus_read_input_bits.html)          |int modbus_read_input_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest);      |
-| 0x03  | read holding registers | [modbus_read_registers](http://libmodbus.org/docs/v3.1.4/modbus_read_registers.html)            |int modbus_read_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest);      |
-| 0x04  | read input registers   | [modbus_read_input_registers](http://libmodbus.org/docs/v3.1.4/modbus_read_input_registers.html)|int modbus_read_input_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest);|
-| 0x05  | write single coil      | [modbus_write_bit](http://libmodbus.org/docs/v3.1.4/modbus_write_bit.html)                      |int modbus_write_bit(modbus_t *ctx, int addr, int status);                       |
-| 0x06  | write single register  | [modbus_write_register](http://libmodbus.org/docs/v3.1.4/modbus_write_register.html)            |int modbus_write_register(modbus_t *ctx, int addr, int value);                   |
-| 0x0F  | write multi coils      | [modbus_write_bits](http://libmodbus.org/docs/v3.1.4/modbus_write_bits.html)                    |int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint8_t *src);      |
-| 0x10  | write multi registers  | [modbus_write_registers](http://libmodbus.org/docs/v3.1.4/modbus_write_registers.html)          |int modbus_write_registers(modbus_t *ctx, int addr, int nb, const uint16_t *src);|
+| FC    | Description            |  API                                                                                                                                                 |
+|:-----:|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0x01  | read coils             | [int modbus_read_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest)](http://libmodbus.org/docs/v3.1.4/modbus_read_bits.html)                       |  
+| 0x02  | read discrete input    | [int modbus_read_input_bits(modbus_t *ctx, int addr, int nb, uint8_t *dest)](http://libmodbus.org/docs/v3.1.4/modbus_read_input_bits.html)           |
+| 0x03  | read holding registers | [int modbus_read_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest)](http://libmodbus.org/docs/v3.1.4/modbus_read_registers.html)            |
+| 0x04  | read input registers   | [int modbus_read_input_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest)](http://libmodbus.org/docs/v3.1.4/modbus_read_input_registers.html)|
+| 0x05  | write single coil      | [int modbus_write_bit(modbus_t *ctx, int addr, int status)](http://libmodbus.org/docs/v3.1.4/modbus_write_bit.html)                                  |
+| 0x06  | write single register  | [int modbus_write_register(modbus_t *ctx, int addr, int value)](http://libmodbus.org/docs/v3.1.4/modbus_write_register.html)                         |
+| 0x0F  | write multi coils      | [int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint8_t *src)](http://libmodbus.org/docs/v3.1.4/modbus_write_bits.html)                |
+| 0x10  | write multi registers  | [int modbus_write_registers(modbus_t *ctx, int addr, int nb, const uint16_t *src)](http://libmodbus.org/docs/v3.1.4/modbus_write_registers.html)     |
 
 ---
 
