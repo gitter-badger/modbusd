@@ -35,39 +35,44 @@ int main(int argc, char *argv[])
     // bind zmq publisher
     zsocket_bind (zmq_pub, IPC_PUB);
     
-    // @start receiving zmq command
-    LOG(enable_syslog, "start command listener");
+    LOG(enable_syslog, "start recv command listener");
     while (!zctx_interrupted) // handle ctrl+c
     {
         zmsg_t *msg = zmsg_recv(zmq_sub); // recv zmsg
         if (msg != NULL)
         {
-            LOG(enable_syslog, "recv msg:");
-
-            // get mode (ex. tcp, rtu, others)
+            // get request mode (ex. tcp, rtu, others)
             zframe_t *frame_mode = zmsg_pop(msg);
             char *mode = zframe_strdup(frame_mode);
-            
-            // get command json string
+
+            // get request json string
             zframe_t *frame_json = zmsg_pop(msg);
-            char *json_string = zframe_strdup(frame_json);
+            char *req_json_string = zframe_strdup(frame_json);
+
+            // cleanup zmsg releated resources
+            zmsg_destroy(&msg);
+            zframe_destroy(&frame_mode);
+            zframe_destroy(&frame_json);
             
-            LOG(enable_syslog, "recv msg: %s, %s\n", mode, json_string);
+            LOG(enable_syslog, "recv msg: %s, %s\n", mode, req_json_string);
 
             // parse json string
-            cJSON *json = cJSON_Parse(json_string);
+            cJSON *req_json_obj = cJSON_Parse(req_json_string);
             
-            if (json != NULL)
+            if (req_json_obj != NULL)
             {
-                char *cmd = json_get_char(json, "cmd");
+                char *cmd = json_get_char(req_obj, "cmd");
+                
+                // @handle modbus tcp requests
                 if (strcmp(mode, "tcp") == 0)
                 {
-                    char *cmd = json_get_char(json, "cmd");
-                    int tid   = json_get_int(json,  "tid");
-                    int port  = json_get_int(json,  "port");
-                    int slave = json_get_int(json,  "slave");
-                    int addr  = json_get_int(json,  "addr");
-                    int len   = json_get_int(json,  "len");
+                    // @get common command parameters
+                    char *cmd = json_get_char (req_json_obj, "cmd");
+                    int tid   = json_get_int  (req_json_obj, "tid");
+                    int port  = json_get_int  (req_json_obj, "port");
+                    int slave = json_get_int  (req_json_obj, "slave");
+                    int addr  = json_get_int  (req_json_obj, "addr");
+                    int len   = json_get_int  (req_json_obj, "len");
                     
                     // c doesn't support string switch case,
                     // but if-else style should be okay for small set.
@@ -75,23 +80,28 @@ int main(int argc, char *argv[])
                     {
                         LOG(enable_syslog, "FC1 trigger");
                         
-                        int mdata[4]={116,943,234,38793};
+                        // TODO: do request
+                        // ....
+                        // ....
+                        
+                        // create cJSON object for response
+                        int mdata[4] = {116, 943, 234, 38793};
                         cJSON *root;
                         root = cJSON_CreateObject();
                         cJSON_AddNumberToObject(root, "tid", tid);
-                        cJSON_AddItemToObject(root,"data", cJSON_CreateIntArray(mdata, 4));
+                        cJSON_AddItemToObject(root, "data", cJSON_CreateIntArray(mdata, 4));
                         cJSON_AddStringToObject(root, "status", "ok");
-                        char * json_resp = cJSON_PrintUnformatted(root);
-                        LOG(enable_syslog, "resp:%s", json_resp);
-                        // clean up cJSON object
+                        char * resp_json_string = cJSON_PrintUnformatted(root);
+                        LOG(enable_syslog, "resp:%s", resp_json_string);
+                        // clean up
                         cJSON_Delete(root);
                         
-                        zmsg_t *resp = zmsg_new();
-                        zmsg_addstr(resp, "tcp");     // frame 1
-                        zmsg_addstr(resp, json_resp); // frame 2
-                        zmsg_send(&resp, zmq_pub);
-                        // cleanup zmsg resp
-                        zmsg_destroy(&resp); 
+                        // @create zmsg for response
+                        zmsg_t * zmq_resp = zmsg_new();
+                        zmsg_addstr(zmq_resp, "tcp");     // frame 1
+                        zmsg_addstr(zmq_resp, json_resp); // frame 2
+                        zmsg_send(&zmq_resp, zmq_pub);    // send
+                        zmsg_destroy(&zmq_resp);          // cleanup
 
                     }
                     else if (strcmp(cmd, "fc2") == 0)
@@ -126,32 +136,30 @@ int main(int argc, char *argv[])
                     {
                         LOG(enable_syslog, "unsupport command");
                     }
-                } 
+                    
+                    // cleanup (auto mode)
+                    cJSON_Delete(req_json_obj);
+                }
+                // @handle modbus rtu requests
                 else if (strcmp(mode, "rtu") == 0)
                 {
                     LOG(enable_syslog, "rtu:%s", cmd);
                     // TODO
                 }
+                // @unkonw mode
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
                 }
-                // release cJSON
-                cJSON_Delete(json);
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
             }
-            
-            // cleanup
-            zframe_destroy(&frame_mode);
-            zframe_destroy(&frame_json);
-            zmsg_destroy(&msg);
         }
         else
         {
-            // depress this debug message
+            // @depress this debug message
             //ERR(enable_syslog, "Recv null message");
         }
     }

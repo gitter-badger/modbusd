@@ -11,7 +11,7 @@ sub.subscribe(""); // filter topic
 
 // start listening response
 sub.on("message", function(mode, jstr) {
-    console.log(mode.toString());
+    //console.log(mode.toString());
     console.log(jstr.toString());
 });
 
