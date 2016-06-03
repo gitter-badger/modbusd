@@ -86,17 +86,17 @@ int main(int argc, char *argv[])
                         // ....
                         // ....
                         
-                        // create cJSON object for response
+                        // @create cJSON object for response
                         int mdata[4] = {116, 943, 234, 38793};
-                        cJSON *root;
-                        root = cJSON_CreateObject();
-                        cJSON_AddNumberToObject(root, "tid", tid);
-                        cJSON_AddItemToObject(root, "data", cJSON_CreateIntArray(mdata, 4));
-                        cJSON_AddStringToObject(root, "status", "ok");
-                        char * resp_json_string = cJSON_PrintUnformatted(root);
+                        cJSON *resp_root;
+                        resp_root = cJSON_CreateObject();
+                        cJSON_AddNumberToObject(resp_root, "tid", tid);
+                        cJSON_AddItemToObject(resp_root, "data", cJSON_CreateIntArray(mdata, 4));
+                        cJSON_AddStringToObject(resp_root, "status", "ok");
+                        char * resp_json_string = cJSON_PrintUnformatted(resp_root);
                         LOG(enable_syslog, "resp:%s", resp_json_string);
                         // clean up
-                        cJSON_Delete(root);
+                        cJSON_Delete(resp_root);
                         
                         // @create zmsg for response
                         zmsg_t * zmq_resp = zmsg_new();
@@ -138,9 +138,6 @@ int main(int argc, char *argv[])
                     {
                         LOG(enable_syslog, "unsupport command");
                     }
-                    
-                    // cleanup (auto mode)
-                    cJSON_Delete(req_json_obj);
                 }
                 // @handle modbus rtu requests
                 else if (strcmp(mode, "rtu") == 0)
@@ -153,6 +150,9 @@ int main(int argc, char *argv[])
                 {
                     ERR(enable_syslog, "unsupport mode");
                 }
+                
+                // @cleanup (auto mode)
+                cJSON_Delete(req_json_obj);
             }
             else
             {
