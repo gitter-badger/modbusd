@@ -46,10 +46,10 @@ int main(int argc, char *argv[])
             
             // parse json string
             cJSON *json = cJSON_Parse(msg);
-            if (json)
+            if (json != NULL)
             {
                 char mode[] = json_get_char(json, "mode");
-                char cmd[ = json_get_char(json, "cmd");
+                char cmd[]  = json_get_char(json, "cmd");
                 LOG(enable_syslog, "Mode:%s, CMD:%s", mode, cmd);
             }
             else
