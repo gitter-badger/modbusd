@@ -40,10 +40,12 @@ int main(int argc, char *argv[])
     while (!zctx_interrupted) // handle ctrl+c
     {
         zmsg_t *msg = zmsg_recv(zmq_sub);
+        printf("here\n");
         if (msg != NULL)
         {
             // test
             zmsg_dump(msg);
+            zmsg_destroy(&msg);
         }
     }
     
