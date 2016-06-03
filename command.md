@@ -7,7 +7,8 @@
 	"port": 502,
 	"slave": 22,
 	"tid": 1,
-	"cmd": 5,
+    "mode": "tcp",
+	"cmd": "fc5",
 	"addr": 250,
 	"len": 10,
 	"data": [1,2,3,4]
@@ -18,7 +19,6 @@
 ```javascript
 {
 	"tid": 1,
-	"data": [1,2,3,4],
 	"status": "ok"
 }
 ```
@@ -30,7 +30,8 @@
 	"port": 502,
 	"slave": 22,
 	"tid": 1,
-	"cmd": 1,
+    "mode": "tcp",
+	"cmd": "fc1",
 	"addr": 250,
 	"len": 10
 }

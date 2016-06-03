@@ -16,15 +16,60 @@
 
 int enable_syslog = 1;
 
-int set_and_connect()
+/*
 {
+	"ip": "192.168.3.2",
+	"port": 502,
+	"slave": 22,
+	"tid": 1,
+    "mode": "tcp",
+	"cmd": "fc5",
+	"addr": 250,
+	"len": 10,
+	"data": [1,2,3,4]
+}
+
+*/
+// decode json string
+void json_decode()
+{
+    
+}
+
+/*
+{
+	"tid": 22,
+	"data": [1,2,3,4],
+	"status": "ok"
+}
+*/
+// encode to json string
+void json_encode()
+{
+    int mdata[4]={116,943,234,38793};
+    cJSON *root;
+    root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(root, "tid", 22);
+    cJSON_AddItemToObject(root,"data", cJSON_CreateIntArray(mdata,4));
+    cJSON_AddStringToObject(root, "status", "ok");
+    printf("%s\n", cJSON_Print(root));
+    cJSON_Delete(root);
+    
+}
+
+// init mbtcp handle and try to connect
+int init_tcp_handle_and_connect()
+{
+    LOG(enable_syslog, "Init TCP handle");
     mbtcp_handle_t *handle = NULL;
     int ret = init_mbtcp_handle (&handle, "172.16.9.170", 502);
     ret = mbtcp_connect(&handle);
 
+    LOG(enable_syslog, "Get TCP handle");
     handle = NULL;
     ret = get_mbtcp_handle (&handle, "172.16.9.170", 502);
     
+    LOG(enable_syslog, "Try to connect to slave");
     ret = mbtcp_connect(&handle);
     ret = get_mbtcp_connection_status(&handle);
     return ret;
@@ -146,8 +191,10 @@ void single_add_find()
 int main(int argc, char *argv[])
 {
     BEGIN(enable_syslog);
-    set_and_connect();
+    json_encode();
+    //init_tcp_handle_and_connect();
     //multiple_add_find();
     //single_add_find();
+    
     exit(EXIT_SUCCESS);
 }
