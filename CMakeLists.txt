@@ -7,7 +7,7 @@ project(modbusd C)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(bin_name modbusd)
 set(modbus_include /usr/local/include/modbus)
-set(bin_source main.c main.h modbusd.c modbusd.h log.h uthash.h ${modbus_include}/modbus.h)
+set(bin_source main.c main.h modbusd.c modbusd.h log.h uthash.h json/cJSON.c json/cJSON.h ${modbus_include}/modbus.h)
 
 include_directories(${modbus_include})
 add_definitions(-std=c99)

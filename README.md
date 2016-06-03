@@ -85,10 +85,11 @@ sudo ldconfig
 
 ## External libraries list
 
-- [libmodbus](http://libmodbus.org/)
+- [libmodbus](http://libmodbus.org)
 - [libzmq](https://github.com/zeromq/libzmq)
 - [czmq](https://github.com/zeromq/czmq)
-- [uthash](https://troydhanson.github.io/uthash/)
+- [uthash](https://troydhanson.github.io/uthash)
+- [cJSON](https://github.com/DaveGamble/cJSON)
 
 ---
 
@@ -97,3 +98,4 @@ sudo ldconfig
 - [uthash user guide](http://troydhanson.github.io/uthash/userguide.html)
 - [libmodbus api document](http://libmodbus.org/docs/v3.1.4/)
 - [libmodbus header](https://github.com/stephane/libmodbus/blob/master/src/modbus.h)
+- [cJSON examples](https://github.com/DaveGamble/cJSON)
