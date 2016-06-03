@@ -30,53 +30,26 @@ var fc1 = function(){
     console.log("FC1");
 }
 
-// FC2
-var fc2 = function(){
+var mfc1 = function() {
     var cmd = {
         "ip": "192.168.3.2",
         "port": 502,
         "slave": 22,
-        "tid": 2,
-        "cmd": "fc2",
+        "tid": 1,
+        "cmd": "fc1",
         "addr": 250,
         "len": 10
     };
-    pub.send("tcp", zmq.ZMQ_SNDMORE);
-    pub.send(JSON.stringify(cmd));
-    console.log("FC2");
+    setInterval(function() {
+        pub.send("tcp", zmq.ZMQ_SNDMORE);
+        pub.send(JSON.stringify(cmd));
+    }, 100); // emit every 0.1 seconds
 }
+// FC2
 
 // FC3
-var fc3 = function(){
-    var cmd = {
-        "ip": "192.168.3.2",
-        "port": 502,
-        "slave": 22,
-        "tid": 3,
-        "cmd": "fc3",
-        "addr": 250,
-        "len": 10
-    };
-    pub.send("tcp", zmq.ZMQ_SNDMORE);
-    pub.send(JSON.stringify(cmd));
-    console.log("FC3");
-}
 
 // FC4
-var fc3 = function(){
-    var cmd = {
-        "ip": "192.168.3.2",
-        "port": 502,
-        "slave": 22,
-        "tid": 4,
-        "cmd": "fc4",
-        "addr": 250,
-        "len": 10
-    };
-    pub.send("tcp", zmq.ZMQ_SNDMORE);
-    pub.send(JSON.stringify(cmd));
-    console.log("FC4");
-}
 
 // FC5
 
@@ -87,12 +60,7 @@ var fc3 = function(){
 // FC16
 
 
+
+
 // main
-setInterval(function() {
-    fc1();
-    fc2();
-    fc3();
-    fc4();
-}, 500); // emit every 0.5 seconds
-
-
+mfc1();

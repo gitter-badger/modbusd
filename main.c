@@ -43,31 +43,70 @@ int main(int argc, char *argv[])
         if (msg != NULL)
         {
             LOG(enable_syslog, "recv msg:");
-            zmsg_dump(msg);
 
+            // get mode (ex. tcp, rtu, others)
             zframe_t *frame_mode = zmsg_pop(msg);
-            zframe_t *frame_json = zmsg_pop(msg);
             char *mode = zframe_strdup(frame_mode);
-            char *buf_json = zframe_strdup(frame_json);
-            LOG(enable_syslog, "%s,%s\n", mode, buf_json);
+            
+            // get command json string
+            zframe_t *frame_json = zmsg_pop(msg);
+            char *json_string = zframe_strdup(frame_json);
+            
+            LOG(enable_syslog, "recv msg: %s, %s\n", mode, json_string);
 
             // parse json string
-            cJSON *json = cJSON_Parse(buf_json);
+            cJSON *json = cJSON_Parse(json_string);
+            
             if (json != NULL)
             {
-                char *cmd  = json_get_char(json, "cmd");
-                
-                if (mode == NULL)
-                {
-                    ERR(enable_syslog, "Wrong command format");
-                }
-                else if (strcmp(mode, "tcp") == 0)
+                char *cmd = json_get_char(json, "cmd");
+                if (strcmp(mode, "tcp") == 0)
                 {
                     LOG(enable_syslog, "TCP:%s", cmd);
+                    
+                    // c doesn't support string switch case,
+                    // but if-else style should be okay for small set.
+                    if (strcmp(cmd, "fc1") == 0)
+                    {
+                        LOG(enable_syslog, "FC1 trigger");
+                    }
+                    else if (strcmp(cmd, "fc2") == 0)
+                    {
+                        LOG(enable_syslog, "FC2 trigger");
+                    }
+                    else if (strcmp(cmd, "fc3") == 0)
+                    {
+                        LOG(enable_syslog, "FC3 trigger");
+                    }
+                    else if (strcmp(cmd, "fc4") == 0)
+                    {
+                        LOG(enable_syslog, "FC4 trigger");
+                    }
+                    else if (strcmp(cmd, "fc5") == 0)
+                    {
+                        LOG(enable_syslog, "FC5 trigger");
+                    }
+                    else if (strcmp(cmd, "fc6") == 0)
+                    {
+                        LOG(enable_syslog, "FC6 trigger");
+                    }
+                    else if (strcmp(cmd, "fc15") == 0)
+                    {
+                        LOG(enable_syslog, "FC15 trigger");
+                    }
+                    else if (strcmp(cmd, "fc16") == 0)
+                    {
+                        LOG(enable_syslog, "FC16 trigger");
+                    }
+                    else
+                    {
+                        LOG(enable_syslog, "unsupport command");
+                    }
                 } 
                 else if (strcmp(mode, "rtu") == 0)
                 {
                     LOG(enable_syslog, "rtu:%s", cmd);
+                    // TODO
                 }
                 else
                 {
@@ -78,7 +117,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-                ERR(enable_syslog, "Fail to parse command");
+                ERR(enable_syslog, "Fail to parse command string");
             }
             
             // cleanup
@@ -88,7 +127,8 @@ int main(int argc, char *argv[])
         }
         else
         {
-            ERR(enable_syslog, "Recv null message");
+            // depress this debug message
+            //ERR(enable_syslog, "Recv null message");
         }
     }
     
