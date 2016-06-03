@@ -39,14 +39,14 @@ int main(int argc, char *argv[])
     LOG(enable_syslog, "start command listener");
     while (!zctx_interrupted) // handle ctrl+c
     {
-        zmsg_t *msg = zmsg_recv(zmq_sub);
-        zmsg_dump(msg);
+        char *msg = zstr_recv(zmq_sub);
+        
         printf("here\n");
         if (msg != NULL)
         {
             // test
-            zmsg_dump(msg);
-            zmsg_destroy(&msg);
+            printf("%s\n", msg);
+            zstr_free (&msg);
         }
     }
     
