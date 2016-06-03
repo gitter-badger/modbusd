@@ -27,6 +27,7 @@ var fc1 = function(){
         "len": 10
     };
     pub.send(JSON.stringify(cmd));
+    console.log("FC1");
 }
 // FC2
 
