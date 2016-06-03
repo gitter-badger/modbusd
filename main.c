@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
     while (!zctx_interrupted) // handle ctrl+c
     {
         zmsg_t *msg = zmsg_recv(zmq_sub);
+        zmsg_dump(msg);
         printf("here\n");
         if (msg != NULL)
         {
