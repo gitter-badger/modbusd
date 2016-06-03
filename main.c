@@ -3,6 +3,7 @@
 // taka-wang
 //
 
+#include "main.h"
 #include "modbusd.h"
 
 int enable_syslog = 1;
@@ -41,7 +42,8 @@ int main(int argc, char *argv[])
         zmsg_t *msg = zmsg_recv(zmq_sub);
         if (msg != NULL)
         {
-            //zmsg_dump(msg);
+            // test
+            zmsg_dump(msg);
         }
     }
     
