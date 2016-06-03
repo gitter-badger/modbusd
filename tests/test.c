@@ -61,8 +61,7 @@ void json_decode()
             int subitem = cJSON_GetArrayItem(data, i)->valueint;
             printf("idx:%d,v:%d\n", i, subitem);
         }
-        cJSON_Delete(data);
-        cJSON_Delete(json);
+        if (json != NULL) cJSON_Delete(json);
     }
 }
 
