@@ -97,7 +97,8 @@ void list_mbtcp_handle()
 
     for (s = mbtcp_htable; s != NULL; s=s->hh.next)
     {
-        printf("ip %s, port %n, loc: %p\n", s->key.ip, s->key.port, s->ctx);
+        printf("@\n");
+        //printf("ip %s, port %n, loc: %p\n", s->key.ip, s->key.port, s->ctx);
     }
 }
 
