@@ -55,13 +55,13 @@ typedef void (*mbtcp_fc_fp)(mbtcp_handle_s **ptr_handle, cJSON **ptr_req);
 bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle);
 
 // connect to mbtcp client via handle
-bool mbtcp_do_connect(mbtcp_handle_s **ptr_handle);
-
-// init mbtcp handle (to hash) and try to connect
-bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
+bool mbtcp_do_connect(mbtcp_handle_s *ptr_handle);
 
 // list mbtcp hash table
 void mbtcp_list_handles();
+
+// init mbtcp handle (to hash) and try to connect
+bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
 // get mbtcp handle from hashtable
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);

@@ -30,7 +30,7 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle)
 }
 
 // connect to mbtcp client via handle
-bool mbtcp_do_connect(mbtcp_handle_s **ptr_handle)
+bool mbtcp_do_connect(mbtcp_handle_s *ptr_handle)
 {
     BEGIN(enable_syslog);
     
@@ -51,6 +51,18 @@ bool mbtcp_do_connect(mbtcp_handle_s **ptr_handle)
         // set connection status to true
         (*ptr_handle)->connected = true;
         return true;
+    }
+}
+
+// list mbtcp hash table
+void mbtcp_list_handles() 
+{
+    BEGIN(enable_syslog);
+    mbtcp_handle_s * handle;
+
+    for (handle = mbtcp_htable; handle != NULL; handle = handle->hh.next)
+    {
+        printf("ip:%s, port:%d\n", handle->key.ip, handle->key.port);
     }
 }
 
@@ -88,20 +100,8 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     *ptr_handle = handle;
 
     // @connect to server
-    mbtcp_do_connect(&handle);
+    mbtcp_do_connect(handle);
     return true;
-}
-
-// list mbtcp hash table
-void mbtcp_list_handles() 
-{
-    BEGIN(enable_syslog);
-    mbtcp_handle_s * handle;
-
-    for (handle = mbtcp_htable; handle != NULL; handle = handle->hh.next)
-    {
-        printf("ip:%s, port:%d\n", handle->key.ip, handle->key.port);
-    }
 }
 
 // get mbtcp handle from hashtable

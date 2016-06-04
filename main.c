@@ -27,41 +27,40 @@ void set_mbtcp_resp_error()
 }
 
 // do modbus tcp requests
-void do_mbtcp_fc1_request(mbtcp_handle_s **ptr_handle, cJSON **ptr_req)
+void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
 {
     BEGIN(enable_syslog);
     // TODO    
 }
 
 // combo: if not connected, try to connect to slave
-void do_lazy_mbtcp_connect(mbtcp_handle_s **ptr_handle, cJSON **ptr_req, mbtcp_fc_fp fc)
+void lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, mbtcp_fc_fp fc)
 {
     BEGIN(enable_syslog);
     // TODO    
 }
 
 // combo: get or init mbtcp handle
-void do_lazy_init_mbtcp_handle(cJSON *ptr_req)
+void lazy_init_mbtcp_handle(cJSON *ptr_req, mbtcp_fc_fp fc)
 {
     BEGIN(enable_syslog);
     
     mbtcp_handle_s *handle = NULL;
     char *ip  = json_get_char(ptr_req, "ip");
     int port  = json_get_int (ptr_req, "port");
-    LOG(enable_syslog, "D,ip:%s,port:%d\n", ip, port);
     
     if (mbtcp_get_handle (&handle, ip, port))
 	{
-		//do_lazy_mbtcp_connect(ptr_handle, ptr_req);
-		//
+        // do connect
+		lazy_mbtcp_connect(handle, ptr_req, fc);
 	}
 	else
 	{
 		// init handle
         if (mbtcp_init_handle(&handle, ip, port))
 		{
-			//do_lazy_mbtcp_connect();
-			//
+            // do connect
+			lazy_mbtcp_connect(handle, ptr_req, fc);
 		}
 		else
 		{
@@ -143,7 +142,7 @@ int main()
                         
                         // set fc handler function pointer
                         // mbtcp_fc_fp ptr_fc = do_mbtcp_fc1_request;
-                        do_lazy_init_mbtcp_handle(req_json_obj);
+                        lazy_init_mbtcp_handle(req_json_obj, mbtcp_fc1_req);
                         
                         
                         
@@ -175,7 +174,7 @@ int main()
                             else
                             {
                                 // do connect
-                                if (mbtcp_do_connect(&handle))
+                                if (mbtcp_do_connect(handle))
                                 {
                                     // connected
                                     // do action
