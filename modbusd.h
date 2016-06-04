@@ -30,7 +30,7 @@
 // `structure key` for modbus tcp hash table
 typedef struct 
 {
-    const char *ip;
+    char *ip;
     int port;
 } mbtcp_key_s;
 
