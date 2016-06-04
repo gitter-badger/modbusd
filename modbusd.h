@@ -45,7 +45,7 @@ typedef struct
 
 
 // function pointer
-typedef void (*fp_mbtcp_fc)(mbtcp_handle_s **ptr_handle, cJSON **ptr_req);
+typedef void (*fp_mbtcp_fc)(mbtcp_handle_s *ptr_handle, cJSON *ptr_req);
 
 //==================================================
 // api
