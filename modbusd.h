@@ -23,9 +23,6 @@
 // marco
 #define MBTCP_RESP_TIMEOUT_SEC 30
 
-// function pointer
-typedef void (*mbtcp_fc_fp)(mbtcp_handle_s **ptr_handle, cJSON **ptr_req);
-
 //==================================================
 // structure
 //==================================================
@@ -45,6 +42,10 @@ typedef struct
     modbus_t *ctx;      // modbus context pointer
     UT_hash_handle hh;  // makes this structure hashable
 } mbtcp_handle_s;
+
+
+// function pointer
+typedef void (*mbtcp_fc_fp)(mbtcp_handle_s **ptr_handle, cJSON **ptr_req);
 
 //==================================================
 // api
