@@ -23,6 +23,9 @@
 // marco
 #define MBTCP_RESP_TIMEOUT_SEC 30
 
+// function pointer
+typedef void (*mbtcp_fc_fp)(mbtcp_handle_s **ptr_handle, cJSON **ptr_req);
+
 //==================================================
 // structure
 //==================================================
