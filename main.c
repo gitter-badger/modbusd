@@ -22,25 +22,29 @@ static void load_config()
 // generic mbtcp error response handler
 void set_mbtcp_resp_error()
 {
-    
+    BEGIN(enable_syslog);
+    // TODO    
 }
 
 // do modbus tcp requests
 void do_mbtcp_fc1_request(mbtcp_handle_s **ptr_handle, cJSON **ptr_req)
 {
-    
+    BEGIN(enable_syslog);
+    // TODO    
 }
 
 // combo: if not connected, try to connect to slave
 void do_lazy_mbtcp_connect(mbtcp_handle_s **ptr_handle, cJSON **ptr_req, mbtcp_fc_fp fc)
 {
-    
+    BEGIN(enable_syslog);
+    // TODO    
 }
 
 // combo: get or init mbtcp handle
 void do_lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON **ptr_req)
 {
     BEGIN(enable_syslog);
+    
     mbtcp_handle_s *handle = NULL;
     char *ip  = json_get_char (*ptr_req, "ip");
     int port  = json_get_int  (*ptr_req, "port");
@@ -132,6 +136,15 @@ int main()
                     if (strcmp(cmd, "fc1") == 0)
                     {
                         LOG(enable_syslog, "FC1 trigger");
+                        
+                        //try
+                        do_lazy_init_mbtcp_handle(&handle, &req_json_obj);
+                        
+                        
+                        
+                        
+                        
+                        
                                    
                         // @do request
                         mbtcp_handle_s *handle = NULL;
