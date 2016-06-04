@@ -115,7 +115,8 @@ int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     
     mbtcp_handle_s query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_s));
-    query.key.ip   = ip;
+    strcpy(query.key.ip, ip);
+    //query.key.ip   = ip;
     query.key.port = port;
     HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_s), hash_ctx);
     
