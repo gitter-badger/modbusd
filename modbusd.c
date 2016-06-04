@@ -76,7 +76,8 @@ int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
     // let alignment bytes being set to zero-value!!
     memset(handle, 0, sizeof(mbtcp_handle_s));
     handle->connected = false;
-    handle->key.ip    = ip;
+    strcpy(handle->key.ip, ip);
+    //handle->key.ip    = ip;
     handle->key.port  = port;
     handle->ctx = ctx;
 
