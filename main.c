@@ -91,6 +91,12 @@ int main()
                             {
                                 //do action
                                 LOG(enable_syslog, "do action");
+                                
+                                /*
+                                if ok then
+                                else xx
+                                */
+                                
                             }
                             else
                             {
@@ -175,6 +181,7 @@ int main()
                     else
                     {
                         LOG(enable_syslog, "unsupport command");
+                        // send error response
                     }
                 }
                 // @handle modbus rtu requests
@@ -182,11 +189,13 @@ int main()
                 {
                     LOG(enable_syslog, "rtu:%s", cmd);
                     // TODO
+                    // send error response
                 }
                 // @unkonw mode
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
+                    // send error response
                 }
                 
                 // @cleanup (auto mode)
@@ -195,6 +204,7 @@ int main()
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
+                // send error response
             }
         }
         else

@@ -109,3 +109,9 @@ sudo npm install -g zmq              # zmq lib
 - [libmodbus api document](http://libmodbus.org/docs/v3.1.4/)
 - [libmodbus header](https://github.com/stephane/libmodbus/blob/master/src/modbus.h)
 - [cJSON examples](https://github.com/DaveGamble/cJSON)
+
+---
+
+## Flow Chart
+
+![flow](flow.png)

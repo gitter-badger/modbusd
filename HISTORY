@@ -1,3 +1,4 @@
 ## Solve
 - fix uthash sizeof issue (1000 items)
-- modbus_connect hang issue
+- fix char pointer key issue (hash)
+- modbus_connect hang issue (timeout)
