@@ -22,7 +22,8 @@ static void load_config()
 void set_mbtcp_resp_error(char * reason)
 {
     BEGIN(enable_syslog);
-    // TODO    
+    // TODO
+    LOG(enable_syslog, reason);
 }
 
 // do modbus tcp requests
