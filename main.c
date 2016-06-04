@@ -23,7 +23,7 @@ void set_mbtcp_resp_error(char * reason)
 {
     BEGIN(enable_syslog);
     // TODO
-    LOG(enable_syslog, reason);
+    LOG(enable_syslog, "reason:%s", reason); // debug
 }
 
 // do modbus tcp requests
