@@ -77,7 +77,6 @@ int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     memset(handle, 0, sizeof(mbtcp_handle_s));
     handle->connected = false;
     strcpy(handle->key.ip, ip);
-    //handle->key.ip    = ip;
     handle->key.port  = port;
     handle->ctx = ctx;
 
@@ -92,31 +91,26 @@ int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     return 0;
 }
 
+// list mbtcp hash table
 void list_mbtcp_handle() 
 {
+    BEGIN(enable_syslog);
     mbtcp_handle_s *s;
 
     for (s = mbtcp_htable; s != NULL; s=s->hh.next)
     {
-        printf("@\n");
         printf("ip:%s, port:%d\n", (s->key).ip, s->key.port);
-        //printf("ip %s, port %n\n", s->key.ip, s->key.port);
     }
 }
-
 
 // get mbtcp handle from hashtable
 int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
     
-    LOG(enable_syslog, "there are %u mbtcp handle\n", HASH_COUNT(mbtcp_htable));
-    list_mbtcp_handle();
-    
     mbtcp_handle_s query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_s));
     strcpy(query.key.ip, ip);
-    //query.key.ip   = ip;
     query.key.port = port;
     HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_s), hash_ctx);
     
