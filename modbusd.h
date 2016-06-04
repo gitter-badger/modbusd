@@ -54,9 +54,9 @@ bool get_mbtcp_connection_status(mbtcp_handle_s **ptr_handle);
 int mbtcp_connect(mbtcp_handle_s **ptr_handle);
 
 // init mbtcp handle (to hash) and try to connect
-int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port);
+int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
 // get mbtcp handle from hashtable
-int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port);
+int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
 #endif  // MODBUSD_H

@@ -54,7 +54,7 @@ int mbtcp_connect(mbtcp_handle_s **ptr_handle)
 }
 
 // init mbtcp handle and try to connect
-int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
+int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
 
@@ -106,7 +106,7 @@ void list_mbtcp_handle()
 
 
 // get mbtcp handle from hashtable
-int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
+int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
     
