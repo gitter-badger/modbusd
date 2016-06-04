@@ -96,7 +96,7 @@ int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
     
-    LOG(enable_syslog, "there are %u mbtcp handle\n", mbtcp_htable);
+    LOG(enable_syslog, "there are %u mbtcp handle\n", HASH_COUNT(mbtcp_htable));
     
     mbtcp_handle_s query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_s));
