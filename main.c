@@ -39,12 +39,31 @@ void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
     // TODO    
 }
 
-// combo: check connection status,
+// combo func: check connection status,
 // if not connected, try to connect to slave
 void lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, fp_mbtcp_fc fc)
 {
     BEGIN(enable_syslog);
-    // TODO    
+    
+    int slave = json_get_int  (req_json_obj, "slave");
+    if (mbtcp_get_connection_status(handle))
+	{
+        // todo: set slave id
+		fc(ptr_handle, ptr_req);
+	}
+	else
+	{
+		if (mbtcp_do_connect(handle))
+		{
+            // todo: set slave id
+			fc(ptr_handle, ptr_req);
+		}
+		else
+		{
+            // [enhance]: get reason from modbus response
+			set_mbtcp_resp_error("fail to connect");
+		}
+	}   
 }
 
 // combo func: get or init mbtcp handle
@@ -68,7 +87,6 @@ void lazy_init_mbtcp_handle(cJSON *req, fp_mbtcp_fc fc)
 		}
 		else
 		{
-			// set error; init handle fail
 			set_mbtcp_resp_error("init modbus tcp handle fail");
 		}
 	}
@@ -144,9 +162,6 @@ int main()
                         LOG(enable_syslog, "FC1 trigger");
                         
                         // @do request
-                        
-                        // set fc handler function pointer
-                        // fp_mbtcp_fc ptr_fc = do_mbtcp_fc1_request;
                         lazy_init_mbtcp_handle(req_json_obj, mbtcp_fc1_req);
                         
                         
