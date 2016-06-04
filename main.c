@@ -41,13 +41,14 @@ void do_lazy_mbtcp_connect(mbtcp_handle_s **ptr_handle, cJSON **ptr_req, mbtcp_f
 }
 
 // combo: get or init mbtcp handle
-void do_lazy_init_mbtcp_handle(cJSON **ptr_req)
+void do_lazy_init_mbtcp_handle(cJSON *ptr_req)
 {
     BEGIN(enable_syslog);
     
     mbtcp_handle_s *handle = NULL;
-    char *ip  = json_get_char(*ptr_req, "ip");
-    int port  = json_get_int (*ptr_req, "port");
+    char *ip  = json_get_char(ptr_req, "ip");
+    int port  = json_get_int (ptr_req, "port");
+    LOG(enable_syslog, "D,ip:%s,port:%d\n", ip, port);
     
     if (mbtcp_get_handle (&handle, ip, port))
 	{
@@ -139,7 +140,10 @@ int main()
                         LOG(enable_syslog, "FC1 trigger");
                         
                         // @do request
-                        do_lazy_init_mbtcp_handle(&req_json_obj);
+                        
+                        // set fc handler function pointer
+                        // mbtcp_fc_fp ptr_fc = do_mbtcp_fc1_request;
+                        do_lazy_init_mbtcp_handle(req_json_obj);
                         
                         
                         
