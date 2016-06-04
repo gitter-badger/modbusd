@@ -34,22 +34,22 @@ bool mbtcp_do_connect(mbtcp_handle_s *ptr_handle)
 {
     BEGIN(enable_syslog);
     
-    if ((*ptr_handle) == NULL)
+    if (ptr_handle == NULL)
     {
         ERR(enable_syslog, "NULL handle");
         return false;
     }
     
-    if (modbus_connect((*ptr_handle)->ctx) == -1) 
+    if (modbus_connect(ptr_handle->ctx) == -1) 
     {
         ERR(enable_syslog, "Connection failed: %s", modbus_strerror(errno));
         return false;
     }
     else
     {
-        LOG(enable_syslog, "%s:%d connected", (*ptr_handle)->key.ip, (*ptr_handle)->key.port);
+        LOG(enable_syslog, "%s:%d connected", ptr_handle->key.ip, ptr_handle->key.port);
         // set connection status to true
-        (*ptr_handle)->connected = true;
+        ptr_handle->connected = true;
         return true;
     }
 }
