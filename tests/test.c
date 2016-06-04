@@ -206,7 +206,7 @@ void test_single_add_find()
 }
 
 // ENTRY
-int main(int argc, char *argv[])
+int main()
 {
     BEGIN(enable_syslog);
     
@@ -215,6 +215,5 @@ int main(int argc, char *argv[])
     test_init_tcp_handle_and_connect();
     test_multiple_add_find();
     test_single_add_find();
-    
-    exit(EXIT_SUCCESS);
+
 }

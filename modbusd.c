@@ -17,16 +17,16 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle)
 {
     BEGIN(enable_syslog);
     
-    if ((*ptr_handle) == NULL)
+    if ((ptr_handle) == NULL)
     {
         ERR(enable_syslog, "NULL handle");
         return false;
     }
     
-    LOG(enable_syslog, "%s:%d connected: %s", (*ptr_handle)->key.ip, 
-                                              (*ptr_handle)->key.port, 
-                                              (*ptr_handle)->connected ? "true" : "false");
-    return (*ptr_handle)->connected;
+    LOG(enable_syslog, "%s:%d connected: %s", ptr_handle->key.ip, 
+                                              ptr_handle->key.port, 
+                                              ptr_handle->connected ? "true" : "false");
+    return ptr_handle->connected;
 }
 
 // connect to mbtcp client via handle
