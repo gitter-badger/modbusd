@@ -8,7 +8,7 @@
 // syslog flag
 extern int enable_syslog;
 // hashtable header
-mbtcp_handle_s *mbtcp_htable = NULL;
+static mbtcp_handle_s *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
@@ -95,6 +95,8 @@ int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
 int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, const char *ip, int port)
 {
     BEGIN(enable_syslog);
+    
+    LOG(enable_syslog, "there are %u mbtcp handle\n", mbtcp_htable);
     
     mbtcp_handle_s query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_s));
