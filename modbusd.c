@@ -13,7 +13,7 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 uint32_t tcp_conn_timeout_usec = 200000;
 
 // check mbtcp handle is connected or not
-bool get_mbtcp_connection_status(mbtcp_handle_s **ptr_handle)
+bool mbtcp_get_connection_status(mbtcp_handle_s **ptr_handle)
 {
     BEGIN(enable_syslog);
     
@@ -23,14 +23,14 @@ bool get_mbtcp_connection_status(mbtcp_handle_s **ptr_handle)
         return false;
     }
     
-    LOG(enable_syslog, "%s:%d connected? %s", (*ptr_handle)->key.ip, 
+    LOG(enable_syslog, "%s:%d connected: %s", (*ptr_handle)->key.ip, 
                                               (*ptr_handle)->key.port, 
                                               (*ptr_handle)->connected ? "true" : "false");
     return (*ptr_handle)->connected;
 }
 
 // connect to mbtcp client via handle
-int mbtcp_connect(mbtcp_handle_s **ptr_handle)
+int mbtcp_do_connect(mbtcp_handle_s **ptr_handle)
 {
     BEGIN(enable_syslog);
     
@@ -54,7 +54,7 @@ int mbtcp_connect(mbtcp_handle_s **ptr_handle)
 }
 
 // init mbtcp handle and try to connect
-int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
+int mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
 
@@ -87,24 +87,24 @@ int init_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     *ptr_handle = handle;
 
     // @connect to server without slave id
-    int ret = mbtcp_connect(&handle);
+    int ret = mbtcp_do_connect(&handle);
     return 0;
 }
 
 // list mbtcp hash table
-void list_mbtcp_handle() 
+void mbtcp_list_handles() 
 {
     BEGIN(enable_syslog);
     mbtcp_handle_s *s;
 
-    for (s = mbtcp_htable; s != NULL; s=s->hh.next)
+    for (s = mbtcp_htable; s != NULL; s = s->hh.next)
     {
-        printf("ip:%s, port:%d\n", (s->key).ip, s->key.port);
+        printf("ip:%s, port:%d\n", s->key.ip, s->key.port);
     }
 }
 
 // get mbtcp handle from hashtable
-int get_mbtcp_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
+int mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
     

@@ -70,9 +70,10 @@ int main()
                 {
                     // @get common command parameters
                     char *cmd = json_get_char (req_json_obj, "cmd");
-                    int tid   = json_get_int  (req_json_obj, "tid");
                     char *ip  = json_get_char (req_json_obj, "ip");
                     int port  = json_get_int  (req_json_obj, "port");
+
+                    int tid   = json_get_int  (req_json_obj, "tid");
                     int slave = json_get_int  (req_json_obj, "slave");
                     int addr  = json_get_int  (req_json_obj, "addr");
                     int len   = json_get_int  (req_json_obj, "len");
@@ -85,23 +86,29 @@ int main()
                                    
                         // @do request
                         mbtcp_handle_s *handle = NULL;
-                        if (get_mbtcp_handle (&handle, ip, port) == 0) 
+                        if (mbtcp_get_handle (&handle, ip, port) == 0) 
                         {
-                            if (get_mbtcp_connection_status(&handle))
+                            if (mbtcp_get_connection_status(&handle))
                             {
                                 //do action
                                 LOG(enable_syslog, "do action");
                                 
                                 /*
-                                if ok then
-                                else xx
+                                if (ok)
+                                {
+                                    // ok, send response
+                                }
+                                else
+                                {
+                                    // fail, send response
+                                }
                                 */
                                 
                             }
                             else
                             {
                                 // do connect
-                                if (mbtcp_connect(&handle) == 0)
+                                if (mbtcp_do_connect(&handle) == 0)
                                 {
                                     // connected
                                     // do action
@@ -118,9 +125,9 @@ int main()
                         else
                         {
                             // init handle
-                            if (init_mbtcp_handle(&handle, ip, port) == 0)
+                            if (mbtcp_init_handle(&handle, ip, port) == 0)
                             {
-                                // goto
+                                // goto get connection status
                                 LOG(enable_syslog, "goto check connection");
                             }
                             else
@@ -204,7 +211,8 @@ int main()
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
-                // send error response
+                // maybe send error response
+                // 
             }
         }
         else
