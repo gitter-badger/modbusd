@@ -10,7 +10,6 @@ int enable_syslog = 1;
 extern cJSON * config_json;
 
 
-
 // load configuration file
 static void load_config()
 {
@@ -20,7 +19,7 @@ static void load_config()
 
 
 // generic mbtcp error response handler
-void set_mbtcp_resp_error()
+void set_mbtcp_resp_error(char * reason)
 {
     BEGIN(enable_syslog);
     // TODO    
@@ -33,41 +32,47 @@ void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
     // TODO    
 }
 
-// combo: if not connected, try to connect to slave
-void lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, mbtcp_fc_fp fc)
+// do modbus tcp requests
+void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
 {
     BEGIN(enable_syslog);
     // TODO    
 }
 
-// combo: get or init mbtcp handle
-void lazy_init_mbtcp_handle(cJSON *ptr_req, mbtcp_fc_fp fc)
+// combo: check connection status,
+// if not connected, try to connect to slave
+void lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, fp_mbtcp_fc fc)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+// combo func: get or init mbtcp handle
+void lazy_init_mbtcp_handle(cJSON *req, fp_mbtcp_fc fc)
 {
     BEGIN(enable_syslog);
     
     mbtcp_handle_s *handle = NULL;
-    char *ip  = json_get_char(ptr_req, "ip");
-    int port  = json_get_int (ptr_req, "port");
+    char *ip = json_get_char(req, "ip");
+    int port = json_get_int (req, "port");
     
     if (mbtcp_get_handle (&handle, ip, port))
 	{
-        // do connect
-		lazy_mbtcp_connect(handle, ptr_req, fc);
+	   lazy_mbtcp_connect(handle, req, fc);
 	}
 	else
 	{
-		// init handle
         if (mbtcp_init_handle(&handle, ip, port))
 		{
-            // do connect
-			lazy_mbtcp_connect(handle, ptr_req, fc);
+			lazy_mbtcp_connect(handle, req, fc);
 		}
 		else
 		{
 			// set error; init handle fail
-			set_mbtcp_resp_error();
+			set_mbtcp_resp_error("init modbus tcp handle fail");
 		}
 	}
+    //END(enable_syslog);
 }
 
 // entry
@@ -141,7 +146,7 @@ int main()
                         // @do request
                         
                         // set fc handler function pointer
-                        // mbtcp_fc_fp ptr_fc = do_mbtcp_fc1_request;
+                        // fp_mbtcp_fc ptr_fc = do_mbtcp_fc1_request;
                         lazy_init_mbtcp_handle(req_json_obj, mbtcp_fc1_req);
                         
                         
