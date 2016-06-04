@@ -132,9 +132,6 @@ int main()
                     int len   = json_get_int  (req_json_obj, "len");
                     
                     
-                    mbtcp_fc_fp = ptr_fc;
-                    
-                    
                     // c doesn't support string switch case,
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
@@ -142,9 +139,6 @@ int main()
                         LOG(enable_syslog, "FC1 trigger");
                         
                         // @do request
-                        
-                        // set fc handler function pointer
-                        ptr_fc = do_mbtcp_fc1_request;
                         do_lazy_init_mbtcp_handle(&req_json_obj);
                         
                         
