@@ -9,11 +9,61 @@
 int enable_syslog = 1;
 extern cJSON * config_json;
 
+
+
 // load configuration file
 static void load_config()
 {
     BEGIN(enable_syslog);
     // TODO
+}
+
+
+// generic mbtcp error response handler
+void set_mbtcp_resp_error()
+{
+    
+}
+
+// do modbus tcp requests
+void do_mbtcp_fc1_request(mbtcp_handle_s **ptr_handle, cJSON **ptr_req)
+{
+    
+}
+
+// combo: if not connected, try to connect to slave
+void do_lazy_mbtcp_connect(mbtcp_handle_s **ptr_handle, cJSON **ptr_req, mbtcp_fc_fp fc)
+{
+    
+}
+
+// combo: get or init mbtcp handle
+void do_lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON **ptr_req)
+{
+    BEGIN(enable_syslog);
+    mbtcp_handle_s *handle = NULL;
+    char *ip  = json_get_char (*ptr_req, "ip");
+    int port  = json_get_int  (*ptr_req, "port");
+    
+    if (mbtcp_get_handle (&handle, ip, port))
+	{
+		//do_lazy_mbtcp_connect(ptr_handle, ptr_req);
+		//
+	}
+	else
+	{
+		// init handle
+        if (mbtcp_init_handle(&handle, ip, port))
+		{
+			//do_lazy_mbtcp_connect();
+			//
+		}
+		else
+		{
+			// set error; init handle fail
+			set_mbtcp_resp_error();
+		}
+	}
 }
 
 // entry
@@ -69,7 +119,6 @@ int main()
                 if (strcmp(mode, "tcp") == 0)
                 {
                     // @get common command parameters
-                    char *cmd = json_get_char (req_json_obj, "cmd");
                     char *ip  = json_get_char (req_json_obj, "ip");
                     int port  = json_get_int  (req_json_obj, "port");
 
@@ -86,7 +135,7 @@ int main()
                                    
                         // @do request
                         mbtcp_handle_s *handle = NULL;
-                        if (mbtcp_get_handle (&handle, ip, port) == 0) 
+                        if (mbtcp_get_handle (&handle, ip, port)) 
                         {
                             if (mbtcp_get_connection_status(&handle))
                             {
@@ -108,7 +157,7 @@ int main()
                             else
                             {
                                 // do connect
-                                if (mbtcp_do_connect(&handle) == 0)
+                                if (mbtcp_do_connect(&handle))
                                 {
                                     // connected
                                     // do action
@@ -125,7 +174,7 @@ int main()
                         else
                         {
                             // init handle
-                            if (mbtcp_init_handle(&handle, ip, port) == 0)
+                            if (mbtcp_init_handle(&handle, ip, port))
                             {
                                 // goto get connection status
                                 LOG(enable_syslog, "goto check connection");

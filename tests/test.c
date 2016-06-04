@@ -21,7 +21,7 @@ int enable_syslog = 1;
 //=================================
 
 // decode json string
-void json_decode()
+void test_json_decode()
 {
     char jstr[] = "{\n"
     "    \"ip\": \"192.168.3.2\",\n"
@@ -56,7 +56,7 @@ void json_decode()
 }
 
 // encode to json string
-void json_encode()
+void test_json_encode()
 {
     int mdata[4]={116,943,234,38793};
     cJSON *root;
@@ -76,25 +76,25 @@ void json_encode()
 }
 
 // init mbtcp handle and try to connect
-int init_tcp_handle_and_connect()
+int test_init_tcp_handle_and_connect()
 {
     LOG(enable_syslog, "Init TCP handle");
     mbtcp_handle_s *handle = NULL;
-    int ret = mbtcp_init_handle (&handle, "172.16.9.170", 502);
-    ret = mbtcp_do_connect(&handle);
+    mbtcp_init_handle (&handle, "172.16.9.170", 502);
+    //mbtcp_do_connect(&handle);
 
     LOG(enable_syslog, "Get TCP handle");
     handle = NULL;
-    ret = mbtcp_get_handle (&handle, "172.16.9.170", 502);
+    mbtcp_get_handle (&handle, "172.16.9.170", 502);
     
     LOG(enable_syslog, "Try to connect to slave");
-    ret = mbtcp_do_connect(&handle);
-    ret = mbtcp_get_connection_status(&handle);
-    return ret;
+    mbtcp_do_connect(&handle);
+    mbtcp_get_connection_status(&handle);
+    return 0;
 }
 
 // add 1000 key-value pair to hashtable, then find these items
-void multiple_add_find()
+void test_multiple_add_find()
 {
     BEGIN(enable_syslog);
     // important! initialize to NULL
@@ -138,7 +138,7 @@ void multiple_add_find()
 }
 
 
-void single_add_find()
+void test_single_add_find()
 {
     BEGIN(enable_syslog);
     
@@ -210,11 +210,11 @@ int main(int argc, char *argv[])
 {
     BEGIN(enable_syslog);
     
-    json_decode();
-    json_encode();
-    init_tcp_handle_and_connect();
-    multiple_add_find();
-    single_add_find();
+    test_json_decode();
+    test_json_encode();
+    test_init_tcp_handle_and_connect();
+    test_multiple_add_find();
+    test_single_add_find();
     
     exit(EXIT_SUCCESS);
 }

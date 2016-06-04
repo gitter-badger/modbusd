@@ -51,15 +51,15 @@ typedef struct
 bool mbtcp_get_connection_status(mbtcp_handle_s **ptr_handle);
 
 // connect to mbtcp client via handle
-int mbtcp_do_connect(mbtcp_handle_s **ptr_handle);
+bool mbtcp_do_connect(mbtcp_handle_s **ptr_handle);
 
 // init mbtcp handle (to hash) and try to connect
-int mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
+bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
 // list mbtcp hash table
 void mbtcp_list_handles();
 
 // get mbtcp handle from hashtable
-int mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
+bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
 #endif  // MODBUSD_H
