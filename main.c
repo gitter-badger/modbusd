@@ -45,15 +45,15 @@ void lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, fp_mbtcp_fc 
 {
     BEGIN(enable_syslog);
     
-    int slave = json_get_int  (req_json_obj, "slave");
-    if (mbtcp_get_connection_status(handle))
+    int slave = json_get_int(ptr_req, "slave");
+    if (mbtcp_get_connection_status(ptr_handle))
 	{
         // todo: set slave id
 		fc(ptr_handle, ptr_req);
 	}
 	else
 	{
-		if (mbtcp_do_connect(handle))
+		if (mbtcp_do_connect(ptr_handle))
 		{
             // todo: set slave id
 			fc(ptr_handle, ptr_req);
