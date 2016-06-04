@@ -13,7 +13,7 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 uint32_t tcp_conn_timeout_usec = 200000;
 
 // check mbtcp handle is connected or not
-bool mbtcp_get_connection_status(mbtcp_handle_s **ptr_handle)
+bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle)
 {
     BEGIN(enable_syslog);
     

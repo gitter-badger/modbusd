@@ -89,7 +89,7 @@ int test_init_tcp_handle_and_connect()
     
     LOG(enable_syslog, "Try to connect to slave");
     mbtcp_do_connect(&handle);
-    mbtcp_get_connection_status(&handle);
+    mbtcp_get_connection_status(handle);
     return 0;
 }
 

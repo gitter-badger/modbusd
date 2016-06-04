@@ -155,7 +155,7 @@ int main()
                         mbtcp_handle_s *handle = NULL;
                         if (mbtcp_get_handle (&handle, ip, port)) 
                         {
-                            if (mbtcp_get_connection_status(&handle))
+                            if (mbtcp_get_connection_status(handle))
                             {
                                 //do action
                                 LOG(enable_syslog, "do action");

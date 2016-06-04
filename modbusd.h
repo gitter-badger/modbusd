@@ -52,7 +52,7 @@ typedef void (*mbtcp_fc_fp)(mbtcp_handle_s **ptr_handle, cJSON **ptr_req);
 //==================================================
 
 // get mbtcp handle's connection status
-bool mbtcp_get_connection_status(mbtcp_handle_s **ptr_handle);
+bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle);
 
 // connect to mbtcp client via handle
 bool mbtcp_do_connect(mbtcp_handle_s **ptr_handle);
