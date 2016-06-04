@@ -46,8 +46,8 @@ void do_lazy_init_mbtcp_handle(cJSON **ptr_req)
     BEGIN(enable_syslog);
     
     mbtcp_handle_s *handle = NULL;
-    char *ip  = json_get_char (*ptr_req, "ip");
-    int port  = json_get_int  (*ptr_req, "port");
+    char *ip  = json_get_char(*ptr_req, "ip");
+    int port  = json_get_int (*ptr_req, "port");
     
     if (mbtcp_get_handle (&handle, ip, port))
 	{
@@ -131,13 +131,20 @@ int main()
                     int addr  = json_get_int  (req_json_obj, "addr");
                     int len   = json_get_int  (req_json_obj, "len");
                     
+                    
+                    mbtcp_fc_fp = ptr_fc;
+                    
+                    
                     // c doesn't support string switch case,
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
                     {
                         LOG(enable_syslog, "FC1 trigger");
                         
-                        //try
+                        // @do request
+                        
+                        // set fc handler function pointer
+                        ptr_fc = do_mbtcp_fc1_request;
                         do_lazy_init_mbtcp_handle(&req_json_obj);
                         
                         
