@@ -71,6 +71,7 @@ int main()
                     // @get common command parameters
                     char *cmd = json_get_char (req_json_obj, "cmd");
                     int tid   = json_get_int  (req_json_obj, "tid");
+                    char *ip  = json_get_char (req_json_obj, "ip");
                     int port  = json_get_int  (req_json_obj, "port");
                     int slave = json_get_int  (req_json_obj, "slave");
                     int addr  = json_get_int  (req_json_obj, "addr");
@@ -81,11 +82,48 @@ int main()
                     if (strcmp(cmd, "fc1") == 0)
                     {
                         LOG(enable_syslog, "FC1 trigger");
-                        
-                        // TODO: do request
-                        // ....
-                        // ....
-                        
+                                   
+                        // @do request
+                        mbtcp_handle_s *handle = NULL;
+                        if (get_mbtcp_handle (&handle, ip, port) == 0) 
+                        {
+                            if (get_mbtcp_connection_status(&handle))
+                            {
+                                //do action
+                                LOG(enable_syslog, "do action");
+                            }
+                            else
+                            {
+                                // do connect
+                                if (mbtcp_connect(&handle) == 0)
+                                {
+                                    // connected
+                                    // do action
+                                    LOG(enable_syslog, "connected, do action");
+                                }
+                                else
+                                {
+                                    // not connected
+                                    // response
+                                    LOG(enable_syslog, "not connected, response");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // init handle
+                            if (init_mbtcp_handle(&handle, ip, port) == 0)
+                            {
+                                // goto
+                                LOG(enable_syslog, "goto check connection");
+                            }
+                            else
+                            {
+                                // error: init handle fail
+                                ERR(enable_syslog, "init handle fail");
+                            }
+                        }
+
                         // @create cJSON object for response
                         int mdata[4] = {116, 943, 234, 38793};
                         cJSON *resp_root;
