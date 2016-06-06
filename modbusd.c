@@ -55,11 +55,10 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
  * @brief Combo func: check mbtcp connection status, if not connected, try to connect to slave.
  *
  * @param handle Mbtcp handle.
- * @param req cJSON request object.
  * @param reason Pointer to fail reason string.
  * @return Success or not.
  */
-static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req, char ** reason)
+static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
 {
     BEGIN(enable_syslog);
         
@@ -312,7 +311,7 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
     if (lazy_init_mbtcp_handle(&handle, req))
     {
         char * reason = NULL;
-        if (lazy_mbtcp_connect(handle, req, & reason))
+        if (lazy_mbtcp_connect(handle, &reason))
         {
             // set slave id
             int slave = json_get_int(req, "slave");
