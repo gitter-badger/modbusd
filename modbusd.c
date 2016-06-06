@@ -242,14 +242,14 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
             LOG(enable_syslog, "desired length: %d, read length:%d", len, ret);
             for (int ii = 0; ii < ret; ii++) 
             {
-                LOG(enable_syslog, "[%d]=%d\n", ii, bits[ii]);
+                LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
             }
 
             // @create cJSON object for response
             cJSON *resp_root;
             resp_root = cJSON_CreateObject();
             cJSON_AddNumberToObject(resp_root, "tid", tid);
-            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateIntArray(bits, len));
+            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt8Array(bits, len));
             cJSON_AddStringToObject(resp_root, "status", "ok");
             char * resp_json_string = cJSON_PrintUnformatted(resp_root);
             LOG(enable_syslog, "resp:%s", resp_json_string);
