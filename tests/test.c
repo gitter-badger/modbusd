@@ -97,7 +97,7 @@ int test_init_tcp_handle_and_connect()
     return 0;
 }
 
-
+//deprecated
 void test_multiple_add_find_zhahs()
 {
     zhashx_t *hash = zhashx_new ();
@@ -166,6 +166,7 @@ void test_multiple_add_find()
 }
 
 
+//deprecated
 void test_single_zhash()
 {
     mbtcp_handle_s *h1;
@@ -268,14 +269,13 @@ int main()
 {
     BEGIN(enable_syslog);
     
-    test_multiple_add_find_zhahs();
-    //test_single_zhash();
-    /*
+    //test_multiple_add_find_zhahs();
+
     test_json_decode();
     test_json_encode();
     test_init_tcp_handle_and_connect();
     test_multiple_add_find();
     test_single_add_find();
-    */
+
 
 }
