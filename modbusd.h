@@ -69,4 +69,10 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 // generic mbtcp command handler
 void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc);
 
+// do modbus tcp requests
+void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req);
+
+// do modbus tcp requests
+void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req);
+
 #endif  // MODBUSD_H
