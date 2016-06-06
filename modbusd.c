@@ -94,7 +94,7 @@ static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
         }
         if (ret < 0) 
         {
-            ERR(enable_syslog, "%s:d", modbus_strerror(errno), errno);
+            ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
             return set_modbus_resp_error(tid, modbus_strerror(errno));
         } 
         else 
