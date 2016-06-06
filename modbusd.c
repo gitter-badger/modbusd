@@ -101,6 +101,7 @@ static char * help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req
     else
     {
         uint8_t bits[len];
+        // memory reset for variable length array
         memset(bits, 0, len * sizeof(uint8_t));
         int ret = 0;
         switch (fc)
