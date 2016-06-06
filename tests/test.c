@@ -111,12 +111,11 @@ void test_multiple_add_find_zhahs()
         handle->key.port = idx;
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
-        
-        int rc = zhashx_insert (hash, &(handle->key), handle);
-    
+        mbtcp_key_s key = {"192.168.10.12", idx};
+        int rc = zhashx_insert (hash, &key, handle);
         
     }
-    printf("%d\n", zhashx_size (hash));
+    printf("size: %d\n", zhashx_size (hash));
     
 }
 
