@@ -113,7 +113,7 @@ void test_multiple_add_find_zhahs()
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
         mbtcp_key_s key = {"192.168.10.12", idx};
         int rc = zhashx_insert (hash, &key, handle);
-        printf("inner size: %d, %d\n", rc, zhashx_size (hash));
+        printf("inner size: %d, %d, %p\n", rc, zhashx_size (hash), &key);
     }
     printf("size: %d\n", zhashx_size (hash));
     
