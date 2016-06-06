@@ -91,13 +91,13 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req, fp_mbtcp
     char *ip = json_get_char(req, "ip");
     int port = json_get_int (req, "port");
     
-    if (mbtcp_get_handle (*handle, ip, port))
+    if (mbtcp_get_handle (handle, ip, port))
 	{
 	   return true;
 	}
 	else
 	{
-        if (mbtcp_init_handle(*handle, ip, port))
+        if (mbtcp_init_handle(handle, ip, port))
 		{
             LOG(enable_syslog, "handle2: %p", *handle);
 			return true;
