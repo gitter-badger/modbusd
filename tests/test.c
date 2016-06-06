@@ -118,7 +118,7 @@ void test_multiple_add_find_zhahs()
         strcpy(key->ip, "192.168.10.12");
         key->port = idx;
         
-        int rc = zhashx_insert (hash, key, handle);
+        int rc = zhashx_insert (hash, idx, handle);
         key = NULL;
         printf("inner size: %d, %d, %p\n", rc, zhashx_size (hash), &key);
     }
