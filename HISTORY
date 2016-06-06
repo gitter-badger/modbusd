@@ -2,3 +2,4 @@
 - fix uthash sizeof issue (1000 items)
 - fix char pointer key issue (hash)
 - modbus_connect hang issue (timeout)
+- handle 'reset by peer1' issue 
