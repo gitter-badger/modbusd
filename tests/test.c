@@ -110,7 +110,6 @@ void test_multiple_add_find_zhahs()
         strcpy(handle->key.ip, "192.168.10.12");
         handle->key.port = idx;
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
-        HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), handle);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
         
         int rc = zhashx_insert (hash, handle->key, handle);
