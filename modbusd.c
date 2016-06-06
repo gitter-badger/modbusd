@@ -10,6 +10,9 @@
 extern int enable_syslog;
 // hashtable header!!!
 static mbtcp_handle_s *mbtcp_htable = NULL;
+
+zhashx_t *hash = zhashx_new ();
+
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
