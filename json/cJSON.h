@@ -23,6 +23,7 @@
 #ifndef cJSON__h
 #define cJSON__h
 
+// taka add
 #include "stdint.h"
 
 #ifdef __cplusplus
@@ -50,6 +51,12 @@ typedef struct cJSON {
 	int type;					/* The type of the item, as above. */
 
 	char *valuestring;			/* The item's string, if type==cJSON_String */
+  
+  // taka add
+  uint8_t valueuint8;
+  uint16_t valueuint16;
+  
+  
 	int valueint;				/* The item's number, if type==cJSON_Number */
 	double valuedouble;			/* The item's number, if type==cJSON_Number */
 
@@ -97,7 +104,7 @@ extern cJSON *cJSON_CreateArray(void);
 extern cJSON *cJSON_CreateObject(void);
 
 /* These utilities create an Array of count items. */
-extern cJSON *cJSON_CreateUInt8Array(const uint8_t *numbers,int count); // taka
+extern cJSON *cJSON_CreateUInt8Array(const uint8_t *numbers,int count); // taka add
 extern cJSON *cJSON_CreateIntArray(const int *numbers,int count);
 extern cJSON *cJSON_CreateFloatArray(const float *numbers,int count);
 extern cJSON *cJSON_CreateDoubleArray(const double *numbers,int count);
