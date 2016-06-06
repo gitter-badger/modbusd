@@ -164,6 +164,10 @@ void test_single_zhash()
     rc = zhashx_insert (hash, &key, h1);
     
     printf("%d\n", zhashx_size (hash));
+    
+    //look up  
+    mbtcp_handle_s * item = (mbtcp_handle_s *) zhashx_lookup (hash, &key);
+    printf("%s, %d, %d\n", item->key.ip, item->key.port, item->connected);
 }
 
 void test_single_add_find()
