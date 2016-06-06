@@ -265,7 +265,7 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
             // set slave id
             int slave = json_get_int(req, "slave");
             LOG(enable_syslog, "slave id: %d", slave);
-            //modbus_set_slave(handle->ctx, slave);
+            modbus_set_slave(handle->ctx, slave);
 		    return fc(handle, req);
         }
         else
