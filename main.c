@@ -117,6 +117,7 @@ void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
     // check handle
     if (lazy_init_mbtcp_handle(&handle, req, fc))
     {
+        LOG(enable_syslog, "Debug: %d", handle == NULL);
         // check connection
         if (lazy_mbtcp_connect(handle, req, fc))
         {
