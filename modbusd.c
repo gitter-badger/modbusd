@@ -43,7 +43,7 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 /**
  * @brief Combo func: check mbtcp connection status, if not connected, try to connect to slave.
  */
-static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
+static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req, char ** reason)
 {
     BEGIN(enable_syslog);
         
@@ -53,7 +53,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 	}
 	else
 	{
-		if (mbtcp_do_connect(handle))
+		if (mbtcp_do_connect(handle, reason))
 		{
              return true;
 		}
@@ -160,25 +160,26 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *handle)
     return handle->connected;
 }
 
-bool mbtcp_do_connect(mbtcp_handle_s *handle)
+bool mbtcp_do_connect(mbtcp_handle_s *handle, char ** reason)
 {
     BEGIN(enable_syslog);
     
     if (handle == NULL)
     {
         ERR(enable_syslog, "NULL handle");
+        *reason = "NULL handle";
         return false;
     }
     
     if (modbus_connect(handle->ctx) == -1) 
     {
         ERR(enable_syslog, "Connection failed: %s", modbus_strerror(errno));
+        *reason = modbus_strerror(errno);
         return false;
     }
     else
     {
         LOG(enable_syslog, "%s:%d connected", handle->key.ip, handle->key.port);
-        // set connection status to true
         handle->connected = true;
         return true;
     }
@@ -228,7 +229,8 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     *ptr_handle = handle;
 
     // @connect to server
-    mbtcp_do_connect(handle);
+    char * reason = NULL;
+    mbtcp_do_connect(handle, &reason);
     return true;
 }
 
@@ -264,7 +266,8 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
     int tid  = json_get_int(req, "tid");
     if (lazy_init_mbtcp_handle(&handle, req))
     {
-        if (lazy_mbtcp_connect(handle, req))
+        char * reason = NULL;
+        if (lazy_mbtcp_connect(handle, req, & reason))
         {
             // set slave id
             int slave = json_get_int(req, "slave");
@@ -275,7 +278,7 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
         else
         {
             // [enhance]: get reason from modbus response
-			return set_modbus_resp_error(tid, "fail to connect");
+			return set_modbus_resp_error(tid, reason);
         }
     }
     else

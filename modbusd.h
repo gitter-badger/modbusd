@@ -86,7 +86,7 @@ void mbtcp_list_handles();
 /**
  * @brief Connect to mbtcp slave via mbtcp hashed handle
  */
-bool mbtcp_do_connect(mbtcp_handle_s *handle);
+bool mbtcp_do_connect(mbtcp_handle_s *handle, char ** reason);
 
 /**
  * @brief Get mbtcp handle's connection status

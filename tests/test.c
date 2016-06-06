@@ -80,15 +80,18 @@ int test_init_tcp_handle_and_connect()
 {
     LOG(enable_syslog, "Init TCP handle");
     mbtcp_handle_s *handle = NULL;
+
     mbtcp_init_handle (&handle, "172.16.9.170", 502);
-    //mbtcp_do_connect(handle);
+    //char * reason = NULL;
+    //mbtcp_do_connect(handle, &reason);
 
     LOG(enable_syslog, "Get TCP handle");
     handle = NULL;
     mbtcp_get_handle (&handle, "172.16.9.170", 502);
     
     LOG(enable_syslog, "Try to connect to slave");
-    mbtcp_do_connect(handle);
+    char * reason = NULL;
+    mbtcp_do_connect(handle, &reason);
     mbtcp_get_connection_status(handle);
     return 0;
 }
