@@ -168,6 +168,8 @@ void test_single_zhash()
     //look up  
     mbtcp_handle_s * item = (mbtcp_handle_s *) zhashx_lookup (hash, &key);
     printf("%s, %d, %d\n", item->key.ip, item->key.port, item->connected);
+    
+    zhashx_destroy (&hash);
 }
 
 void test_single_add_find()
