@@ -20,6 +20,10 @@ uint32_t tcp_conn_timeout_usec = 200000;
 
 /**
  * @brief Combo func: get or init mbtcp handle.
+ *
+ * @param ptr_handle Pointer to mbtcp handle.
+ * @param req cJSON request object.
+ * @return Success or not.
  */
 static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 {
@@ -49,6 +53,11 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 
 /**
  * @brief Combo func: check mbtcp connection status, if not connected, try to connect to slave.
+ *
+ * @param handle Mbtcp handle.
+ * @param req cJSON request object.
+ * @param reason Pointer to fail reason string.
+ * @return Success or not.
  */
 static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req, char ** reason)
 {
@@ -74,6 +83,11 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req, char ** reaso
 
 /**
  * @brief Help function. FC1, FC2 request handler
+ *
+ * @fc Function code 1 and 2 only.
+ * @param handle Mbtcp handle.
+ * @param req cJSON request object.
+ * @return Modbus response string in JSON format for zmsg.
  */
 static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
@@ -140,6 +154,11 @@ static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
 /**
  * @brief Help function. FC3, FC4 request handler
+ *
+ * @fc Function code 3 and 4 only.
+ * @param handle Mbtcp handle.
+ * @param req cJSON request object.
+ * @return Modbus response string in JSON format for zmsg.
  */
 static char * help_mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {

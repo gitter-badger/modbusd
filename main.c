@@ -21,7 +21,7 @@ static void load_config()
 /**
  * @brief Generic zmq response sender for modbus
  */
-void send_modbus_zmq_resp(void * pub, char *mode, char *json_resp)
+static void send_modbus_zmq_resp(void * pub, char *mode, char *json_resp)
 {
     zmsg_t * zmq_resp = zmsg_new();
     zmsg_addstr(zmq_resp, mode);        // frame 1: mode

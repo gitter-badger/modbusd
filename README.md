@@ -77,22 +77,6 @@ sudo npm install -g zmq              # zmq lib
 
 ---
 
-## TODO List
-
-- libmodbus version number
-- keep connection 
-- FC(1~6, 15, 16)
-- FC argument
-- daemon version number
-- daemon pid
-- zmq
-- service (todo)
-- read config
-- default config
-- default port
-- syslog (flag)
-- max client (255)
-
 ## External libraries list
 
 - [libmodbus](http://libmodbus.org)
