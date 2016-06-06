@@ -161,7 +161,7 @@ void test_single_zhash()
     
     zhashx_t *hash = zhashx_new ();
     int rc;
-    rc = zhashx_insert (hash, key, h1);
+    rc = zhashx_insert (hash, &key, h1);
     
     printf("%d\n", zhashx_size (hash));
 }
