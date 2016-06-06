@@ -76,29 +76,9 @@ int main()
                         LOG(enable_syslog, "FC1 trigger");
                         
                         // @do request
-                        mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req);
-
-/*
-                        // @create cJSON object for response
-                        int mdata[4] = {116, 943, 234, 38793};
-                        cJSON *resp_root;
-                        resp_root = cJSON_CreateObject();
-                        cJSON_AddNumberToObject(resp_root, "tid", tid);
-                        cJSON_AddItemToObject(resp_root, "data", cJSON_CreateIntArray(mdata, 4));
-                        cJSON_AddStringToObject(resp_root, "status", "ok");
-                        char * resp_json_string = cJSON_PrintUnformatted(resp_root);
-                        LOG(enable_syslog, "resp:%s", resp_json_string);
-                        // clean up
-                        cJSON_Delete(resp_root);
-                        
-                        // @create zmsg for response
-                        zmsg_t * zmq_resp = zmsg_new();
-                        zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
-                        zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
-                        zmsg_send(&zmq_resp, zmq_pub);           // send zmq msg
-                        zmsg_destroy(&zmq_resp);                 // cleanup
-*/
-
+                        zmsg_t * zmq_resp = mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req);
+                        zmsg_send(&zmq_resp, zmq_pub); // send zmq msg
+                        zmsg_destroy(&zmq_resp);      // cleanup
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {

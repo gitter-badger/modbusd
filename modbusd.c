@@ -13,20 +13,24 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 uint32_t tcp_conn_timeout_usec = 200000;
 
 // generic mbtcp error response handler
-static void set_mbtcp_resp_error(char *reason)
+static zmsg_t * set_mbtcp_resp_error(int tid, char *reason)
 {
     BEGIN(enable_syslog);
-    // TODO
-    LOG(enable_syslog, "%s", reason); // debug
+    // @create cJSON object for response
+    cJSON *resp_root;
+    resp_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(resp_root, "tid", tid);
+    cJSON_AddStringToObject(resp_root, "status", reason);
+    char * resp_json_string = cJSON_PrintUnformatted(resp_root);
+    LOG(enable_syslog, "resp:%s", resp_json_string);
+    // clean up
+    cJSON_Delete(resp_root);
     
-    /*
     // @create zmsg for response
     zmsg_t * zmq_resp = zmsg_new();
     zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
     zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
-    zmsg_send(&zmq_resp, zmq_pub);           // send zmq msg
-    zmsg_destroy(&zmq_resp);                 // cleanup
-    */
+    return zmq_resp;
 }
 
 // combo func: get or init mbtcp handle
@@ -59,10 +63,7 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    
-    int slave = json_get_int(req, "slave");
-    // set slave
-    
+        
     if (mbtcp_get_connection_status(handle))
 	{
         return true;
@@ -193,48 +194,82 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     }
 }
 
-void mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
+zmsg_t * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
 {
     BEGIN(enable_syslog);
     mbtcp_handle_s *handle = NULL;
-    
+    int tid  = json_get_int(req, "tid");
     if (lazy_init_mbtcp_handle(&handle, req))
     {
         if (lazy_mbtcp_connect(handle, req))
         {
             // todo: set slave id
-		    fc(handle, req);
+            int slave = json_get_int(req, "slave");
+            LOG(enable_syslog, "slave id: %d", slave);
+            modbus_set_slave(ctx, MODBUS_DEVICE_ID);
+		    return fc(handle, req);
         }
         else
         {
             // [enhance]: get reason from modbus response
-			set_mbtcp_resp_error("fail to connect");
+			return set_mbtcp_resp_error(tid, "fail to connect");
         }
     }
     else
     {
-        set_mbtcp_resp_error("init modbus tcp handle fail");
+        return set_mbtcp_resp_error(tid, "init modbus tcp handle fail");
     }
-    END(enable_syslog);
 }
 
-void mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
+zmsg_t * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO    
-        /*
-    if (ok)
+    int addr = json_get_int(req, "addr");
+    int len  = json_get_int(req, "len");
+    int tid  = json_get_int(req, "tid");
+    if (len > MODBUS_MAX_READ_BITS) // 2000
     {
-        // ok, send response
+        return set_mbtcp_resp_error(tid, "register lenth too long");
     }
     else
     {
-        // fail, send response
+        uint8_t bits[len] = {0}; 
+    
+        int ret = modbus_read_bits(handle->ctx, addr, len, bits);
+        if (ret < 0) 
+        {
+            ERR(enable_syslog, "%s", modbus_strerror(errno));
+            return set_mbtcp_resp_error(tid, modbus_strerror(errno));
+        } 
+        else 
+        {
+            LOG(enable_syslog, "desired length: %d, read length:%d", len, ret);
+            for (int ii = 0; ii < ret; ii++) 
+            {
+                LOG(enable_syslog, "[%d]=%d\n", ii, bits[ii]);
+            }
+
+            // @create cJSON object for response
+            cJSON *resp_root;
+            resp_root = cJSON_CreateObject();
+            cJSON_AddNumberToObject(resp_root, "tid", tid);
+            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateIntArray(bits, length));
+            cJSON_AddStringToObject(resp_root, "status", "ok");
+            char * resp_json_string = cJSON_PrintUnformatted(resp_root);
+            LOG(enable_syslog, "resp:%s", resp_json_string);
+            // clean up
+            cJSON_Delete(resp_root);
+            
+            // @create zmsg for response
+            zmsg_t * zmq_resp = zmsg_new();
+            zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
+            zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
+            return zmq_resp;
+        }
     }
-    */
 }
 
-void mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
+zmsg_t * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
