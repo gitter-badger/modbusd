@@ -101,6 +101,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 
     // @connect to server
     mbtcp_do_connect(handle);
+    LOG(enable_syslog, "handle: %p", handle);
     return true;
 }
 
