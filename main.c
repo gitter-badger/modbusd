@@ -20,15 +20,29 @@ static void load_config()
 
 /**
  * @brief Generic zmq response sender for modbus
+ *
+ * @param pub Zmq publisher.
+ * @param mode Request mode. ex. tcp, rtu.
+ * @param json_resp Response string in JSON format.
+ * @return Void.
  */
 static void send_modbus_zmq_resp(void * pub, char *mode, char *json_resp)
 {
-    zmsg_t * zmq_resp = zmsg_new();
-    zmsg_addstr(zmq_resp, mode);        // frame 1: mode
-    zmsg_addstr(zmq_resp, json_resp);   // frame 2: resp
-    zmsg_send(&zmq_resp, pub);          // send zmq msg
-    // cleanup zmsg
-    zmsg_destroy(&zmq_resp);
+    BEGIN(enable_syslog);
+    
+    if (pub != NULL)
+    {
+        zmsg_t * zmq_resp = zmsg_new();
+        zmsg_addstr(zmq_resp, mode);        // frame 1: mode
+        zmsg_addstr(zmq_resp, json_resp);   // frame 2: resp
+        zmsg_send(&zmq_resp, pub);          // send zmq msg
+        // cleanup zmsg
+        zmsg_destroy(&zmq_resp);
+    }
+    else
+    {
+        ERR(enable_syslog, "NULL publisher");
+    }
 }
 
 // entry
