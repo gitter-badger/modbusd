@@ -203,9 +203,9 @@ void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
     BEGIN(enable_syslog);
     mbtcp_handle_s *handle = NULL;
     
-    if (lazy_init_mbtcp_handle(&handle, req, fc))
+    if (lazy_init_mbtcp_handle(&handle, req))
     {
-        if (lazy_mbtcp_connect(handle, req, fc))
+        if (lazy_mbtcp_connect(handle, req))
         {
             // todo: set slave id
 		    fc(handle, req);
