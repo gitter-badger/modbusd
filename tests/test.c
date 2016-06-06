@@ -112,7 +112,7 @@ void test_multiple_add_find_zhahs()
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
         
-        int rc = zhashx_insert (hash, handle->key, handle);
+        int rc = zhashx_insert (hash, &(handle->key), handle);
     
         
     }
