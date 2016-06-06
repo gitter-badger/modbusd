@@ -113,13 +113,8 @@ void test_multiple_add_find_zhahs()
         handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
        
-        key = (mbtcp_key_s*)malloc(sizeof(mbtcp_key_s));
-        memset(key, 0, sizeof(mbtcp_key_s));
-        strcpy(key->ip, "192.168.10.12");
-        key->port = idx;
-        
-        int rc = zhashx_insert (hash, idx, handle);
-        key = NULL;
+        int key = idx;        
+        int rc = zhashx_insert (hash, &idx, handle);
         printf("inner size: %d, %d, %p\n", rc, zhashx_size (hash), &key);
     }
     printf("size: %d\n", zhashx_size (hash));
