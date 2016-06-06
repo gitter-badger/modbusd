@@ -271,41 +271,48 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO    
+    // TODO
+    return;    
 }
 
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
+    return;  
 }
 
 char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
+    return;  
 }
 
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
+    return;  
 }
 
 char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO    
+    // TODO  
+    return;    
 }
 
 char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
+    return;  
 }
 
 char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
+    return;  
 }
