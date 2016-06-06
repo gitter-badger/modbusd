@@ -121,7 +121,7 @@ void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
         if (lazy_mbtcp_connect(handle, req, fc))
         {
             // todo: set slave id
-		    fc(ptr_handle, ptr_req);
+		    fc(handle, req);
         }
         else
         {
