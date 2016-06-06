@@ -45,7 +45,7 @@ typedef struct
 
 
 // function pointer
-typedef (zmsg_t *) (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
+typedef zmsg_t * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 
 
 //==================================================
