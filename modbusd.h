@@ -66,4 +66,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 // get mbtcp handle from hashtable
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
+// generic mbtcp command handler
+void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc);
+
 #endif  // MODBUSD_H

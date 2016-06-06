@@ -101,7 +101,6 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 
     // @connect to server
     mbtcp_do_connect(handle);
-    LOG(enable_syslog, "handle: %p", handle);
     return true;
 }
 
@@ -129,4 +128,121 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
         *ptr_handle = NULL; 
         return false; // not found
     }
+}
+
+
+// generic mbtcp error response handler
+static void set_mbtcp_resp_error(char * reason)
+{
+    BEGIN(enable_syslog);
+    // TODO
+    LOG(enable_syslog, "%s", reason); // debug
+    
+    /*
+    // @create zmsg for response
+    zmsg_t * zmq_resp = zmsg_new();
+    zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
+    zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
+    zmsg_send(&zmq_resp, zmq_pub);           // send zmq msg
+    zmsg_destroy(&zmq_resp);                 // cleanup
+    */
+}
+
+// do modbus tcp requests
+static void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+        /*
+    if (ok)
+    {
+        // ok, send response
+    }
+    else
+    {
+        // fail, send response
+    }
+    */
+}
+
+// do modbus tcp requests
+static void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+// combo func: check connection status,
+// if not connected, try to connect to slave
+static bool lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, fp_mbtcp_fc fc)
+{
+    BEGIN(enable_syslog);
+    
+    int slave = json_get_int(ptr_req, "slave");
+    if (mbtcp_get_connection_status(ptr_handle))
+	{
+        return true;
+	}
+	else
+	{
+		if (mbtcp_do_connect(ptr_handle))
+		{
+             return true;
+		}
+		else
+		{
+            return false;
+		}
+	}   
+}
+
+// combo func: get or init mbtcp handle
+static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req, fp_mbtcp_fc fc)
+{
+    BEGIN(enable_syslog);
+    
+    char *ip = json_get_char(req, "ip");
+    int port = json_get_int (req, "port");
+    
+    if (mbtcp_get_handle (handle, ip, port))
+	{
+	   return true;
+	}
+	else
+	{
+        if (mbtcp_init_handle(handle, ip, port))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+// generic mbtcp command handler
+void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
+{
+    BEGIN(enable_syslog);
+    mbtcp_handle_s *handle = NULL;
+    
+    if (lazy_init_mbtcp_handle(&handle, req, fc))
+    {
+        if (lazy_mbtcp_connect(handle, req, fc))
+        {
+            // todo: set slave id
+		    fc(handle, req);
+        }
+        else
+        {
+            // [enhance]: get reason from modbus response
+			set_mbtcp_resp_error("fail to connect");
+        }
+    }
+    else
+    {
+        set_mbtcp_resp_error("init modbus tcp handle fail");
+    }
+    END(enable_syslog);
 }
