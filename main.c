@@ -25,12 +25,14 @@ static void set_mbtcp_resp_error(char * reason, char * resp_json_string)
     // TODO
     LOG(enable_syslog, "%s", reason); // debug
     
+    /*
     // @create zmsg for response
     zmsg_t * zmq_resp = zmsg_new();
     zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
     zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
     zmsg_send(&zmq_resp, zmq_pub);           // send zmq msg
     zmsg_destroy(&zmq_resp);                 // cleanup
+    */
 }
 
 // do modbus tcp requests
