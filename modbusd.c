@@ -64,7 +64,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 	}   
 }
 
-char * set_modbus_resp_error(int tid, char *reason)
+char * set_modbus_resp_error(int tid, const char *reason)
 {
     BEGIN(enable_syslog);
     

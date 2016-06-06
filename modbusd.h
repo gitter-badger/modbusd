@@ -66,7 +66,7 @@ typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 /**
  * @brief Generic mbtcp error response handler.
  */
-char * set_modbus_resp_error(int tid, char *reason);
+char * set_modbus_resp_error(int tid, const char *reason);
 
 /**
  * @brief Init mbtcp handle (to hash) and try to connect
