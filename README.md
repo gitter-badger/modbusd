@@ -28,7 +28,7 @@ sudo ldconfig
 ### Install libzmq (3.2.5)
 
 ```bash
-wget http://download.zeromq.org/zeromq-3.2.5.tar.gz
+wget https://github.com/zeromq/zeromq3-x/releases/download/v3.2.5/zeromq-3.2.5.tar.gz
 tar xvzf zeromq-3.2.5.tar.gz
 cd zeromq-3.2.5
 ./configure
