@@ -99,7 +99,7 @@ static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
         } 
         else 
         {
-            LOG(enable_syslog, "desired length: %d, read length:%d", len, ret);
+            LOG(enable_syslog, "fc:%d, desired length: %d, read length:%d", fc, len, ret);
             
             // debug only
             for (int ii = 0; ii < ret; ii++) 
@@ -265,7 +265,7 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
             // set slave id
             int slave = json_get_int(req, "slave");
             LOG(enable_syslog, "slave id: %d", slave);
-            modbus_set_slave(handle->ctx, slave);
+            //modbus_set_slave(handle->ctx, slave);
 		    return fc(handle, req);
         }
         else
