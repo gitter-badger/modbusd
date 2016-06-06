@@ -21,168 +21,6 @@ int enable_syslog = 1;
 //=================================
 
 
-void test_zhashx()
-{
-    zhashx_t *hash = zhashx_new ();
-    assert (hash);
-    assert (zhashx_size (hash) == 0);
-    assert (zhashx_first (hash) == NULL);
-    assert (zhashx_cursor (hash) == NULL);
-
-    // Insert some items
-    int rc;
-    rc = zhashx_insert (hash, "DEADBEEF", "dead beef");
-    char *item = (char *) zhashx_first (hash);
-    assert (streq ((char *) zhashx_cursor (hash), "DEADBEEF"));
-    assert (streq (item, "dead beef"));
-    assert (rc == 0);
-    rc = zhashx_insert (hash, "ABADCAFE", "a bad cafe");
-    assert (rc == 0);
-    rc = zhashx_insert (hash, "C0DEDBAD", "coded bad");
-    assert (rc == 0);
-    rc = zhashx_insert (hash, "DEADF00D", "dead food");
-    assert (rc == 0);
-    assert (zhashx_size (hash) == 4);
-
-    // Look for existing items
-    item = (char *) zhashx_lookup (hash, "DEADBEEF");
-    assert (streq (item, "dead beef"));
-    item = (char *) zhashx_lookup (hash, "ABADCAFE");
-    assert (streq (item, "a bad cafe"));
-    item = (char *) zhashx_lookup (hash, "C0DEDBAD");
-    assert (streq (item, "coded bad"));
-    item = (char *) zhashx_lookup (hash, "DEADF00D");
-    assert (streq (item, "dead food"));
-
-    // Look for non-existent items
-    item = (char *) zhashx_lookup (hash, "foo");
-    assert (item == NULL);
-
-    // Try to insert duplicate items
-    rc = zhashx_insert (hash, "DEADBEEF", "foo");
-    assert (rc == -1);
-    item = (char *) zhashx_lookup (hash, "DEADBEEF");
-    assert (streq (item, "dead beef"));
-
-    // Some rename tests
-
-    // Valid rename, key is now LIVEBEEF
-    rc = zhashx_rename (hash, "DEADBEEF", "LIVEBEEF");
-    assert (rc == 0);
-    item = (char *) zhashx_lookup (hash, "LIVEBEEF");
-    assert (streq (item, "dead beef"));
-
-    // Trying to rename an unknown item to a non-existent key
-    rc = zhashx_rename (hash, "WHATBEEF", "NONESUCH");
-    assert (rc == -1);
-
-    // Trying to rename an unknown item to an existing key
-    rc = zhashx_rename (hash, "WHATBEEF", "LIVEBEEF");
-    assert (rc == -1);
-    item = (char *) zhashx_lookup (hash, "LIVEBEEF");
-    assert (streq (item, "dead beef"));
-
-    // Trying to rename an existing item to another existing item
-    rc = zhashx_rename (hash, "LIVEBEEF", "ABADCAFE");
-    assert (rc == -1);
-    item = (char *) zhashx_lookup (hash, "LIVEBEEF");
-    assert (streq (item, "dead beef"));
-    item = (char *) zhashx_lookup (hash, "ABADCAFE");
-    assert (streq (item, "a bad cafe"));
-
-    // Test keys method
-    zlistx_t *keys = zhashx_keys (hash);
-    assert (zlistx_size (keys) == 4);
-    zlistx_destroy (&keys);
-
-    zlistx_t *values = zhashx_values(hash);
-    assert (zlistx_size (values) == 4);
-    zlistx_destroy (&values);
-
-    // Test dup method
-    zhashx_t *copy = zhashx_dup (hash);
-    assert (zhashx_size (copy) == 4);
-    item = (char *) zhashx_lookup (copy, "LIVEBEEF");
-    assert (item);
-    assert (streq (item, "dead beef"));
-    zhashx_destroy (&copy);
-
-    // Test pack/unpack methods
-    zframe_t *frame = zhashx_pack (hash);
-    copy = zhashx_unpack (frame);
-    zframe_destroy (&frame);
-    assert (zhashx_size (copy) == 4);
-    item = (char *) zhashx_lookup (copy, "LIVEBEEF");
-    assert (item);
-    assert (streq (item, "dead beef"));
-    zhashx_destroy (&copy);
-
-    // Test save and load
-    zhashx_comment (hash, "This is a test file");
-    zhashx_comment (hash, "Created by %s", "czmq_selftest");
-    zhashx_save (hash, ".cache");
-    copy = zhashx_new ();
-    assert (copy);
-    zhashx_load (copy, ".cache");
-    item = (char *) zhashx_lookup (copy, "LIVEBEEF");
-    assert (item);
-    assert (streq (item, "dead beef"));
-    zhashx_destroy (&copy);
-    zsys_file_delete (".cache");
-
-    // Delete a item
-    zhashx_delete (hash, "LIVEBEEF");
-    item = (char *) zhashx_lookup (hash, "LIVEBEEF");
-    assert (item == NULL);
-    assert (zhashx_size (hash) == 3);
-
-    // Check that the queue is robust against random usage
-    struct {
-    char name [100];
-    bool exists;
-    } testset [200];
-    memset (testset, 0, sizeof (testset));
-    int testmax = 200, testnbr, iteration;
-
-    srandom ((unsigned) time (NULL));
-    for (iteration = 0; iteration < 25000; iteration++) {
-    testnbr = randof (testmax);
-    if (testset [testnbr].exists) {
-    item = (char *) zhashx_lookup (hash, testset [testnbr].name);
-    assert (item);
-    zhashx_delete (hash, testset [testnbr].name);
-    testset [testnbr].exists = false;
-    }
-    else {
-    sprintf (testset [testnbr].name, "%x-%x", rand (), rand ());
-    if (zhashx_insert (hash, testset [testnbr].name, "") == 0)
-    testset [testnbr].exists = true;
-    }
-    }
-    // Test 10K lookups
-    for (iteration = 0; iteration < 10000; iteration++)
-    item = (char *) zhashx_lookup (hash, "DEADBEEFABADCAFE");
-
-    // Destructor should be safe to call twice
-    zhashx_destroy (&hash);
-    zhashx_destroy (&hash);
-    assert (hash == NULL);
-
-    // Test autofree; automatically copies and frees string values
-    hash = zhashx_new ();
-    assert (hash);
-    zhashx_autofree (hash);
-    char value [255];
-    strcpy (value, "This is a string");
-    rc = zhashx_insert (hash, "key1", value);
-    assert (rc == 0);
-    strcpy (value, "Ring a ding ding");
-    rc = zhashx_insert (hash, "key2", value);
-    assert (rc == 0);
-    assert (streq ((char *) zhashx_lookup (hash, "key1"), "This is a string"));
-    assert (streq ((char *) zhashx_lookup (hash, "key2"), "Ring a ding ding")); zhashx_destroy (&hash);
-}
-
 // decode json string
 void test_json_decode()
 {
@@ -304,6 +142,30 @@ void test_multiple_add_find()
 }
 
 
+void test_single_zhash()
+{
+    mbtcp_handle_s *h1;
+    
+    // server #1
+    h1 = (mbtcp_handle_s*)malloc(sizeof(mbtcp_handle_s));
+    // let alignment bytes being set to zero-value.
+    // ref: https://troydhanson.github.io/uthash/userguide.html#_structure_keys
+    memset(h1, 0, sizeof(h1));
+    h1->connected = false;
+    strcpy(h1->key.ip, "192.168.10.1");
+    h1->key.port = 555;
+    h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
+    //HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), h1);
+    
+    mbtcp_key_s key = {"192.168.10.1", 555};
+    
+    zhashx_t *hash = zhashx_new ();
+    int rc;
+    rc = zhashx_insert (hash, key, h1);
+    
+    printf("%d\n", zhashx_size (hash));
+}
+
 void test_single_add_find()
 {
     BEGIN(enable_syslog);
@@ -376,11 +238,13 @@ int main()
 {
     BEGIN(enable_syslog);
     
-    test_zhashx();
+    test_single_zhash();
+    /*
     test_json_decode();
     test_json_encode();
     test_init_tcp_handle_and_connect();
     test_multiple_add_find();
     test_single_add_find();
+    */
 
 }
