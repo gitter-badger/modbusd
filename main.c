@@ -21,12 +21,12 @@ static void load_config()
 /**
  * @brief Send modbus zmq response
  */
-void send_modbus_zmq_resp(char *mode, char *json_resp)
+void send_modbus_zmq_resp(void * pub, char *mode, char *json_resp)
 {
     zmsg_t * zmq_resp = zmsg_new();
     zmsg_addstr(zmq_resp, mode);        // frame 1: mode
     zmsg_addstr(zmq_resp, json_resp);   // frame 2: resp
-    zmsg_send(&zmq_resp, zmq_pub);      // send zmq msg
+    zmsg_send(&zmq_resp, pub);      // send zmq msg
     // cleanup
     zmsg_destroy(&zmq_resp);
 }
@@ -88,7 +88,7 @@ int main()
                     if (strcmp(cmd, "fc1") == 0)
                     {
                         LOG(enable_syslog, "FC1 trigger");
-                        send_modbus_zmq_resp(mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {
@@ -121,7 +121,7 @@ int main()
                     else
                     {
                         LOG(enable_syslog, "unsupport command");
-                        send_modbus_zmq_resp(mode, set_modbus_resp_error(tid, "unsupport command"));
+                        send_modbus_zmq_resp(zmq_pub, mode, set_modbus_resp_error(tid, "unsupport command"));
                     }
                 }
                 // @handle modbus rtu requests
@@ -135,13 +135,13 @@ int main()
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
-                    send_modbus_zmq_resp(mode, set_modbus_resp_error(tid, "unsupport mode"));
+                    send_modbus_zmq_resp(zmq_pub, mode, set_modbus_resp_error(tid, "unsupport mode"));
                 }
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
-                send_modbus_zmq_resp(mode, set_modbus_resp_error(tid, "Fail to parse command string"));
+                send_modbus_zmq_resp(zmq_pub, mode, set_modbus_resp_error(tid, "Fail to parse command string"));
             }
             
             // @cleanup (auto mode)
