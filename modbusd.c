@@ -198,10 +198,10 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
     {
         if (lazy_mbtcp_connect(handle, req))
         {
-            // todo: set slave id
+            // set slave id
             int slave = json_get_int(req, "slave");
             LOG(enable_syslog, "slave id: %d", slave);
-            modbus_set_slave(ctx, MODBUS_DEVICE_ID);
+            modbus_set_slave(handle->ctx, slave);
 		    return fc(handle, req);
         }
         else
@@ -228,7 +228,8 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
     }
     else
     {
-        uint8_t bits[len] = {0}; 
+        uint8_t bits[len];
+        memset(bits, 0, len * sizeof(uint8_t));
     
         int ret = modbus_read_bits(handle->ctx, addr, len, bits);
         if (ret < 0) 
@@ -248,7 +249,7 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
             cJSON *resp_root;
             resp_root = cJSON_CreateObject();
             cJSON_AddNumberToObject(resp_root, "tid", tid);
-            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateIntArray(bits, length));
+            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateIntArray(bits, len));
             cJSON_AddStringToObject(resp_root, "status", "ok");
             char * resp_json_string = cJSON_PrintUnformatted(resp_root);
             LOG(enable_syslog, "resp:%s", resp_json_string);
