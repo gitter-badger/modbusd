@@ -45,20 +45,25 @@ typedef struct
 
 
 // function pointer
-typedef void (*fp_mbtcp_fc)(mbtcp_handle_s *ptr_handle, cJSON *ptr_req);
+typedef void (*fp_mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
+
+//==================================================
+// internal functions
+//==================================================
+
+// generic mbtcp error response handler
+static void set_mbtcp_resp_error(char *reason);
+
+// combo func: get or init mbtcp handle
+static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req);
+
+// combo func: check connection status,
+// if not connected, try to connect to slave
+static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req);
 
 //==================================================
 // api
 //==================================================
-
-// get mbtcp handle's connection status
-bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle);
-
-// connect to mbtcp client via handle
-bool mbtcp_do_connect(mbtcp_handle_s *ptr_handle);
-
-// list mbtcp hash table
-void mbtcp_list_handles();
 
 // init mbtcp handle (to hash) and try to connect
 bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
@@ -66,13 +71,22 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 // get mbtcp handle from hashtable
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
+// list mbtcp hash table
+void mbtcp_list_handles();
+
+// connect to mbtcp client via handle
+bool mbtcp_do_connect(mbtcp_handle_s *handle);
+
+// get mbtcp handle's connection status
+bool mbtcp_get_connection_status(mbtcp_handle_s *handle);
+
 // generic mbtcp command handler
 void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc);
 
 // do modbus tcp requests
-void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req);
+void mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
 
 // do modbus tcp requests
-void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req);
+void mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
 
 #endif  // MODBUSD_H

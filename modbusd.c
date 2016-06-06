@@ -12,8 +12,7 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
-// generic mbtcp error response handler
-static void set_mbtcp_resp_error(char * reason)
+static void set_mbtcp_resp_error(char *reason)
 {
     BEGIN(enable_syslog);
     // TODO
@@ -29,21 +28,20 @@ static void set_mbtcp_resp_error(char * reason)
     */
 }
 
-// combo func: get or init mbtcp handle
-static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req)
+static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     
-    char *ip = json_get_char(req, "ip");
-    int port = json_get_int (req, "port");
+    char *ip = json_get_char (req, "ip");
+    int port = json_get_int  (req, "port");
     
-    if (mbtcp_get_handle (handle, ip, port))
+    if (mbtcp_get_handle (ptr_handle, ip, port))
 	{
 	   return true;
 	}
 	else
 	{
-        if (mbtcp_init_handle(handle, ip, port))
+        if (mbtcp_init_handle(ptr_handle, ip, port))
 		{
 			return true;
 		}
@@ -54,21 +52,18 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req)
 	}
 }
 
-
-// combo func: check connection status,
-// if not connected, try to connect to slave
-static bool lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     
-    int slave = json_get_int(ptr_req, "slave");
-    if (mbtcp_get_connection_status(ptr_handle))
+    int slave = json_get_int(req, "slave");
+    if (mbtcp_get_connection_status(handle))
 	{
         return true;
 	}
 	else
 	{
-		if (mbtcp_do_connect(ptr_handle))
+		if (mbtcp_do_connect(handle))
 		{
              return true;
 		}
@@ -79,49 +74,46 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
 	}   
 }
 
-// check mbtcp handle is connected or not
-bool mbtcp_get_connection_status(mbtcp_handle_s *ptr_handle)
+bool mbtcp_get_connection_status(mbtcp_handle_s *handle)
 {
     BEGIN(enable_syslog);
     
-    if ((ptr_handle) == NULL)
+    if ((handle) == NULL)
     {
         ERR(enable_syslog, "NULL handle");
         return false;
     }
     
-    LOG(enable_syslog, "%s:%d connected: %s", ptr_handle->key.ip, 
-                                              ptr_handle->key.port, 
-                                              ptr_handle->connected ? "true" : "false");
-    return ptr_handle->connected;
+    LOG(enable_syslog, "%s:%d connected: %s", handle->key.ip, 
+                                              handle->key.port, 
+                                              handle->connected ? "true" : "false");
+    return handle->connected;
 }
 
-// connect to mbtcp client via handle
-bool mbtcp_do_connect(mbtcp_handle_s *ptr_handle)
+bool mbtcp_do_connect(mbtcp_handle_s *handle)
 {
     BEGIN(enable_syslog);
     
-    if (ptr_handle == NULL)
+    if (handle == NULL)
     {
         ERR(enable_syslog, "NULL handle");
         return false;
     }
     
-    if (modbus_connect(ptr_handle->ctx) == -1) 
+    if (modbus_connect(handle->ctx) == -1) 
     {
         ERR(enable_syslog, "Connection failed: %s", modbus_strerror(errno));
         return false;
     }
     else
     {
-        LOG(enable_syslog, "%s:%d connected", ptr_handle->key.ip, ptr_handle->key.port);
+        LOG(enable_syslog, "%s:%d connected", handle->key.ip, handle->key.port);
         // set connection status to true
-        ptr_handle->connected = true;
+        handle->connected = true;
         return true;
     }
 }
 
-// list mbtcp hash table
 void mbtcp_list_handles() 
 {
     BEGIN(enable_syslog);
@@ -133,7 +125,6 @@ void mbtcp_list_handles()
     }
 }
 
-// init mbtcp handle and try to connect
 bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
@@ -171,7 +162,6 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     return true;
 }
 
-// get mbtcp handle from hashtable
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
@@ -197,7 +187,6 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     }
 }
 
-// generic mbtcp command handler
 void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
 {
     BEGIN(enable_syslog);
@@ -223,8 +212,7 @@ void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
     END(enable_syslog);
 }
 
-// do modbus tcp requests
-void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+void mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
@@ -240,8 +228,7 @@ void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
     */
 }
 
-// do modbus tcp requests
-void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+void mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
