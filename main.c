@@ -78,7 +78,6 @@ int main()
                         // @do request
                         mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req);
 
-
 /*
                         // @create cJSON object for response
                         int mdata[4] = {116, 943, 234, 38793};

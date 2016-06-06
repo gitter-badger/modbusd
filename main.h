@@ -7,7 +7,7 @@
 #define MAIN_H
 
 // marco
-#define VERSION "0.0.2"
+#define VERSION "0.0.3"
 #define IPC_SUB "ipc:///tmp/to.modbus"
 #define IPC_PUB "ipc:///tmp/from.modbus"
 

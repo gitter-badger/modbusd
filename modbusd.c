@@ -29,32 +29,8 @@ static void set_mbtcp_resp_error(char * reason)
     */
 }
 
-// combo func: check connection status,
-// if not connected, try to connect to slave
-static bool lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req, fp_mbtcp_fc fc)
-{
-    BEGIN(enable_syslog);
-    
-    int slave = json_get_int(ptr_req, "slave");
-    if (mbtcp_get_connection_status(ptr_handle))
-	{
-        return true;
-	}
-	else
-	{
-		if (mbtcp_do_connect(ptr_handle))
-		{
-             return true;
-		}
-		else
-		{
-            return false;
-		}
-	}   
-}
-
 // combo func: get or init mbtcp handle
-static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req, fp_mbtcp_fc fc)
+static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     
@@ -76,6 +52,31 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **handle, cJSON *req, fp_mbtcp
 			return false;
 		}
 	}
+}
+
+
+// combo func: check connection status,
+// if not connected, try to connect to slave
+static bool lazy_mbtcp_connect(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+{
+    BEGIN(enable_syslog);
+    
+    int slave = json_get_int(ptr_req, "slave");
+    if (mbtcp_get_connection_status(ptr_handle))
+	{
+        return true;
+	}
+	else
+	{
+		if (mbtcp_do_connect(ptr_handle))
+		{
+             return true;
+		}
+		else
+		{
+            return false;
+		}
+	}   
 }
 
 // check mbtcp handle is connected or not
@@ -196,30 +197,6 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     }
 }
 
-// do modbus tcp requests
-void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
-{
-    BEGIN(enable_syslog);
-    // TODO    
-        /*
-    if (ok)
-    {
-        // ok, send response
-    }
-    else
-    {
-        // fail, send response
-    }
-    */
-}
-
-// do modbus tcp requests
-void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
-{
-    BEGIN(enable_syslog);
-    // TODO    
-}
-
 // generic mbtcp command handler
 void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
 {
@@ -244,4 +221,28 @@ void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
         set_mbtcp_resp_error("init modbus tcp handle fail");
     }
     END(enable_syslog);
+}
+
+// do modbus tcp requests
+void mbtcp_fc1_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+        /*
+    if (ok)
+    {
+        // ok, send response
+    }
+    else
+    {
+        // fail, send response
+    }
+    */
+}
+
+// do modbus tcp requests
+void mbtcp_fc2_req(mbtcp_handle_s *ptr_handle, cJSON *ptr_req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
 }
