@@ -12,6 +12,7 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
+// generic mbtcp error response handler
 static void set_mbtcp_resp_error(char *reason)
 {
     BEGIN(enable_syslog);
@@ -28,6 +29,7 @@ static void set_mbtcp_resp_error(char *reason)
     */
 }
 
+// combo func: get or init mbtcp handle
 static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 {
     BEGIN(enable_syslog);
@@ -52,11 +54,15 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 	}
 }
 
+// combo func: check connection status,
+// if not connected, try to connect to slave
 static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     
     int slave = json_get_int(req, "slave");
+    // set slave
+    
     if (mbtcp_get_connection_status(handle))
 	{
         return true;
@@ -187,7 +193,7 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     }
 }
 
-void mbtcp_cmd_hanlder(cJSON *req, fp_mbtcp_fc fc)
+void mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
 {
     BEGIN(enable_syslog);
     mbtcp_handle_s *handle = NULL;
