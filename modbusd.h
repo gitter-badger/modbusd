@@ -1,7 +1,8 @@
-//
-// modbusd.h
-// taka-wang
-//
+/**
+ * @file modbusd.h
+ * @author taka-wang
+ * @brief modbus daemon exported api
+*/
 
 #ifndef MODBUSD_H
 #define MODBUSD_H
@@ -20,60 +21,121 @@
 #include "log.h"
 #include "json.h"
 
-// marco
+/* ==================================================
+ *  marco
+================================================== */
 #define MBTCP_RESP_TIMEOUT_SEC 30
 
-//==================================================
-// structure
-//==================================================
+/* ==================================================
+ *  struct
+================================================== */
 
-// `structure key` for modbus tcp hash table
+/**
+ * @brief `structure key` for modbus tcp hash table
+ */
 typedef struct 
 {
     char ip[16];
     int port;
 } mbtcp_key_s;
 
-// mbtcp handle type
+/**
+ * @brief mbtcp handle type
+ */
 typedef struct 
 {
-    mbtcp_key_s key;    // key
-    bool connected;     // is connect to modbus slave?
-    modbus_t *ctx;      // modbus context pointer
-    UT_hash_handle hh;  // makes this structure hashable
+    mbtcp_key_s key;    /** key */
+    bool connected;     /** is connect to modbus slave? */
+    modbus_t *ctx;      /** modbus context pointer */
+    UT_hash_handle hh;  /** makes this structure hashable */
 } mbtcp_handle_s;
 
 
-// function pointer
+/**
+ * @brief function pointer of modbus tcp function code
+ *
+ * Function pointer of `modbus tcp function code request` for `generic command handle`.
+ */
 typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 
 
-//==================================================
-// api
-//==================================================
+/* ==================================================
+ *  api
+================================================== */
 
-// init mbtcp handle (to hash) and try to connect
+/**
+ * @brief Generic mbtcp error response handler.
+ */
+char * set_modbus_resp_error(int tid, char *reason);
+
+/**
+ * @brief Init mbtcp handle (to hash) and try to connect
+ */
 bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
-// get mbtcp handle from hashtable
+/**
+ * @brief Get mbtcp handle from hashtable
+ */
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
 
-// list mbtcp hash table
+/**
+ * @brief List mbtcp hash table
+ */
 void mbtcp_list_handles();
 
-// connect to mbtcp client via handle
+/**
+ * @brief Connect to mbtcp slave via mbtcp hashed handle
+ */
 bool mbtcp_do_connect(mbtcp_handle_s *handle);
 
-// get mbtcp handle's connection status
+/**
+ * @brief Get mbtcp handle's connection status
+ */
 bool mbtcp_get_connection_status(mbtcp_handle_s *handle);
 
-// generic mbtcp command handler
+/**
+ * @brief Generic mbtcp command handler
+ */
 char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
 
-// do modbus tcp requests
+/**
+ * @brief Do modbus tcp requests - FC1
+ */
 char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
 
-// do modbus tcp requests
+/**
+ * @brief Do modbus tcp requests - FC2
+ */
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
+
+/**
+ * @brief Do modbus tcp requests - FC3
+ */
+char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req);
+
+/**
+ * @brief Do modbus tcp requests - FC4
+ */
+char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req);
+
+/**
+ * @brief Do modbus tcp requests - FC5
+ */
+char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req);
+
+/**
+ * @brief Do modbus tcp requests - FC6
+ */
+char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req);
+
+/**
+ * @brief Do modbus tcp requests - FC15
+ */
+char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req);
+
+/**
+ * @brief Do modbus tcp requests - FC16
+ */
+char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req);
 
 #endif  // MODBUSD_H

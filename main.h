@@ -1,12 +1,14 @@
-//
-// main.h
-// taka-wang
-//
+/**
+ * @file main.h
+ * @author taka-wang
+*/
 
 #ifndef MAIN_H
 #define MAIN_H
 
-// marco
+/* ==================================================
+ *  marco
+================================================== */
 #define VERSION "0.0.3"
 #define IPC_SUB "ipc:///tmp/to.modbus"
 #define IPC_PUB "ipc:///tmp/from.modbus"

@@ -1,7 +1,8 @@
-//
-// modbusd.c
-// taka-wang
-//
+/**
+ * @file modbusd.c
+ * @author taka-wang
+ * @brief modbus daemon exported api
+*/
 
 #include "modbusd.h"
 
@@ -12,23 +13,9 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
 
-// generic mbtcp error response handler
-static char * set_mbtcp_resp_error(int tid, char *reason)
-{
-    BEGIN(enable_syslog);
-    // @create cJSON object for response
-    cJSON *resp_root;
-    resp_root = cJSON_CreateObject();
-    cJSON_AddNumberToObject(resp_root, "tid", tid);
-    cJSON_AddStringToObject(resp_root, "status", reason);
-    char * resp_json_string = cJSON_PrintUnformatted(resp_root);
-    LOG(enable_syslog, "resp:%s", resp_json_string);
-    // clean up
-    cJSON_Delete(resp_root);
-    return resp_json_string;
-}
-
-// combo func: get or init mbtcp handle
+/**
+ * @brief Combo func: get or init mbtcp handle.
+ */
 static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 {
     BEGIN(enable_syslog);
@@ -53,8 +40,9 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 	}
 }
 
-// combo func: check connection status,
-// if not connected, try to connect to slave
+/**
+ * @brief Combo func: check mbtcp connection status, if not connected, try to connect to slave.
+ */
 static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
@@ -75,6 +63,24 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 		}
 	}   
 }
+
+char * set_modbus_resp_error(int tid, char *reason)
+{
+    BEGIN(enable_syslog);
+    
+    // create cJSON object for response
+    cJSON *resp_root;
+    resp_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(resp_root, "tid", tid);
+    cJSON_AddStringToObject(resp_root, "status", reason);
+    char * resp_json_string = cJSON_PrintUnformatted(resp_root);
+    LOG(enable_syslog, "resp: %s", resp_json_string);
+    
+    // clean up
+    cJSON_Delete(resp_root);
+    return resp_json_string;
+}
+
 
 bool mbtcp_get_connection_status(mbtcp_handle_s *handle)
 {
@@ -207,12 +213,12 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
         else
         {
             // [enhance]: get reason from modbus response
-			return set_mbtcp_resp_error(tid, "fail to connect");
+			return set_modbus_resp_error(tid, "fail to connect");
         }
     }
     else
     {
-        return set_mbtcp_resp_error(tid, "init modbus tcp handle fail");
+        return set_modbus_resp_error(tid, "init modbus tcp handle fail");
     }
 }
 
@@ -224,7 +230,7 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_BITS) // 2000
     {
-        return set_mbtcp_resp_error(tid, "register lenth too long");
+        return set_modbus_resp_error(tid, "register lenth too long");
     }
     else
     {
@@ -235,11 +241,13 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
         if (ret < 0) 
         {
             ERR(enable_syslog, "%s", modbus_strerror(errno));
-            return set_mbtcp_resp_error(tid, modbus_strerror(errno));
+            return set_modbus_resp_error(tid, modbus_strerror(errno));
         } 
         else 
         {
             LOG(enable_syslog, "desired length: %d, read length:%d", len, ret);
+            
+            // debug only
             for (int ii = 0; ii < ret; ii++) 
             {
                 LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
@@ -251,16 +259,52 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
             cJSON_AddNumberToObject(resp_root, "tid", tid);
             cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt8Array(bits, len));
             cJSON_AddStringToObject(resp_root, "status", "ok");
-            char * resp_json_string = cJSON_PrintUnformatted(resp_root);
-            LOG(enable_syslog, "resp:%s", resp_json_string);
+            char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+            LOG(enable_syslog, "resp:%s", resp_json_str);
             // clean up
             cJSON_Delete(resp_root);
-            return resp_json_string;
+            return resp_json_str;
         }
     }
 }
 
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    // TODO    
+}
+
+char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    

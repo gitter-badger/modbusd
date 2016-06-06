@@ -1,20 +1,34 @@
-//
-// main.c
-// taka-wang
-//
+/**
+ * @file main.c
+ * @author taka-wang
+*/
 
 #include "main.h"
 #include "modbusd.h"
 
-int enable_syslog = 1;
+int enable_syslog = 1; // set log to syslog, should load from external
 extern cJSON * config_json;
 
-
-// load configuration file
+/**
+ * @brief Load configuration file
+ */
 static void load_config()
 {
     BEGIN(enable_syslog);
     // TODO
+}
+
+/**
+ * @brief Send modbus zmq response
+ */
+void send_modbus_zmq_resp(char *mode, char *json_resp)
+{
+    zmsg_t * zmq_resp = zmsg_new();
+    zmsg_addstr(zmq_resp, mode);        // frame 1: mode
+    zmsg_addstr(zmq_resp, json_resp);   // frame 2: resp
+    zmsg_send(&zmq_resp, zmq_pub);      // send zmq msg
+    // cleanup
+    zmsg_destroy(&zmq_resp);
 }
 
 // entry
@@ -22,7 +36,6 @@ int main()
 {
     LOG(enable_syslog, "modbusd version: %s", VERSION);
     
-    // @load external config
     load_config();
 
     // @setup zmq
@@ -61,6 +74,7 @@ int main()
 
             // parse json string
             cJSON *req_json_obj = cJSON_Parse(req_json_string);
+            int tid  = json_get_int(req_json_obj, "tid");
             
             if (req_json_obj != NULL)
             {
@@ -74,15 +88,7 @@ int main()
                     if (strcmp(cmd, "fc1") == 0)
                     {
                         LOG(enable_syslog, "FC1 trigger");
-                        
-                        // @do request
-                        char * resp_json_string = mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req);
-                        
-                        zmsg_t * zmq_resp = zmsg_new();
-                        zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
-                        zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
-                        zmsg_send(&zmq_resp, zmq_pub); // send zmq msg
-                        zmsg_destroy(&zmq_resp);      // cleanup
+                        send_modbus_zmq_resp(mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {
@@ -115,7 +121,7 @@ int main()
                     else
                     {
                         LOG(enable_syslog, "unsupport command");
-                        // send error response
+                        send_modbus_zmq_resp(mode, set_modbus_resp_error(tid, "unsupport command"));
                     }
                 }
                 // @handle modbus rtu requests
@@ -129,18 +135,17 @@ int main()
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
-                    // send error response
+                    send_modbus_zmq_resp(mode, set_modbus_resp_error(tid, "unsupport mode"));
                 }
-                
-                // @cleanup (auto mode)
-                cJSON_Delete(req_json_obj);
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
-                // maybe send error response
-                // 
+                send_modbus_zmq_resp(mode, set_modbus_resp_error(tid, "Fail to parse command string"));
             }
+            
+            // @cleanup (auto mode)
+            cJSON_Delete(req_json_obj);
         }
         else
         {

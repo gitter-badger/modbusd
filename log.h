@@ -1,7 +1,9 @@
-//
-// log.h
-// taka-wang
-//
+/**
+ * @file log.h
+ * @author taka-wang
+ * @brief Logging system (syslog wrapper)
+*/
+
 #ifndef _LOG_H_
 #define _LOG_H_
 
@@ -10,9 +12,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-//=================================
-// Logging functions
-//=================================
+
+/* ==================================================
+ *  Logging functions
+================================================== */
 
 // MAX ERROR MESSAGE LENGTH
 #define MSG_LEN 256

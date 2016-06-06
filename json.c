@@ -1,25 +1,23 @@
-//
-// json.h cJSON utility wrapper
-// taka-wang
-//
+/**
+ * @file json.c
+ * @author taka-wang
+ * @brief cJSON utility wrapper header
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "json.h"
 
-// get char string via key from cJSON object
 char *json_get_char(cJSON *inJson, const char *key)
 {
     return cJSON_GetObjectItem(inJson, key)->valuestring;
 }
 
-// get int via key from cJSON object
 int json_get_int(cJSON *inJson, const char *key)
 {
     return cJSON_GetObjectItem(inJson, key)->valueint;
 }
 
-// load json file to cJSON 
 int file_to_json(const char *fname, cJSON **outJson)
 {
     FILE *fPtr = fopen(fname,"rb");
@@ -41,7 +39,6 @@ int file_to_json(const char *fname, cJSON **outJson)
     }
 }
 
-// save cJSON to json file
 int json_to_file(const char *fname, cJSON *inJson)
 {
     FILE *fPtr = fopen(fname, "w");
@@ -57,7 +54,6 @@ int json_to_file(const char *fname, cJSON *inJson)
     }
 }
 
-// release cJSON root (auto mode)
 void json_release(cJSON *inJson)
 {
     cJSON_Delete(inJson);
