@@ -88,7 +88,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
  * @param req cJSON request object.
  * @return Modbus response string in JSON format for zmsg.
  */
-static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
+static char * help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     int addr = json_get_int(req, "addr");
@@ -345,16 +345,14 @@ char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req)
 {
-    BEGIN(enable_syslog);
-    // TODO    
-    return;  
+    BEGIN(enable_syslog);   
+    return help_mbtcp_read_reg_req(3, handle, req);  
 }
 
 char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO    
-    return;  
+    return help_mbtcp_read_reg_req(4, handle, req);  
 }
 
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)
