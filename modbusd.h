@@ -45,7 +45,7 @@ typedef struct
 
 
 // function pointer
-typedef zmsg_t * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
+typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 
 
 //==================================================
@@ -68,12 +68,12 @@ bool mbtcp_do_connect(mbtcp_handle_s *handle);
 bool mbtcp_get_connection_status(mbtcp_handle_s *handle);
 
 // generic mbtcp command handler
-zmsg_t * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
+char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
 
 // do modbus tcp requests
-zmsg_t * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
+char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
 
 // do modbus tcp requests
-zmsg_t * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
+char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
 
 #endif  // MODBUSD_H

@@ -76,7 +76,11 @@ int main()
                         LOG(enable_syslog, "FC1 trigger");
                         
                         // @do request
-                        zmsg_t * zmq_resp = mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req);
+                        char * resp_json_string = mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req);
+                        
+                        zmsg_t * zmq_resp = zmsg_new();
+                        zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
+                        zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
                         zmsg_send(&zmq_resp, zmq_pub); // send zmq msg
                         zmsg_destroy(&zmq_resp);      // cleanup
                     }

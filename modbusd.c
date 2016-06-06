@@ -13,7 +13,7 @@ static mbtcp_handle_s *mbtcp_htable = NULL;
 uint32_t tcp_conn_timeout_usec = 200000;
 
 // generic mbtcp error response handler
-static zmsg_t * set_mbtcp_resp_error(int tid, char *reason)
+static char * set_mbtcp_resp_error(int tid, char *reason)
 {
     BEGIN(enable_syslog);
     // @create cJSON object for response
@@ -25,12 +25,7 @@ static zmsg_t * set_mbtcp_resp_error(int tid, char *reason)
     LOG(enable_syslog, "resp:%s", resp_json_string);
     // clean up
     cJSON_Delete(resp_root);
-    
-    // @create zmsg for response
-    zmsg_t * zmq_resp = zmsg_new();
-    zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
-    zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
-    return zmq_resp;
+    return resp_json_string;
 }
 
 // combo func: get or init mbtcp handle
@@ -194,7 +189,7 @@ bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     }
 }
 
-zmsg_t * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
+char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
 {
     BEGIN(enable_syslog);
     mbtcp_handle_s *handle = NULL;
@@ -221,7 +216,7 @@ zmsg_t * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
     }
 }
 
-zmsg_t * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
+char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     int addr = json_get_int(req, "addr");
@@ -259,17 +254,12 @@ zmsg_t * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
             LOG(enable_syslog, "resp:%s", resp_json_string);
             // clean up
             cJSON_Delete(resp_root);
-            
-            // @create zmsg for response
-            zmsg_t * zmq_resp = zmsg_new();
-            zmsg_addstr(zmq_resp, "tcp");            // frame 1: mode
-            zmsg_addstr(zmq_resp, resp_json_string); // frame 2: resp
-            return zmq_resp;
+            return resp_json_string;
         }
     }
 }
 
-zmsg_t * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
+char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     // TODO    
