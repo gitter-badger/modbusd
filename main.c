@@ -19,7 +19,7 @@ static void load_config()
 
 
 // generic mbtcp error response handler
-static void set_mbtcp_resp_error(char * reason, char * resp_json_string)
+static void set_mbtcp_resp_error(char * reason)
 {
     BEGIN(enable_syslog);
     // TODO
