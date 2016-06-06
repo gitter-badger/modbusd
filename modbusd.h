@@ -52,14 +52,14 @@ typedef void (*fp_mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 //==================================================
 
 // generic mbtcp error response handler
-static void set_mbtcp_resp_error(char *reason);
+//static void set_mbtcp_resp_error(char *reason);
 
 // combo func: get or init mbtcp handle
-static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req);
+//static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req);
 
 // combo func: check connection status,
 // if not connected, try to connect to slave
-static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req);
+//static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req);
 
 //==================================================
 // api
