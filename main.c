@@ -93,14 +93,17 @@ int main()
                     else if (strcmp(cmd, "fc2") == 0)
                     {
                         LOG(enable_syslog, "FC2 trigger");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc2_req));
                     }
                     else if (strcmp(cmd, "fc3") == 0)
                     {
                         LOG(enable_syslog, "FC3 trigger");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc3_req));
                     }
                     else if (strcmp(cmd, "fc4") == 0)
                     {
                         LOG(enable_syslog, "FC4 trigger");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc4_req));
                     }
                     else if (strcmp(cmd, "fc5") == 0)
                     {

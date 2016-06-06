@@ -64,6 +64,64 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req)
 	}   
 }
 
+/**
+ * @brief Help function. FC1, FC2 request handler
+ */
+static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    int addr = json_get_int(req, "addr");
+    int len  = json_get_int(req, "len");
+    int tid  = json_get_int(req, "tid");
+    if (len > MODBUS_MAX_READ_BITS) // 2000
+    {
+        return set_modbus_resp_error(tid, "Requested lenth too long");
+    }
+    else
+    {
+        uint8_t bits[len];
+        memset(bits, 0, len * sizeof(uint8_t));
+        int ret = 0;
+        if (fc == 1)
+        {
+            // FC1
+            ret = modbus_read_bits(handle->ctx, addr, len, bits);
+        }
+        else
+        {
+            // FC2
+            ret = modbus_read_input_bits(handle->ctx, addr, len, bits);
+        }
+        if (ret < 0) 
+        {
+            ERR(enable_syslog, "%s", modbus_strerror(errno));
+            return set_modbus_resp_error(tid, modbus_strerror(errno));
+        } 
+        else 
+        {
+            LOG(enable_syslog, "desired length: %d, read length:%d", len, ret);
+            
+            // debug only
+            for (int ii = 0; ii < ret; ii++) 
+            {
+                LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
+            }
+
+            // @create cJSON object for response
+            cJSON *resp_root;
+            resp_root = cJSON_CreateObject();
+            cJSON_AddNumberToObject(resp_root, "tid", tid);
+            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt8Array(bits, len));
+            cJSON_AddStringToObject(resp_root, "status", "ok");
+            char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+            LOG(enable_syslog, "resp:%s", resp_json_str);
+            // clean up
+            cJSON_Delete(resp_root);
+            return resp_json_str;
+        }
+    }    
+}
+
 char * set_modbus_resp_error(int tid, const char *reason)
 {
     BEGIN(enable_syslog);
@@ -225,54 +283,13 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
 char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    int addr = json_get_int(req, "addr");
-    int len  = json_get_int(req, "len");
-    int tid  = json_get_int(req, "tid");
-    if (len > MODBUS_MAX_READ_BITS) // 2000
-    {
-        return set_modbus_resp_error(tid, "register lenth too long");
-    }
-    else
-    {
-        uint8_t bits[len];
-        memset(bits, 0, len * sizeof(uint8_t));
-    
-        int ret = modbus_read_bits(handle->ctx, addr, len, bits);
-        if (ret < 0) 
-        {
-            ERR(enable_syslog, "%s", modbus_strerror(errno));
-            return set_modbus_resp_error(tid, modbus_strerror(errno));
-        } 
-        else 
-        {
-            LOG(enable_syslog, "desired length: %d, read length:%d", len, ret);
-            
-            // debug only
-            for (int ii = 0; ii < ret; ii++) 
-            {
-                LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
-            }
-
-            // @create cJSON object for response
-            cJSON *resp_root;
-            resp_root = cJSON_CreateObject();
-            cJSON_AddNumberToObject(resp_root, "tid", tid);
-            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt8Array(bits, len));
-            cJSON_AddStringToObject(resp_root, "status", "ok");
-            char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-            LOG(enable_syslog, "resp:%s", resp_json_str);
-            // clean up
-            cJSON_Delete(resp_root);
-            return resp_json_str;
-        }
-    }
+    return help_mbtcp_read_bit_req(1, handle, req);
 }
 
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO
-    return;    
+    return help_mbtcp_read_bit_req(2, handle, req);
 }
 
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req)
