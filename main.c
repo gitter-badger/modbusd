@@ -12,7 +12,7 @@ extern cJSON * config_json;
 /**
  * @brief Load configuration file
  *
- * @param fname Configuration file name string.
+ * @param fname Configuration file name.
  * @return Void.
  */
 static void load_config(const char *fname)

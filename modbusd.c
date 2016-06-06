@@ -33,22 +33,22 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
     int port = json_get_int  (req, "port");
     
     if (mbtcp_get_handle (ptr_handle, ip, port))
-	{
-	   return true;
-	}
-	else
-	{
+    {
+       return true;
+    }
+    else
+    {
         if (mbtcp_init_handle(ptr_handle, ip, port))
-		{
-			return true;
-		}
-		else
-		{
+        {
+            return true;
+        }
+        else
+        {
             // Unable to allocate mbtcp context,
             // maybe system resourse issue!
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }
 
 /**
@@ -63,21 +63,21 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
     BEGIN(enable_syslog);
         
     if (mbtcp_get_connection_status(handle))
-	{
+    {
         return true;
-	}
-	else
-	{
-		if (mbtcp_do_connect(handle, reason))
-		{
+    }
+    else
+    {
+        if (mbtcp_do_connect(handle, reason))
+        {
              return true;
-		}
-		else
-		{
+        }
+        else
+        {
             // get fail reason via '*reason'
             return false;
-		}
-	}   
+        }
+    }   
 }
 
 /**
@@ -317,12 +317,12 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
             int slave = json_get_int(req, "slave");
             LOG(enable_syslog, "slave id: %d", slave);
             modbus_set_slave(handle->ctx, slave);
-		    return fc(handle, req);
+            return fc(handle, req);
         }
         else
         {
             // [enhance]: get reason from modbus response
-			return set_modbus_error_resp(tid, reason);
+            return set_modbus_error_resp(tid, reason);
         }
     }
     else
