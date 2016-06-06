@@ -188,16 +188,6 @@ int main()
                 // @handle modbus tcp requests
                 if (strcmp(mode, "tcp") == 0)
                 {
-                    // @get common command parameters
-                    char *ip  = json_get_char (req_json_obj, "ip");
-                    int port  = json_get_int  (req_json_obj, "port");
-
-                    int tid   = json_get_int  (req_json_obj, "tid");
-                    int slave = json_get_int  (req_json_obj, "slave");
-                    int addr  = json_get_int  (req_json_obj, "addr");
-                    int len   = json_get_int  (req_json_obj, "len");
-                    
-                    
                     // c doesn't support string switch case,
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
