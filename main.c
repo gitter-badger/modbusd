@@ -53,7 +53,8 @@ int main()
 {
     LOG(enable_syslog, "modbusd version: %s", VERSION);
     
-    load_config();
+    // [todo]: set filename
+    load_config("");
 
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
