@@ -8,10 +8,15 @@
 
 // syslog flag
 extern int enable_syslog;
-// hashtable header
+// hashtable header!!!
 static mbtcp_handle_s *mbtcp_htable = NULL;
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
+
+
+/* ==================================================
+ *  static functions
+================================================== */
 
 /**
  * @brief Combo func: get or init mbtcp handle.
@@ -35,6 +40,8 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 		}
 		else
 		{
+            // Unable to allocate mbtcp context,
+            // maybe system resourse issue!
 			return false;
 		}
 	}
@@ -59,6 +66,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, cJSON *req, char ** reaso
 		}
 		else
 		{
+            // get fail reason via '*reason'
             return false;
 		}
 	}   
@@ -75,37 +83,41 @@ static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_BITS) // 2000
     {
-        return set_modbus_resp_error(tid, "Requested lenth too long");
+        return set_modbus_error_resp(tid, "Requested lenth too long");
     }
     else
     {
         uint8_t bits[len];
         memset(bits, 0, len * sizeof(uint8_t));
         int ret = 0;
-        if (fc == 1)
+        switch (fc)
         {
-            // FC1
-            ret = modbus_read_bits(handle->ctx, addr, len, bits);
+            case 1:
+                ret = modbus_read_bits(handle->ctx, addr, len, bits);
+                break;
+            case 2:
+                ret = modbus_read_input_bits(handle->ctx, addr, len, bits);
+                break;
+            default:
+                return set_modbus_error_resp(tid, "Wrong function code");
         }
-        else
-        {
-            // FC2
-            ret = modbus_read_input_bits(handle->ctx, addr, len, bits);
-        }
+
         if (ret < 0) 
         {
-            if (errno == 104) // Connection reset by peer
+            // [todo][enhance] reconnect proactively?
+            // ... if the request interval is very large, we should try to reconnect automatically
+            if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
             {
                 handle->connected = false;
             }
             ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-            return set_modbus_resp_error(tid, modbus_strerror(errno));
+            return set_modbus_error_resp(tid, modbus_strerror(errno));
         } 
         else 
         {
             LOG(enable_syslog, "fc:%d, desired length: %d, read length:%d", fc, len, ret);
             
-            // debug only
+            // [todo]:remove; debug only
             for (int ii = 0; ii < ret; ii++) 
             {
                 LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
@@ -118,7 +130,7 @@ static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt8Array(bits, len));
             cJSON_AddStringToObject(resp_root, "status", "ok");
             char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-            LOG(enable_syslog, "resp:%s", resp_json_str);
+            LOG(enable_syslog, "resp: %s", resp_json_str);
             // clean up
             cJSON_Delete(resp_root);
             return resp_json_str;
@@ -126,7 +138,21 @@ static char *help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     }    
 }
 
-char * set_modbus_resp_error(int tid, const char *reason)
+/**
+ * @brief Help function. FC3, FC4 request handler
+ */
+static char * help_mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    return "";
+}
+
+
+/* ==================================================
+ *  public functions
+================================================== */
+
+char * set_modbus_error_resp(int tid, const char *reason)
 {
     BEGIN(enable_syslog);
     
@@ -278,12 +304,12 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
         else
         {
             // [enhance]: get reason from modbus response
-			return set_modbus_resp_error(tid, reason);
+			return set_modbus_error_resp(tid, reason);
         }
     }
     else
     {
-        return set_modbus_resp_error(tid, "init modbus tcp handle fail");
+        return set_modbus_error_resp(tid, "init modbus tcp handle fail");
     }
 }
 

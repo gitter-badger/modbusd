@@ -19,15 +19,15 @@ static void load_config()
 }
 
 /**
- * @brief Send modbus zmq response
+ * @brief Generic zmq response sender for modbus
  */
 void send_modbus_zmq_resp(void * pub, char *mode, char *json_resp)
 {
     zmsg_t * zmq_resp = zmsg_new();
     zmsg_addstr(zmq_resp, mode);        // frame 1: mode
     zmsg_addstr(zmq_resp, json_resp);   // frame 2: resp
-    zmsg_send(&zmq_resp, pub);      // send zmq msg
-    // cleanup
+    zmsg_send(&zmq_resp, pub);          // send zmq msg
+    // cleanup zmsg
     zmsg_destroy(&zmq_resp);
 }
 
@@ -74,7 +74,7 @@ int main()
 
             // parse json string
             cJSON *req_json_obj = cJSON_Parse(req_json_string);
-            int tid  = json_get_int(req_json_obj, "tid");
+            int tid = json_get_int(req_json_obj, "tid");
             
             if (req_json_obj != NULL)
             {
@@ -87,67 +87,67 @@ int main()
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
                     {
-                        LOG(enable_syslog, "FC1 trigger");
+                        LOG(enable_syslog, "send fc1 req");
                         send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {
-                        LOG(enable_syslog, "FC2 trigger");
+                        LOG(enable_syslog, "send fc2 req");
                         send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc2_req));
                     }
                     else if (strcmp(cmd, "fc3") == 0)
                     {
-                        LOG(enable_syslog, "FC3 trigger");
+                        LOG(enable_syslog, "send fc3 req");
                         send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc3_req));
                     }
                     else if (strcmp(cmd, "fc4") == 0)
                     {
-                        LOG(enable_syslog, "FC4 trigger");
+                        LOG(enable_syslog, "send fc4 req");
                         send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc4_req));
                     }
                     else if (strcmp(cmd, "fc5") == 0)
                     {
-                        LOG(enable_syslog, "FC5 trigger");
+                        LOG(enable_syslog, "send fc5 req");
                     }
                     else if (strcmp(cmd, "fc6") == 0)
                     {
-                        LOG(enable_syslog, "FC6 trigger");
+                        LOG(enable_syslog, "send fc6 req");
                     }
                     else if (strcmp(cmd, "fc15") == 0)
                     {
-                        LOG(enable_syslog, "FC15 trigger");
+                        LOG(enable_syslog, "send fc15 req");
                     }
                     else if (strcmp(cmd, "fc16") == 0)
                     {
-                        LOG(enable_syslog, "FC16 trigger");
+                        LOG(enable_syslog, "send fc16 req");
                     }
                     else
                     {
-                        LOG(enable_syslog, "unsupport command");
-                        send_modbus_zmq_resp(zmq_pub, mode, set_modbus_resp_error(tid, "unsupport command"));
+                        LOG(enable_syslog, "unsupport request");
+                        send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "unsupport request"));
                     }
                 }
                 // @handle modbus rtu requests
                 else if (strcmp(mode, "rtu") == 0)
                 {
                     LOG(enable_syslog, "rtu:%s", cmd);
-                    // TODO
+                    // [TODO]
                     // send error response
                 }
                 // @unkonw mode
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
-                    send_modbus_zmq_resp(zmq_pub, mode, set_modbus_resp_error(tid, "unsupport mode"));
+                    send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "unsupport mode"));
                 }
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
-                send_modbus_zmq_resp(zmq_pub, mode, set_modbus_resp_error(tid, "Fail to parse command string"));
+                send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "Fail to parse command string"));
             }
             
-            // @cleanup (auto mode)
+            // @cleanup cJson object (auto mode)
             cJSON_Delete(req_json_obj);
         }
         else

@@ -28,7 +28,7 @@ var fc1 = function(){
     };
     pub.send("tcp", zmq.ZMQ_SNDMORE);
     pub.send(JSON.stringify(cmd));
-    console.log("FC1");
+    console.log("Send FC1");
 }
 
 // FC2
@@ -37,14 +37,14 @@ var fc2 = function(){
         "ip": "172.16.9.170",
         "port": 502,
         "slave": 1,
-        "tid": 1,
+        "tid": 2,
         "cmd": "fc2",
         "addr": 250,
         "len": 10
     };
     pub.send("tcp", zmq.ZMQ_SNDMORE);
     pub.send(JSON.stringify(cmd));
-    console.log("FC2");
+    console.log("Send FC2");
 }
 
 // FC3
@@ -60,7 +60,7 @@ var fc3 = function(){
     };
     pub.send("tcp", zmq.ZMQ_SNDMORE);
     pub.send(JSON.stringify(cmd));
-    console.log("FC3");
+    console.log("Send FC3");
 }
 
 // FC4
@@ -76,7 +76,7 @@ var fc4 = function(){
     };
     pub.send("tcp", zmq.ZMQ_SNDMORE);
     pub.send(JSON.stringify(cmd));
-    console.log("FC4");
+    console.log("Send FC4");
 }
 
 // FC5
