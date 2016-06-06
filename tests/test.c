@@ -97,6 +97,30 @@ int test_init_tcp_handle_and_connect()
     return 0;
 }
 
+
+void test_multiple_add_find_zhahs()
+{
+    zhashx_t *hash = zhashx_new ();
+    for (int idx = 0; idx < 1000; idx++)
+    {
+        mbtcp_handle_s *handle;
+        handle = (mbtcp_handle_s*)malloc(sizeof(mbtcp_handle_s));
+        memset(handle, 0, sizeof(mbtcp_handle_s));
+        handle->connected = false;
+        strcpy(handle->key.ip, "192.168.10.12");
+        handle->key.port = idx;
+        handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
+        HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), handle);
+        LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
+        
+        int rc = zhashx_insert (hash, handle->key, handle);
+    
+        
+    }
+    printf("%d\n", zhashx_size (hash));
+    
+}
+
 // add 1000 key-value pair to hashtable, then find these items
 void test_multiple_add_find()
 {
@@ -244,7 +268,8 @@ int main()
 {
     BEGIN(enable_syslog);
     
-    test_single_zhash();
+    test_multiple_add_find_zhahs();
+    //test_single_zhash();
     /*
     test_json_decode();
     test_json_encode();
