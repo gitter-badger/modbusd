@@ -34,10 +34,10 @@ var fc1 = function(){
 // FC2
 var fc2 = function(){
     var cmd = {
-        "ip": "192.168.3.2",
+        "ip": "172.16.9.170",
         "port": 502,
-        "slave": 22,
-        "tid": 2,
+        "slave": 1,
+        "tid": 1,
         "cmd": "fc2",
         "addr": 250,
         "len": 10
