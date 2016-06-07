@@ -418,8 +418,34 @@ char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO    
-    return;  
+    int addr = json_get_int(req, "addr");
+    int tid  = json_get_int(req, "tid");
+    int data = json_get_int(req, "data");
+    int ret = modbus_write_bit(ctx, 1, data);
+    if (ret < 0) 
+    {
+        // [todo][enhance] reconnect proactively?
+        // ... if the request interval is very large, we should try to reconnect automatically
+        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+        {
+            handle->connected = false;
+        }
+        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
+        return set_modbus_error_resp(tid, modbus_strerror(errno));
+    }
+    else
+    {
+        // @create cJSON object for response
+        cJSON *resp_root;
+        resp_root = cJSON_CreateObject();
+        cJSON_AddNumberToObject(resp_root, "tid", tid);
+        cJSON_AddStringToObject(resp_root, "status", "ok");
+        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+        LOG(enable_syslog, "resp: %s", resp_json_str);
+        // clean up
+        cJSON_Delete(resp_root);
+        return resp_json_str;        
+    }
 }
 
 char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req)
