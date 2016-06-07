@@ -278,6 +278,82 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     }
 }
 
+/**
+ * @brief Help function. FC15, FC16 request handler
+ *
+ * @fc Function code 15 and 16 only.
+ * @param handle Mbtcp handle.
+ * @param req cJSON request object.
+ * @return Modbus response string in JSON format for zmsg.
+ */
+static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
+{
+    BEGIN(enable_syslog);
+    int addr = json_get_int(req, "addr");
+    int len  = json_get_int(req, "len");
+    int tid  = json_get_int(req, "tid");
+    
+    int ret = 0;
+    switch (fc)
+    {
+        case 15:
+            uint8_t bits[len];
+            // memory reset for variable length array
+            memset(bits, 0, len * sizeof(uint8_t));
+            // handle array
+            cJSON * data = cJSON_GetObjectItem(req, "data");
+            for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
+            {
+                uint8_t subitem = cJSON_GetArrayItem(data, i)->valueint;
+                bits[i] = subitem;
+                LOG(enable_syslog, "[%d]=%d", i, bits[i]);
+            }
+            ret = modbus_write_bits(handle->ctx, addr, len, &bits);
+            break;
+        case 16:
+            uint16_t regs[len];
+            // memory reset for variable length array
+            memset(regs, 0, len * sizeof(uint16_t));
+            // handle array
+            cJSON * data = cJSON_GetObjectItem(req, "data");
+            for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
+            {
+                uint16_t subitem = cJSON_GetArrayItem(data, i)->valueint;
+                regs[i] = subitem;
+                LOG(enable_syslog, "[%d]=%d", i, regs[i]);
+            }
+            ret = modbus_write_registers(handle->ctx, addr, len, &regs);
+            break;
+        default:
+            return set_modbus_error_resp(tid, "Wrong function code");
+    }
+
+    if (ret < 0) 
+    {
+        // [todo][enhance] reconnect proactively?
+        // ... if the request interval is very large, we should try to reconnect automatically
+        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+        {
+            handle->connected = false;
+        }
+        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
+        return set_modbus_error_resp(tid, modbus_strerror(errno));
+    } 
+    else
+    {
+        // @create cJSON object for response
+        cJSON *resp_root;
+        resp_root = cJSON_CreateObject();
+        cJSON_AddNumberToObject(resp_root, "tid", tid);
+        cJSON_AddStringToObject(resp_root, "status", "ok");
+        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+        LOG(enable_syslog, "resp: %s", resp_json_str);
+        // clean up
+        cJSON_Delete(resp_root);
+        return resp_json_str;         
+    }
+}
+
 /* ==================================================
  *  public functions
 ================================================== */
@@ -482,91 +558,11 @@ char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req)
 char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    int addr = json_get_int(req, "addr");
-    int len  = json_get_int(req, "len");
-    int tid  = json_get_int(req, "tid");
-    
-    uint8_t bits[len];
-    // memory reset for variable length array
-    memset(bits, 0, len * sizeof(uint8_t));
-    // handle array
-    cJSON * data = cJSON_GetObjectItem(req, "data");
-    for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
-    {
-        uint8_t subitem = cJSON_GetArrayItem(data, i)->valueint;
-        bits[i] = subitem;
-        LOG(enable_syslog, "[%d]=%d", i, bits[i]);
-    }
-
-    int ret = modbus_write_bits(handle->ctx, addr, len, &bits);
-    if (ret < 0) 
-    {
-        // [todo][enhance] reconnect proactively?
-        // ... if the request interval is very large, we should try to reconnect automatically
-        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-        {
-            handle->connected = false;
-        }
-        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-        return set_modbus_error_resp(tid, modbus_strerror(errno));
-    } 
-    else
-    {
-        // @create cJSON object for response
-        cJSON *resp_root;
-        resp_root = cJSON_CreateObject();
-        cJSON_AddNumberToObject(resp_root, "tid", tid);
-        cJSON_AddStringToObject(resp_root, "status", "ok");
-        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-        LOG(enable_syslog, "resp: %s", resp_json_str);
-        // clean up
-        cJSON_Delete(resp_root);
-        return resp_json_str;         
-    }
+    return mbtcp_multi_write_req(15, handle, req);
 }
 
 char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    int addr = json_get_int(req, "addr");
-    int len  = json_get_int(req, "len");
-    int tid  = json_get_int(req, "tid");
-    
-    uint16_t regs[len];
-    // memory reset for variable length array
-    memset(regs, 0, len * sizeof(uint16_t));
-    // handle array
-    cJSON * data = cJSON_GetObjectItem(req, "data");
-    for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
-    {
-        uint16_t subitem = cJSON_GetArrayItem(data, i)->valueint;
-        regs[i] = subitem;
-        LOG(enable_syslog, "[%d]=%d", i, regs[i]);
-    }
-
-    int ret = modbus_write_registers(handle->ctx, addr, len, &regs);
-    if (ret < 0) 
-    {
-        // [todo][enhance] reconnect proactively?
-        // ... if the request interval is very large, we should try to reconnect automatically
-        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-        {
-            handle->connected = false;
-        }
-        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-        return set_modbus_error_resp(tid, modbus_strerror(errno));
-    } 
-    else
-    {
-        // @create cJSON object for response
-        cJSON *resp_root;
-        resp_root = cJSON_CreateObject();
-        cJSON_AddNumberToObject(resp_root, "tid", tid);
-        cJSON_AddStringToObject(resp_root, "status", "ok");
-        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-        LOG(enable_syslog, "resp: %s", resp_json_str);
-        // clean up
-        cJSON_Delete(resp_root);
-        return resp_json_str;         
-    }
+    return mbtcp_multi_write_req(16, handle, req);
 }
