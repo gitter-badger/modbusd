@@ -493,7 +493,7 @@ char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
     cJSON * data = cJSON_GetObjectItem(req, "data");
     for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
     {
-        uint8_t subitem = cJSON_GetArrayItem(data, i)->valueuint8;
+        uint8_t subitem = cJSON_GetArrayItem(data, i)->valueint;
         printf("idx:%d,v:%d\n", i, subitem);
         bits[i] = subitem;
     }
