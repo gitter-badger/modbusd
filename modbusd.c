@@ -123,7 +123,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
         if (ret < 0) 
         {
-            return set_modbus_errno_resp(tid, errno);
+            return set_modbus_errno_resp(tid, handle, errno);
         } 
         else 
         {
@@ -188,7 +188,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
         
         if (ret < 0) 
         {
-            return set_modbus_errno_resp(tid, errno);
+            return set_modbus_errno_resp(tid, handle, errno);
         } 
         else 
         {
@@ -244,7 +244,7 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
     if (ret < 0) 
     {
-        return set_modbus_errno_resp(tid, errno);
+        return set_modbus_errno_resp(tid, handle, errno);
     }
     else
     {
@@ -313,7 +313,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
     if (ret < 0) 
     {
-        return set_modbus_errno_resp(tid, errno);
+        return set_modbus_errno_resp(tid, handle, errno);
     } 
     else
     {
@@ -334,7 +334,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
  *  public functions
 ================================================== */
   
-char * set_modbus_errno_resp(int tid, int errnum)
+char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
 {
     // [todo][enhance] reconnect proactively?
     // ... if the request interval is very large, we should try to reconnect automatically
