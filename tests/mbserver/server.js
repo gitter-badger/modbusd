@@ -37,6 +37,7 @@ var mserver = net.createServer(function (socket) {
         if (addr % 3 === 0) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
+        console.log(val);
         return reply();
     });
     
@@ -45,6 +46,7 @@ var mserver = net.createServer(function (socket) {
         if (addr % 7 === 0) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
+        console.log(val);
         return reply();
     });
     
@@ -53,6 +55,7 @@ var mserver = net.createServer(function (socket) {
         if (addr % 3 === 0) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
+        console.log(val);
         return reply();
     });
     
@@ -61,6 +64,7 @@ var mserver = net.createServer(function (socket) {
         if (addr % 7 === 0) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
+        console.log(val);
         return reply();
     });
 
