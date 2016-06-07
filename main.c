@@ -26,12 +26,13 @@ extern tcp_conn_timeout_usec;       // from modbusd.c
  * @brief Load configuration file
  *
  * @param fname Configuration file name.
+ * @param ptr_config Pointer to config cJSON object.
  * @return Void.
  */
-static void load_config(const char *fname)
+static void load_config(const char *fname, cJSON ** ptr_config)
 {
     BEGIN(enable_syslog);
-    if (file_to_json(config_fname, &config_json) < 0)
+    if (file_to_json(fname, ptr_config) < 0)
     {
         ERR(enable_syslog, "Failed to parse setting json: %s! Bye!", config_fname);
         exit(EXIT_FAILURE);
@@ -50,12 +51,13 @@ static void load_config(const char *fname)
  * @brief Save configuration to file
  *
  * @param fname Configuration file name.
+ * @param config Config cJSON object.
  * @return Void.
  */
-static void save_config(const char *fname)
+static void save_config(const char *fname, cJSON * config)
 {
     BEGIN(enable_syslog);
-    json_to_file(fname, config_json);
+    json_to_file(fname, config);
 }
 
 /**
@@ -92,7 +94,7 @@ int main(int argc, char *argv[])
 
     // @load config
     config_fname = argc > 1 ? argv[1] : "./modbusd.json";
-    load_config(config_fname);
+    load_config(config_fname, &config_json);
 
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
@@ -215,5 +217,5 @@ int main(int argc, char *argv[])
     LOG(enable_syslog, "clean up");
     zctx_destroy(&zmq_context);
     // save config
-    save_config(config_fname); 
+    save_config(config_fname, config_json); 
 }
