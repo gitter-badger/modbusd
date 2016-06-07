@@ -84,11 +84,14 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
 /**
  * @brief Generic mbtcp error number handler
  *
- * @param errno Error number from modbus tcp handle
+ * @param tid Transaction ID.
+ * @param handle Mbtcp handle.
+ * @param errnum Error number from modbus tcp handle.
  * @return Modbus error response string in JSON format for zmsg.
  */  
 static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
 {
+    BEGIN(enable_syslog);
     // [todo][enhance] reconnect proactively?
     // ... if the request interval is very large, we should try to reconnect automatically
     if (errnum == 104) // Connection reset by peer (i.e, tcp connection timeout)
@@ -97,6 +100,50 @@ static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
     }
     ERR(enable_syslog, "%s:%d", modbus_strerror(errnum), errnum);
     return set_modbus_error_resp(tid, modbus_strerror(errnum));
+}
+
+/**
+ * @brief Generic mbtcp ok response without data (i.e., write func)
+ *
+ * @param tid Transaction ID.
+ * @return Modbus ok response string in JSON format for zmsg.
+ */ 
+static char * set_modbus_no_data_ok_resp(int tid)
+{
+    BEGIN(enable_syslog);
+    // @create cJSON object for response
+    cJSON *resp_root;
+    resp_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(resp_root, "tid", tid);
+    cJSON_AddStringToObject(resp_root, "status", "ok");
+    char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+    LOG(enable_syslog, "resp: %s", resp_json_str);
+    // clean up
+    cJSON_Delete(resp_root);
+    return resp_json_str;     
+}
+
+/**
+ * @brief Generic mbtcp ok response with data (i.e., read func)
+ *
+ * @param tid Transaction ID.
+ * @param json_arr cJSON pointer to data array
+ * @return Modbus ok response string in JSON format for zmsg.
+ */ 
+static char * set_modbus_with_data_ok_resp(int tid, cJSON * json_arr)
+{
+    BEGIN(enable_syslog);
+    // @create cJSON object for response
+    cJSON *resp_root;
+    resp_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(resp_root, "tid", tid);
+    cJSON_AddItemToObject(resp_root, "data", json_arr);
+    cJSON_AddStringToObject(resp_root, "status", "ok");
+    char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+    LOG(enable_syslog, "resp: %s", resp_json_str);
+    // clean up
+    cJSON_Delete(resp_root);
+    return resp_json_str;
 }
 
 /**
@@ -149,17 +196,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
             }
 
-            // @create cJSON object for response
-            cJSON *resp_root;
-            resp_root = cJSON_CreateObject();
-            cJSON_AddNumberToObject(resp_root, "tid", tid);
-            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt8Array(bits, len));
-            cJSON_AddStringToObject(resp_root, "status", "ok");
-            char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-            LOG(enable_syslog, "resp: %s", resp_json_str);
-            // clean up
-            cJSON_Delete(resp_root);
-            return resp_json_str;
+            return set_modbus_with_data_ok_resp(tid, cJSON_CreateUInt8Array(bits, len));
         }
     }    
 }
@@ -214,17 +251,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 LOG(enable_syslog, "[%d]=%d", ii, regs[ii]);
             }
 
-            // @create cJSON object for response
-            cJSON *resp_root;
-            resp_root = cJSON_CreateObject();
-            cJSON_AddNumberToObject(resp_root, "tid", tid);
-            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt16Array(regs, len));
-            cJSON_AddStringToObject(resp_root, "status", "ok");
-            char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-            LOG(enable_syslog, "resp: %s", resp_json_str);
-            // clean up
-            cJSON_Delete(resp_root);
-            return resp_json_str;
+            return set_modbus_with_data_ok_resp(tid, cJSON_CreateUInt16Array(regs, len));
         }
     }
 }
@@ -262,16 +289,7 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     }
     else
     {
-        // @create cJSON object for response
-        cJSON *resp_root;
-        resp_root = cJSON_CreateObject();
-        cJSON_AddNumberToObject(resp_root, "tid", tid);
-        cJSON_AddStringToObject(resp_root, "status", "ok");
-        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-        LOG(enable_syslog, "resp: %s", resp_json_str);
-        // clean up
-        cJSON_Delete(resp_root);
-        return resp_json_str;        
+        return set_modbus_no_data_ok_resp(tid);   
     }
 }
 
@@ -334,16 +352,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     } 
     else
     {
-        // @create cJSON object for response
-        cJSON *resp_root;
-        resp_root = cJSON_CreateObject();
-        cJSON_AddNumberToObject(resp_root, "tid", tid);
-        cJSON_AddStringToObject(resp_root, "status", "ok");
-        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
-        LOG(enable_syslog, "resp: %s", resp_json_str);
-        // clean up
-        cJSON_Delete(resp_root);
-        return resp_json_str;         
+        return set_modbus_no_data_ok_resp(tid);         
     }
 }
 
