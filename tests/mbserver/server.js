@@ -28,7 +28,7 @@ var mserver = net.createServer(function (socket) {
     });
     
     
-}
+}); // end of mserver
 
 mserver.listen(502, function() {
 	console.log('listening...');
