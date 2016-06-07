@@ -7,7 +7,7 @@
 #include "modbusd.h"
 
 int enable_syslog = 1; // set log to syslog, should load from external
-extern cJSON * config_json;
+cJSON * config_json;
 char *config_fname;
 
 /**
