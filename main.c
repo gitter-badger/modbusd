@@ -131,14 +131,17 @@ int main()
                     else if (strcmp(cmd, "fc6") == 0)
                     {
                         LOG(enable_syslog, "send fc6 req");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc6_req));
                     }
                     else if (strcmp(cmd, "fc15") == 0)
                     {
                         LOG(enable_syslog, "send fc15 req");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc15_req));
                     }
                     else if (strcmp(cmd, "fc16") == 0)
                     {
                         LOG(enable_syslog, "send fc16 req");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc16_req));
                     }
                     else
                     {
