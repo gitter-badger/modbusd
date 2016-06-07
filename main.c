@@ -13,8 +13,8 @@
 int enable_syslog  = 1;                 // syslog flag
 static cJSON * config_json;             // config in cJSON object format
 static char *config_fname = "";         // config filename
-static char ipc_sub[200]  = "ipc:///tmp/to.modbus";
-static char ipc_pub[200]  = "ipc:///tmp/from.modbus";
+static char *ipc_sub      = "ipc:///tmp/to.modbus";
+static char *ipc_pub      = "ipc:///tmp/from.modbus";
 extern uint32_t tcp_conn_timeout_usec;  // from modbusd.c
 
 
@@ -40,8 +40,8 @@ static void load_config(const char *fname, cJSON ** ptr_config)
     else
     {
         enable_syslog = json_get_int(config_json, "syslog");
-        strcpy(ipc_sub, json_get_char(config_json, "ipc_sub"));
-        strcpy(ipc_pub, json_get_char(config_json, "ipc_pub"));
+        ipc_sub = json_get_char(config_json, "ipc_sub");
+        ipc_pub = json_get_char(config_json, "ipc_pub");
         tcp_conn_timeout_usec = json_get_int(config_json, "mbtcp_connect_timeout");
     }
     END(enable_syslog);
