@@ -13,7 +13,7 @@
 extern int enable_syslog;                   // syslog flag
 static mbtcp_handle_s *mbtcp_htable = NULL; // hashtable header
 // tcp connection timeout in usec
-uint32_t tcp_conn_timeout_usec = 200000;
+uint32_t tcp_conn_timeout_usec = 200000;    // tcp conn timeout
 
 /* ==================================================
  *  static functions
@@ -88,7 +88,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
  * @param tid Transaction ID.
  * @param handle Mbtcp handle.
  * @param errnum Error number from modbus tcp handle.
- * @return Modbus error response string in JSON format for zmsg.
+ * @return Modbus error response string in JSON format.
  */  
 static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
 {
@@ -107,7 +107,7 @@ static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
  * @brief Generic mbtcp ok response without data (i.e., write func)
  *
  * @param tid Transaction ID.
- * @return Modbus ok response string in JSON format for zmsg.
+ * @return Modbus ok response string in JSON format.
  */ 
 static char * set_modbus_no_data_ok_resp(int tid)
 {
@@ -129,7 +129,7 @@ static char * set_modbus_no_data_ok_resp(int tid)
  *
  * @param tid Transaction ID.
  * @param json_arr cJSON pointer to data array
- * @return Modbus ok response string in JSON format for zmsg.
+ * @return Modbus ok response string in JSON format.
  */ 
 static char * set_modbus_with_data_ok_resp(int tid, cJSON * json_arr)
 {
@@ -153,7 +153,7 @@ static char * set_modbus_with_data_ok_resp(int tid, cJSON * json_arr)
  * @fc Function code 1 and 2 only.
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
@@ -209,7 +209,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
  * @fc Function code 3 and 4 only.
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
@@ -265,7 +265,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
  * @fc Function code 5 and 6 only.
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
@@ -302,7 +302,7 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
  * @fc Function code 15 and 16 only.
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {

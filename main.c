@@ -42,16 +42,6 @@ static void load_config(const char *fname)
         strcpy(ipc_sub, json_get_char(config_json, "ipc_sub"));
         strcpy(ipc_pub, json_get_char(config_json, "ipc_pub"));
         tcp_conn_timeout_usec = json_get_int(config_json, "mbtcp_connect_timeout");
-        
-        /* debug
-        if (enable_syslog > 0)
-        {
-            LOG(enable_syslog, "syslog: %d", enable_syslog);
-            LOG(enable_syslog, "sub: %s", ipc_sub);
-            LOG(enable_syslog, "pub: %s", ipc_pub);
-            LOG(enable_syslog, "tcp timout: %d", tcp_conn_timeout_usec);
-        }
-        */
     }
     END(enable_syslog);
 }

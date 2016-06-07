@@ -51,9 +51,13 @@ typedef struct
 
 
 /**
- * @brief function pointer of modbus tcp function code
+ * @brief Function pointer of modbus tcp function code
  *
- * Function pointer of `modbus tcp function code request` for `generic command handle`.
+ * Function pointer to `modbus tcp function code request` for `generic command handle`.
+ *
+ * @param handle Mbtcp handle.
+ * @param req cJSON request object.
+ * @return Modbus response string in JSON format.
  */
 typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 
@@ -67,16 +71,16 @@ typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
  *
  * @param tid Transaction ID.
  * @param reason Fail reason string.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * set_modbus_error_resp(int tid, const char *reason);
 
 /**
- * @brief Init mbtcp handle (to hash) and try to connect
+ * @brief Init mbtcp handle (to hashtable) and try to connect
  *
  * @param ptr_handle Pointer to mbtcp handle.
  * @param ip IPv4 address string.
- * @param port Modbus TCP port number.
+ * @param port Modbus TCP server port number.
  * @return Success or not.
  */
 bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
@@ -86,7 +90,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
  *
  * @param ptr_handle Pointer to mbtcp handle.
  * @param ip IPv4 address string.
- * @param port Modbus TCP port number.
+ * @param port Modbus TCP server port number.
  * @return Success or not.
  */
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
@@ -119,80 +123,80 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *handle);
  * @brief Generic mbtcp command handler
  *
  * @param req cJSON request object.
- * @param fc Function pointer of modbus tcp FC handler.
- * @return Modbus response string in JSON format for zmsg.
+ * @param fc Function pointer to modbus tcp FC handler.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
 
 /**
- * @brief Read coils.
+ * @brief Modbus TCP Read coils.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Read discrete input.
+ * @brief Modbus TCP Read discrete input.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Read holding registers.
+ * @brief Modbus TCP Read holding registers.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Read input registers.
+ * @brief Modbus TCP Read input registers.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Write single coil.
+ * @brief Modbus TCP Write single coil.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Write single register.
+ * @brief Modbus TCP Write single register.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Write multiple coils.
+ * @brief Modbus TCP Write multiple coils.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Write multiple registers.
+ * @brief Modbus TCP Write multiple registers.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
- * @return Modbus response string in JSON format for zmsg.
+ * @return Modbus response string in JSON format.
  */
 char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req);
 
