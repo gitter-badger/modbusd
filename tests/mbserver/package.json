@@ -6,7 +6,8 @@
   "dependencies": {
     "modbus-tcp": "0.4.5",
     "assert": "*",
-    "commander": "*"
+    "commander": "*",
+    "mocha": "*"
   },
   "author": "Taka Wang",
   "license": "MIT"
