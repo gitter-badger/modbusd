@@ -23,7 +23,7 @@ function start() {
 	var mocha   = new Mocha({
 		reporter: program.reporter
 	});
-	var location = path.normalize(path.join(__dirname, "integration"));
+	var location = path.normalize(__dirname);
 	var added    = 0;
 
 	fs.readdirSync(location).filter(function (file) {
