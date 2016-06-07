@@ -8,6 +8,7 @@
 
 int enable_syslog = 1; // set log to syslog, should load from external
 extern cJSON * config_json;
+char *config_fname;
 
 /**
  * @brief Load configuration file
@@ -18,7 +19,11 @@ extern cJSON * config_json;
 static void load_config(const char *fname)
 {
     BEGIN(enable_syslog);
-    // TODO
+    if ((ret = file_to_json(config_fname, &config_json)) != 0)
+    {
+        ERR(enable_syslog, "Failed to parse setting json! Bye!");
+        exit(EXIT_FAILURE);
+    }
 }
 
 /**
@@ -49,12 +54,12 @@ static void send_modbus_zmq_resp(void * pub, char *mode, char *json_resp)
 }
 
 // entry
-int main()
+int main(int argc, char *argv[])
 {
     LOG(enable_syslog, "modbusd version: %s", VERSION);
-    
-    // [todo]: set filename
-    load_config("");
+
+    config_fname = argc > 1 ? argv[1] : "./modbusd.json";
+    load_config(config_fname);
 
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
