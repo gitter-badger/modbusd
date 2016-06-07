@@ -11,7 +11,7 @@ set(modbus_include /usr/local/include/modbus)
 set(bin_source json/cJSON.c json.c main.c modbusd.c)
 
 # cflag
-set(EXT_C_FLAGS "-W -Wall -O3 -std=c99 -DHASH_DEBUG=1")
+set(EXT_C_FLAGS "-W -Wall -O3 -std=c99")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXT_C_FLAGS}")
 
 include_directories(${modbus_include})
