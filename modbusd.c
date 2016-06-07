@@ -312,8 +312,8 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     
     int ret = 0;
-    const uint8_t bits[len];  // FC15
-    const uint16_t regs[len]; // FC16
+    uint8_t bits[len];  // FC15
+    uint16_t regs[len]; // FC16
     cJSON * data = NULL;
     
     switch (fc)
