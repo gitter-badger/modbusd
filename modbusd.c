@@ -6,21 +6,21 @@
 
 #include "modbusd.h"
 
-// syslog flag
-extern int enable_syslog;
-// hashtable header!!!
-static mbtcp_handle_s *mbtcp_htable = NULL;
+/* ==================================================
+ *  global variable
+================================================== */
 
+extern int enable_syslog;                   // syslog flag
+static mbtcp_handle_s *mbtcp_htable = NULL; // hashtable header
 // tcp connection timeout in usec
 uint32_t tcp_conn_timeout_usec = 200000;
-
 
 /* ==================================================
  *  static functions
 ================================================== */
 
 /**
- * @brief Combo func: get or init mbtcp handle.
+ * @brief Combo function: get or init mbtcp handle.
  *
  * @param ptr_handle Pointer to mbtcp handle.
  * @param req cJSON request object.
@@ -53,7 +53,8 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 }
 
 /**
- * @brief Combo func: check mbtcp connection status, if not connected, try to connect to slave.
+ * @brief Combo function: check mbtcp connection status, 
+ *        if not connected, try to connect to slave.
  *
  * @param handle Mbtcp handle.
  * @param reason Pointer to fail reason string.
@@ -75,7 +76,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
         }
         else
         {
-            // get fail reason via '*reason'
+            // could get fail reason from '*reason'
             return false;
         }
     }   
@@ -111,7 +112,7 @@ static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
 static char * set_modbus_no_data_ok_resp(int tid)
 {
     BEGIN(enable_syslog);
-    // @create cJSON object for response
+
     cJSON *resp_root;
     resp_root = cJSON_CreateObject();
     cJSON_AddNumberToObject(resp_root, "tid", tid);
@@ -133,7 +134,7 @@ static char * set_modbus_no_data_ok_resp(int tid)
 static char * set_modbus_with_data_ok_resp(int tid, cJSON * json_arr)
 {
     BEGIN(enable_syslog);
-    // @create cJSON object for response
+
     cJSON *resp_root;
     resp_root = cJSON_CreateObject();
     cJSON_AddNumberToObject(resp_root, "tid", tid);
@@ -196,6 +197,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 LOG(enable_syslog, "[%d]=%d", ii, bits[ii]);
             }
 
+            // uint8_t array
             return set_modbus_with_data_ok_resp(tid, cJSON_CreateUInt8Array(bits, len));
         }
     }    
@@ -250,7 +252,8 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             {
                 LOG(enable_syslog, "[%d]=%d", ii, regs[ii]);
             }
-
+            
+            // uint16_t array
             return set_modbus_with_data_ok_resp(tid, cJSON_CreateUInt16Array(regs, len));
         }
     }
@@ -309,8 +312,8 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     
     int ret = 0;
-    uint8_t bits[len];
-    uint16_t regs[len];
+    uint8_t bits[len];  // FC15
+    uint16_t regs[len]; // FC16
     cJSON * data = NULL;
     
     switch (fc)
@@ -318,7 +321,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
         case 15:
             // memory reset for variable length array
             memset(bits, 0, len * sizeof(uint8_t));
-            // handle array
+            // handle uint8_t array
             data = cJSON_GetObjectItem(req, "data");
             for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
             {
@@ -332,7 +335,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             
             // memory reset for variable length array
             memset(regs, 0, len * sizeof(uint16_t));
-            // handle array
+            // handle uint16_t array
             data = cJSON_GetObjectItem(req, "data");
             for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
             {
@@ -364,7 +367,6 @@ char * set_modbus_error_resp(int tid, const char *reason)
 {
     BEGIN(enable_syslog);
     
-    // create cJSON object for response
     cJSON *resp_root;
     resp_root = cJSON_CreateObject();
     cJSON_AddNumberToObject(resp_root, "tid", tid);
@@ -521,48 +523,56 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
     }
 }
 
+// Read coils.
 char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     return mbtcp_read_bit_req(1, handle, req);
 }
 
+// Read discrete input.
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     return mbtcp_read_bit_req(2, handle, req);
 }
 
+// Read holding registers.
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);   
     return mbtcp_read_reg_req(3, handle, req);  
 }
 
+// Read input registers.
 char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     return mbtcp_read_reg_req(4, handle, req);  
 }
 
+// Write single coil.
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     return mbtcp_single_write_req(5, handle, req);
 }
 
+// Write single register.
 char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     return mbtcp_single_write_req(6, handle, req);
 }
 
+// Write multiple coils.
 char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     return mbtcp_multi_write_req(15, handle, req);
 }
 
+// Write multiple registers.
 char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);

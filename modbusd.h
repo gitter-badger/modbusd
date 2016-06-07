@@ -22,11 +22,6 @@
 #include "json.h"
 
 /* ==================================================
- *  marco
-================================================== */
-#define MBTCP_RESP_TIMEOUT_SEC 30
-
-/* ==================================================
  *  struct
 ================================================== */
 
@@ -68,7 +63,7 @@ typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
 ================================================== */
 
 /**
- * @brief Generic mbtcp error response handler.
+ * @brief Generic modbus (TCP/RTU) error response handler.
  *
  * @param tid Transaction ID.
  * @param reason Fail reason string.
@@ -124,15 +119,13 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *handle);
  * @brief Generic mbtcp command handler
  *
  * @param req cJSON request object.
- * @param fc Function pointer of modbus tcp function code handler.
+ * @param fc Function pointer of modbus tcp FC handler.
  * @return Modbus response string in JSON format for zmsg.
  */
 char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
 
 /**
- * @brief Do modbus tcp requests - FC1
- *
- * Read coils.  
+ * @brief Read coils.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -141,9 +134,7 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
 char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC2
- *
- * Read discrete input.
+ * @brief Read discrete input.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -152,9 +143,7 @@ char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req);
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC3
- *
- * Read holding registers.
+ * @brief Read holding registers.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -163,9 +152,7 @@ char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req);
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC4
- *
- * Read input registers.
+ * @brief Read input registers.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -174,9 +161,7 @@ char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req);
 char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC5
- *
- * Write single coil.
+ * @brief Write single coil.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -185,9 +170,7 @@ char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req);
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC6
- *
- * Write single register.
+ * @brief Write single register.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -196,9 +179,7 @@ char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req);
 char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC15
- *
- * Write multiple coils.
+ * @brief Write multiple coils.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.
@@ -207,9 +188,7 @@ char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req);
 char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req);
 
 /**
- * @brief Do modbus tcp requests - FC16
- *
- * Write multiple registers.
+ * @brief Write multiple registers.
  *
  * @param handle Mbtcp handle.
  * @param req cJSON request object.

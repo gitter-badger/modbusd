@@ -15,6 +15,7 @@
 - syslog (flag)
 - read config
 - default config
+- implement dummy modbus server for testing
 
 
 ## TODO List
