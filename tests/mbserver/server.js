@@ -49,7 +49,7 @@ var mserver = net.createServer(function (socket) {
     });
     
     // FC15
-    server.on("write-multiple-coils", function (addr, val, reply) {
+    server.on("write-multiple-coils", function (addr, to, val, reply) {
         if (addr % 3 === 0) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
@@ -57,7 +57,7 @@ var mserver = net.createServer(function (socket) {
     });
     
     // FC16
-    server.on("write-multiple-registers", function (addr, val, reply) {
+    server.on("write-multiple-registers", function (addr, to, val, reply) {
         if (addr % 7 === 0) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
