@@ -497,7 +497,10 @@ char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
         printf("idx:%d,v:%d\n", i, subitem);
         bits[i] = subitem;
     }
-    int ret = modbus_write_bits(handle->ctx, addr, len, &bits[len]);
+    // debug
+    
+    
+    int ret = modbus_write_bits(handle->ctx, addr, len, &bits);
     if (ret < 0) 
     {
         // [todo][enhance] reconnect proactively?
