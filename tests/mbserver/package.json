@@ -5,7 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "modbus-tcp": "0.4.5",
-    "assert": "*"
+    "assert": "*",
+    "commander": "*"
   },
   "author": "Taka Wang",
   "license": "MIT"
