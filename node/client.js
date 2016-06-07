@@ -112,6 +112,21 @@ var fc6 = function(){
 }
 
 // FC15
+var fc15 = function(){
+    var cmd = {
+        "ip": "172.16.9.170",
+        "port": 502,
+        "slave": 1,
+        "tid": Math.floor((Math.random() * 10000) + 1),
+        "cmd": "fc15",
+        "addr": 10,
+        "len": 5,
+        "data": [1,0,1,0,1]
+    };
+    pub.send("tcp", zmq.ZMQ_SNDMORE);
+    pub.send(JSON.stringify(cmd));
+    console.log("Send FC15");
+}
 
 // FC16
 
@@ -124,6 +139,7 @@ setInterval(function() {
     fc4();
     fc5();
     fc6();
+    fc15();
 }, 500); // emit every 0.5 seconds
 
 
