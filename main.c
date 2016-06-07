@@ -6,12 +6,21 @@
 #include "main.h"
 #include "modbusd.h"
 
-int enable_syslog = 1; // set log to syslog, should load from external
-cJSON * config_json;
-char *config_fname;
-char ipc_sub[200] = "ipc:///tmp/to.modbus";
-char ipc_pub[200] = "ipc:///tmp/from.modbus";
-extern tcp_conn_timeout_usec;
+/* ==================================================
+ *  global variable
+================================================== */
+
+int enable_syslog  = 1;             // syslog flag
+static cJSON * config_json;         // config in cJSON object format
+static char *config_fname = "";     // config filename
+static char ipc_sub[200]  = "ipc:///tmp/to.modbus";
+static char ipc_pub[200]  = "ipc:///tmp/from.modbus";
+extern tcp_conn_timeout_usec;       // from modbusd.c
+
+
+/* ==================================================
+ *  static functions
+================================================== */
 
 /**
  * @brief Load configuration file
@@ -33,7 +42,8 @@ static void load_config(const char *fname)
         strcpy(ipc_sub, json_get_char(config_json, "ipc_sub"));
         strcpy(ipc_pub, json_get_char(config_json, "ipc_pub"));
         tcp_conn_timeout_usec = json_get_int(config_json, "mbtcp_connect_timeout");
-        // debug
+        
+        /* debug
         if (enable_syslog > 0)
         {
             LOG(enable_syslog, "syslog: %d", enable_syslog);
@@ -41,7 +51,21 @@ static void load_config(const char *fname)
             LOG(enable_syslog, "pub: %s", ipc_pub);
             LOG(enable_syslog, "tcp timout: %d", tcp_conn_timeout_usec);
         }
+        */
     }
+    END(enable_syslog);
+}
+
+/**
+ * @brief Save configuration to file
+ *
+ * @param fname Configuration file name.
+ * @return Void.
+ */
+static void save_config(const char *fname)
+{
+    BEGIN(enable_syslog);
+    json_to_file(fname, config_json);
 }
 
 /**
@@ -76,6 +100,7 @@ int main(int argc, char *argv[])
 {
     LOG(enable_syslog, "modbusd version: %s", VERSION);
 
+    // @load config
     config_fname = argc > 1 ? argv[1] : "./modbusd.json";
     load_config(config_fname);
 
@@ -205,4 +230,6 @@ int main(int argc, char *argv[])
     // @resource clean up
     LOG(enable_syslog, "clean up");
     zctx_destroy(&zmq_context);
+    // save config
+    save_config(config_fname); 
 }

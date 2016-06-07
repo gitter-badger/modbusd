@@ -13,12 +13,9 @@
 - FC argument
 - daemon version number
 - syslog (flag)
+- read config
+- default config
 
 
 ## TODO List
 - daemon pid
-- service (todo)
-- read config
-- default config
-- default port
-- max client (255)
