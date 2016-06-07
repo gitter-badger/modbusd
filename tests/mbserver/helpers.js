@@ -32,7 +32,7 @@ exports.randomBits = function () {
 exports.randomBuffers = function () {
 	var bufs = [];
 
-	for (var i = 0; i < 100; i++) {
+	for (var i = 0; i < 125; i++) {
 		bufs.push(new Buffer(2));
 	}
 
