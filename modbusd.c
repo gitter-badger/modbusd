@@ -81,6 +81,26 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
     }   
 }
 
+
+/**
+ * @brief Modbus tcp error number handler
+ *
+ * @param errno Error number from modbus tcp handle
+ * @return Modbus error response string in JSON format for zmsg.
+ */  
+static char * mbtcp_handle_errno(unsigned long errno)
+{
+    // [todo][enhance] reconnect proactively?
+    // ... if the request interval is very large, we should try to reconnect automatically
+    if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+    {
+        handle->connected = false;
+    }
+    ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
+    return set_modbus_error_resp(tid, modbus_strerror(errno));
+}
+
+
 /**
  * @brief Help function. FC1, FC2 request handler
  *
@@ -119,14 +139,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
         if (ret < 0) 
         {
-            // [todo][enhance] reconnect proactively?
-            // ... if the request interval is very large, we should try to reconnect automatically
-            if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-            {
-                handle->connected = false;
-            }
-            ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-            return set_modbus_error_resp(tid, modbus_strerror(errno));
+            return mbtcp_handle_errno(errno);
         } 
         else 
         {
@@ -191,14 +204,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
         
         if (ret < 0) 
         {
-            // [todo][enhance] reconnect proactively?
-            // ... if the request interval is very large, we should try to reconnect automatically
-            if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-            {
-                handle->connected = false;
-            }
-            ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-            return set_modbus_error_resp(tid, modbus_strerror(errno));
+            return mbtcp_handle_errno(errno);
         } 
         else 
         {
@@ -254,14 +260,7 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
     if (ret < 0) 
     {
-        // [todo][enhance] reconnect proactively?
-        // ... if the request interval is very large, we should try to reconnect automatically
-        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-        {
-            handle->connected = false;
-        }
-        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-        return set_modbus_error_resp(tid, modbus_strerror(errno));
+        return mbtcp_handle_errno(errno);
     }
     else
     {
@@ -330,14 +329,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
     if (ret < 0) 
     {
-        // [todo][enhance] reconnect proactively?
-        // ... if the request interval is very large, we should try to reconnect automatically
-        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-        {
-            handle->connected = false;
-        }
-        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-        return set_modbus_error_resp(tid, modbus_strerror(errno));
+        return mbtcp_handle_errno(errno);
     } 
     else
     {
