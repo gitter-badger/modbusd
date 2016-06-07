@@ -126,6 +126,7 @@ int main()
                     else if (strcmp(cmd, "fc5") == 0)
                     {
                         LOG(enable_syslog, "send fc5 req");
+                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc5_req));
                     }
                     else if (strcmp(cmd, "fc6") == 0)
                     {
