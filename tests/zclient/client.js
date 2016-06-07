@@ -18,7 +18,7 @@ sub.on("message", function(mode, jstr) {
 // FC1
 var fc1 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
