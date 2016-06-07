@@ -73,7 +73,7 @@ typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
  * @param errno Error number from modbus tcp handle
  * @return Modbus error response string in JSON format for zmsg.
  */  
-char * set_modbus_errno_resp(int tid, unsigned long errno);
+char * set_modbus_errno_resp(int tid, int errnum);
 
 /**
  * @brief Generic mbtcp error response handler.

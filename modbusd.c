@@ -334,16 +334,16 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
  *  public functions
 ================================================== */
   
-char * set_modbus_errno_resp(int tid, unsigned long errno)
+char * set_modbus_errno_resp(int tid, int errnum)
 {
     // [todo][enhance] reconnect proactively?
     // ... if the request interval is very large, we should try to reconnect automatically
-    if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+    if (errnum == 104) // Connection reset by peer (i.e, tcp connection timeout)
     {
         handle->connected = false;
     }
-    ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-    return set_modbus_error_resp(tid, modbus_strerror(errno));
+    ERR(enable_syslog, "%s:%d", modbus_strerror(errnum), errnum);
+    return set_modbus_error_resp(tid, modbus_strerror(errnum));
 }
 
 
