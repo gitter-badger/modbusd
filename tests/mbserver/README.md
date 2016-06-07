@@ -12,5 +12,4 @@ sudo node server
 ```
 
 ## Credit
-According to this package, I rewrite some handle functions for testing.
-[node-modbus-tcp package](https://github.com/dresende/node-modbus-tcp)
+According to [node-modbus-tcp package](https://github.com/dresende/node-modbus-tcp), I rewrite some handle functions for testing.
