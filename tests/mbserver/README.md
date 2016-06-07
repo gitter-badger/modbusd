@@ -1,5 +1,5 @@
 # Node.js Modbus slave simulator
-A naive modbus server for testing
+A naive modbus TCP server for testing
 
 ## Installation
 ```bash
