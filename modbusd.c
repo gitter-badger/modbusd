@@ -494,12 +494,10 @@ char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
     for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
     {
         uint8_t subitem = cJSON_GetArrayItem(data, i)->valueint;
-        printf("idx:%d,v:%d\n", i, subitem);
         bits[i] = subitem;
+        LOG(enable_syslog, "[%d]=%d", i, bits[i]);
     }
-    // debug
-    
-    
+
     int ret = modbus_write_bits(handle->ctx, addr, len, &bits);
     if (ret < 0) 
     {
@@ -530,6 +528,45 @@ char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
 char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    // TODO    
-    return;  
+    int addr = json_get_int(req, "addr");
+    int len  = json_get_int(req, "len");
+    int tid  = json_get_int(req, "tid");
+    
+    uint16_t regs[len];
+    // memory reset for variable length array
+    memset(regs, 0, len * sizeof(uint16_t));
+    // handle array
+    cJSON * data = cJSON_GetObjectItem(req, "data");
+    for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
+    {
+        uint16_t subitem = cJSON_GetArrayItem(data, i)->valueint;
+        regs[i] = subitem;
+        LOG(enable_syslog, "[%d]=%d", i, regs[i]);
+    }
+
+    int ret = modbus_write_registers(handle->ctx, addr, len, &regs);
+    if (ret < 0) 
+    {
+        // [todo][enhance] reconnect proactively?
+        // ... if the request interval is very large, we should try to reconnect automatically
+        if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+        {
+            handle->connected = false;
+        }
+        ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
+        return set_modbus_error_resp(tid, modbus_strerror(errno));
+    } 
+    else
+    {
+        // @create cJSON object for response
+        cJSON *resp_root;
+        resp_root = cJSON_CreateObject();
+        cJSON_AddNumberToObject(resp_root, "tid", tid);
+        cJSON_AddStringToObject(resp_root, "status", "ok");
+        char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+        LOG(enable_syslog, "resp: %s", resp_json_str);
+        // clean up
+        cJSON_Delete(resp_root);
+        return resp_json_str;         
+    }
 }
