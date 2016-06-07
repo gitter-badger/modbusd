@@ -97,7 +97,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_BITS) // 2000
     {
-        return set_modbus_error_resp(tid, "Requested bit lenth is too long");
+        return set_modbus_error_resp(tid, "Too many bits requested");
     }
     else
     {
@@ -169,7 +169,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_REGISTERS) // 125
     {
-        return set_modbus_error_resp(tid, "Requested register lenth is too long");
+        return set_modbus_error_resp(tid, "Too many registers requested");
     }
     else
     {
@@ -207,7 +207,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             // [todo]:remove; debug only
             for (int ii = 0; ii < ret; ii++) 
             {
-                LOG(enable_syslog, "[%d]=%d", ii, regs[ii]);
+                LOG(enable_syslog, "[%d]=%d (0x%X)", ii, regs[ii]);
             }
 
             // @create cJSON object for response
