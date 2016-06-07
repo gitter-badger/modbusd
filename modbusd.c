@@ -277,14 +277,17 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     
     int ret = 0;
+    uint8_t bits[len];
+    uint16_t regs[len];
+    cJSON * data = NULL;
+    
     switch (fc)
     {
         case 15:
-            uint8_t bits[len];
             // memory reset for variable length array
             memset(bits, 0, len * sizeof(uint8_t));
             // handle array
-            cJSON * data = cJSON_GetObjectItem(req, "data");
+            data = cJSON_GetObjectItem(req, "data");
             for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
             {
                 uint8_t subitem = cJSON_GetArrayItem(data, i)->valueint;
@@ -294,11 +297,11 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             ret = modbus_write_bits(handle->ctx, addr, len, &bits);
             break;
         case 16:
-            uint16_t regs[len];
+            
             // memory reset for variable length array
             memset(regs, 0, len * sizeof(uint16_t));
             // handle array
-            cJSON * data = cJSON_GetObjectItem(req, "data");
+            data = cJSON_GetObjectItem(req, "data");
             for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
             {
                 uint16_t subitem = cJSON_GetArrayItem(data, i)->valueint;
