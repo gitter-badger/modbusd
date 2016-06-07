@@ -4,6 +4,8 @@ var assert  = require("assert");
 var helpers = require("./helpers");
 //var trials  = helpers.trials();
 var coils   = helpers.randomBits();
+var inputs  = helpers.randomBits();
+var registers = helpers.randomBuffers();
 
 var mserver = net.createServer(function (socket) {
     var server = new modbus.Server();
@@ -14,22 +16,54 @@ var mserver = net.createServer(function (socket) {
     server.on("read-coils", function (from, to, reply) {
         return reply(null, coils.slice(from, to + 1));
     });
-
-/*
-    describe("READ_COILS", function () {
-        for (var i = 0; i < trials; i++) {
-            (function () {
-                var from = Math.max(0, Math.floor(Math.random() * coils.length / 2));
-                var to   = Math.min(coils.length, from + Math.floor(Math.random() * coils.length / 2));
-
-                it("should pass (" + from + "-" + to + ")", function () {
-                    return run(from, to);
-                });
-            })();
-        }
-    });
-*/    
     
+    // FC2
+    server.on("read-discrete-inputs", function (from, to, reply) {
+	    return reply(null, inputs.slice(from, to + 1));
+    });
+    
+    // FC3
+    server.on("read-holding-registers", function (from, to, reply) {
+        return reply(null, registers.slice(from, to + 1));
+    });
+    
+    // FC4
+    server.on("read-input-registers", function (from, to, reply) {
+        return reply(null, registers.slice(from, to + 1));
+    });
+    
+    // FC5
+    server.on("write-single-coil", function (addr, val, reply) {
+        if (addr % 3 === 0) {
+            return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
+        }
+        return reply();
+    });
+    
+    // FC6
+    server.on("write-single-register", function (addr, val, reply) {
+        if (addr % 7 === 0) {
+            return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
+        }
+        return reply();
+    });
+    
+    // FC15
+    server.on("write-multiple-coils", function (addr, val, reply) {
+        if (addr % 3 === 0) {
+            return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
+        }
+        return reply();
+    });
+    
+    // FC16
+    server.on("write-multiple-registers", function (addr, val, reply) {
+        if (addr % 7 === 0) {
+            return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
+        }
+        return reply();
+    });
+
 }); // end of mserver
 
 mserver.listen(502, function() {

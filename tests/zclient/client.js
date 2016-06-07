@@ -34,7 +34,7 @@ var fc1 = function(){
 // FC2
 var fc2 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -50,7 +50,7 @@ var fc2 = function(){
 // FC3
 var fc3 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -66,7 +66,7 @@ var fc3 = function(){
 // FC4
 var fc4 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -82,7 +82,7 @@ var fc4 = function(){
 // FC5
 var fc5 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -98,7 +98,7 @@ var fc5 = function(){
 // FC6
 var fc6 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -114,7 +114,7 @@ var fc6 = function(){
 // FC15
 var fc15 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -131,7 +131,7 @@ var fc15 = function(){
 // FC16
 var fc16 = function(){
     var cmd = {
-        "ip": "172.16.9.170",
+        "ip": "127.0.0.1",
         "port": 502,
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),

@@ -22,7 +22,7 @@ exports.pipe = function (stream1, stream2) {
 exports.randomBits = function () {
 	var bits = [];
 
-	for (var i = 0; i < 100; i++) {
+	for (var i = 0; i < 2000; i++) {
 		bits.push(Math.random() > 0.5 ? 1 : 0);
 	}
 
