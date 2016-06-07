@@ -1,7 +1,7 @@
 var net = require('net');
 var assert  = require("assert");
 var helpers = require("./helpers");
-var trials  = helpers.trials();
+//var trials  = helpers.trials();
 var coils   = helpers.randomBits();
 
 var mserver = net.createServer(function (socket) {
@@ -14,6 +14,7 @@ var mserver = net.createServer(function (socket) {
         return reply(null, coils.slice(from, to + 1));
     });
 
+/*
     describe("READ_COILS", function () {
         for (var i = 0; i < trials; i++) {
             (function () {
@@ -26,7 +27,7 @@ var mserver = net.createServer(function (socket) {
             })();
         }
     });
-    
+*/    
     
 }); // end of mserver
 
