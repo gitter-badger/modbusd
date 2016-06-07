@@ -81,9 +81,23 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
     }   
 }
 
-
-
-
+/**
+ * @brief Generic mbtcp error number handler
+ *
+ * @param errno Error number from modbus tcp handle
+ * @return Modbus error response string in JSON format for zmsg.
+ */  
+static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
+{
+    // [todo][enhance] reconnect proactively?
+    // ... if the request interval is very large, we should try to reconnect automatically
+    if (errnum == 104) // Connection reset by peer (i.e, tcp connection timeout)
+    {
+        handle->connected = false;
+    }
+    ERR(enable_syslog, "%s:%d", modbus_strerror(errnum), errnum);
+    return set_modbus_error_resp(tid, modbus_strerror(errnum));
+}
 
 /**
  * @brief Help function. FC1, FC2 request handler
@@ -336,19 +350,6 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 /* ==================================================
  *  public functions
 ================================================== */
-  
-char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
-{
-    // [todo][enhance] reconnect proactively?
-    // ... if the request interval is very large, we should try to reconnect automatically
-    if (errnum == 104) // Connection reset by peer (i.e, tcp connection timeout)
-    {
-        handle->connected = false;
-    }
-    ERR(enable_syslog, "%s:%d", modbus_strerror(errnum), errnum);
-    return set_modbus_error_resp(tid, modbus_strerror(errnum));
-}
-
 
 char * set_modbus_error_resp(int tid, const char *reason)
 {
