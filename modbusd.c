@@ -82,23 +82,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
 }
 
 
-/**
- * @brief Modbus tcp error number handler
- *
- * @param errno Error number from modbus tcp handle
- * @return Modbus error response string in JSON format for zmsg.
- */  
-static char * mbtcp_handle_errno(unsigned long errno)
-{
-    // [todo][enhance] reconnect proactively?
-    // ... if the request interval is very large, we should try to reconnect automatically
-    if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
-    {
-        handle->connected = false;
-    }
-    ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
-    return set_modbus_error_resp(tid, modbus_strerror(errno));
-}
+
 
 
 /**
@@ -139,7 +123,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
         if (ret < 0) 
         {
-            return mbtcp_handle_errno(errno);
+            return set_modbus_errno_resp(tid, errno);
         } 
         else 
         {
@@ -204,7 +188,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
         
         if (ret < 0) 
         {
-            return mbtcp_handle_errno(errno);
+            return set_modbus_errno_resp(tid, errno);
         } 
         else 
         {
@@ -260,7 +244,7 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
     if (ret < 0) 
     {
-        return mbtcp_handle_errno(errno);
+        return set_modbus_errno_resp(tid, errno);
     }
     else
     {
@@ -329,7 +313,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 
     if (ret < 0) 
     {
-        return mbtcp_handle_errno(errno);
+        return set_modbus_errno_resp(tid, errno);
     } 
     else
     {
@@ -349,6 +333,19 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 /* ==================================================
  *  public functions
 ================================================== */
+  
+char * set_modbus_errno_resp(int tid, unsigned long errno)
+{
+    // [todo][enhance] reconnect proactively?
+    // ... if the request interval is very large, we should try to reconnect automatically
+    if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+    {
+        handle->connected = false;
+    }
+    ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
+    return set_modbus_error_resp(tid, modbus_strerror(errno));
+}
+
 
 char * set_modbus_error_resp(int tid, const char *reason)
 {
