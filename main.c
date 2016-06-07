@@ -10,12 +10,12 @@
  *  global variable
 ================================================== */
 
-int enable_syslog  = 1;             // syslog flag
-static cJSON * config_json;         // config in cJSON object format
-static char *config_fname = "";     // config filename
+int enable_syslog  = 1;                 // syslog flag
+static cJSON * config_json;             // config in cJSON object format
+static char *config_fname = "";         // config filename
 static char ipc_sub[200]  = "ipc:///tmp/to.modbus";
 static char ipc_pub[200]  = "ipc:///tmp/from.modbus";
-extern tcp_conn_timeout_usec;       // from modbusd.c
+extern uint32_t tcp_conn_timeout_usec;  // from modbusd.c
 
 
 /* ==================================================
