@@ -1,0 +1,11 @@
+{
+  "name": "zmq-client",
+  "version": "0.0.1",
+  "description": "Naive zmq client for testing",
+  "main": "client.js",
+  "dependencies": {
+    "zmq": "~2.15.3"
+  },
+  "author": "Taka Wang",
+  "license": "MIT"
+}

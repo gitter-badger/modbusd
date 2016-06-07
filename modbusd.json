@@ -1,0 +1,6 @@
+{
+    "syslog": 1,
+    "ipc_sub": "ipc:///tmp/to.modbus",
+    "ipc_pub": "ipc:///tmp/from.modbus",
+    "mbtcp_connect_timeout": 210000
+}
