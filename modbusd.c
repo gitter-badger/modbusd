@@ -89,7 +89,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
  * @param req cJSON request object.
  * @return Modbus response string in JSON format for zmsg.
  */
-static char * help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
+static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     int addr = json_get_int(req, "addr");
@@ -97,7 +97,7 @@ static char * help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_BITS) // 2000
     {
-        return set_modbus_error_resp(tid, "Requested lenth too long");
+        return set_modbus_error_resp(tid, "Requested bit lenth is too long");
     }
     else
     {
@@ -161,10 +161,68 @@ static char * help_mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req
  * @param req cJSON request object.
  * @return Modbus response string in JSON format for zmsg.
  */
-static char * help_mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
+static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    return "";
+    int addr = json_get_int(req, "addr");
+    int len  = json_get_int(req, "len");
+    int tid  = json_get_int(req, "tid");
+    if (len > MODBUS_MAX_READ_REGISTERS) // 125
+    {
+        return set_modbus_error_resp(tid, "Requested register lenth is too long");
+    }
+    else
+    {
+        uint16_t regs[len];
+        // memory reset for variable length array
+        memset(regs, 0, len * sizeof(uint16_t));
+        int ret = 0;
+        switch (fc)
+        {
+            case 3:
+                ret = modbus_read_registers(handle->ctx, addr, len, regs);
+                break;
+            case 4:
+                ret = modbus_read_input_registers(handle->ctx, addr, len, regs);
+                break;
+            default:
+                return set_modbus_error_resp(tid, "Wrong function code");
+        }
+        
+        if (ret < 0) 
+        {
+            // [todo][enhance] reconnect proactively?
+            // ... if the request interval is very large, we should try to reconnect automatically
+            if (errno == 104) // Connection reset by peer (i.e, tcp connection timeout)
+            {
+                handle->connected = false;
+            }
+            ERR(enable_syslog, "%s:%d", modbus_strerror(errno), errno);
+            return set_modbus_error_resp(tid, modbus_strerror(errno));
+        } 
+        else 
+        {
+            LOG(enable_syslog, "fc:%d, desired length: %d, read length:%d", fc, len, ret);
+            
+            // [todo]:remove; debug only
+            for (int ii = 0; ii < ret; ii++) 
+            {
+                LOG(enable_syslog, "[%d]=%d", ii, regs[ii]);
+            }
+
+            // @create cJSON object for response
+            cJSON *resp_root;
+            resp_root = cJSON_CreateObject();
+            cJSON_AddNumberToObject(resp_root, "tid", tid);
+            cJSON_AddItemToObject(resp_root, "data", cJSON_CreateUInt16Array(regs, len));
+            cJSON_AddStringToObject(resp_root, "status", "ok");
+            char * resp_json_str = cJSON_PrintUnformatted(resp_root);
+            LOG(enable_syslog, "resp: %s", resp_json_str);
+            // clean up
+            cJSON_Delete(resp_root);
+            return resp_json_str;
+        }
+    }
 }
 
 
@@ -336,25 +394,25 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
 char * mbtcp_fc1_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    return help_mbtcp_read_bit_req(1, handle, req);
+    return mbtcp_read_bit_req(1, handle, req);
 }
 
 char * mbtcp_fc2_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    return help_mbtcp_read_bit_req(2, handle, req);
+    return mbtcp_read_bit_req(2, handle, req);
 }
 
 char * mbtcp_fc3_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);   
-    return help_mbtcp_read_reg_req(3, handle, req);  
+    return mbtcp_read_reg_req(3, handle, req);  
 }
 
 char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)
 {
     BEGIN(enable_syslog);
-    return help_mbtcp_read_reg_req(4, handle, req);  
+    return mbtcp_read_reg_req(4, handle, req);  
 }
 
 char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)

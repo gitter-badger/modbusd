@@ -21,7 +21,7 @@ var fc1 = function(){
         "ip": "172.16.9.170",
         "port": 502,
         "slave": 1,
-        "tid": 1,
+        "tid": new Date().getTime() / 1000,
         "cmd": "fc1",
         "addr": 250,
         "len": 10
@@ -37,7 +37,7 @@ var fc2 = function(){
         "ip": "172.16.9.170",
         "port": 502,
         "slave": 1,
-        "tid": 2,
+        "tid": new Date().getTime() / 1000,
         "cmd": "fc2",
         "addr": 250,
         "len": 10
@@ -50,10 +50,10 @@ var fc2 = function(){
 // FC3
 var fc3 = function(){
     var cmd = {
-        "ip": "192.168.3.2",
+        "ip": "172.16.9.170",
         "port": 502,
-        "slave": 22,
-        "tid": 3,
+        "slave": 1,
+        "tid": new Date().getTime() / 1000,
         "cmd": "fc3",
         "addr": 250,
         "len": 10
@@ -66,10 +66,10 @@ var fc3 = function(){
 // FC4
 var fc4 = function(){
     var cmd = {
-        "ip": "192.168.3.2",
+        "ip": "172.16.9.170",
         "port": 502,
-        "slave": 22,
-        "tid": 4,
+        "slave": 1,
+        "tid": new Date().getTime() / 1000,
         "cmd": "fc4",
         "addr": 250,
         "len": 10
