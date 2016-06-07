@@ -9,6 +9,9 @@
 int enable_syslog = 1; // set log to syslog, should load from external
 cJSON * config_json;
 char *config_fname;
+char ipc_sub[200] = "ipc:///tmp/to.modbus";
+char ipc_pub[200] = "ipc:///tmp/from.modbus";
+extern tcp_conn_timeout_usec;
 
 /**
  * @brief Load configuration file
@@ -23,6 +26,21 @@ static void load_config(const char *fname)
     {
         ERR(enable_syslog, "Failed to parse setting json: %s! Bye!", config_fname);
         exit(EXIT_FAILURE);
+    }
+    else
+    {
+        enable_syslog = json_get_int(config_json, "syslog");
+        strcpy(ipc_sub, json_get_char(config_json, "ipc_sub"));
+        strcpy(ipc_pub, json_get_char(config_json, "ipc_pub"));
+        tcp_conn_timeout_usec = json_get_int(config_json, "mbtcp_connect_timeout");
+        // debug
+        if (enable_syslog > 0)
+        {
+            LOG(enable_syslog, "syslog: %d", enable_syslog);
+            LOG(enable_syslog, "sub: %s", ipc_sub);
+            LOG(enable_syslog, "pub: %s", ipc_pub);
+            LOG(enable_syslog, "tcp timout: %d", tcp_conn_timeout_usec);
+        }
     }
 }
 
@@ -66,13 +84,13 @@ int main(int argc, char *argv[])
     // init zmq subscriber: zmq_sub
     void *zmq_sub = zsocket_new (zmq_context, ZMQ_SUB);
     // bind zmq subscriber
-    zsocket_bind (zmq_sub, IPC_SUB);
+    zsocket_bind (zmq_sub, ipc_sub);
     // set zmq subscriber filter
     zsocket_set_subscribe (zmq_sub, ""); 
     // init zmq publisher: zmq_pub
     void *zmq_pub = zsocket_new (zmq_context, ZMQ_PUB);
     // bind zmq publisher
-    zsocket_bind (zmq_pub, IPC_PUB);
+    zsocket_bind (zmq_pub, ipc_pub);
     
     LOG(enable_syslog, "start request listener");
     while (!zctx_interrupted) // handle ctrl+c
