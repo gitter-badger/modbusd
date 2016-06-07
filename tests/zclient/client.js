@@ -23,7 +23,7 @@ var fc1 = function(){
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc1",
-        "addr": 250,
+        "addr": 10,
         "len": 10
     };
     pub.send("tcp", zmq.ZMQ_SNDMORE);
