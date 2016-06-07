@@ -421,7 +421,7 @@ char * mbtcp_fc5_req(mbtcp_handle_s *handle, cJSON *req)
     int addr = json_get_int(req, "addr");
     int tid  = json_get_int(req, "tid");
     int data = json_get_int(req, "data");
-    int ret = modbus_write_bit(ctx, 1, data);
+    int ret = modbus_write_bit(handle->ctx, 1, data);
     if (ret < 0) 
     {
         // [todo][enhance] reconnect proactively?
