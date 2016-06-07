@@ -1,4 +1,5 @@
 var net = require('net');
+var modbus  = require("modbus-tcp");
 var assert  = require("assert");
 var helpers = require("./helpers");
 //var trials  = helpers.trials();
