@@ -207,7 +207,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             // [todo]:remove; debug only
             for (int ii = 0; ii < ret; ii++) 
             {
-                LOG(enable_syslog, "[%d]=%d (0x%X)", ii, regs[ii]);
+                LOG(enable_syslog, "[%d]=%d", ii, regs[ii]);
             }
 
             // @create cJSON object for response
@@ -490,7 +490,7 @@ char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)
     // memory reset for variable length array
     memset(bits, 0, len * sizeof(uint8_t));
     // handle array
-    cJSON * data = cJSON_GetObjectItem(json, "data");
+    cJSON * data = cJSON_GetObjectItem(req, "data");
     for (int i = 0 ; i < cJSON_GetArraySize(data) ; i++)
     {
         uint8_t subitem = cJSON_GetArrayItem(data, i)->valueuint8;
