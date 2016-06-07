@@ -312,8 +312,8 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     
     int ret = 0;
-    uint8_t bits[len];  // FC15
-    uint16_t regs[len]; // FC16
+    const uint8_t bits[len];  // FC15
+    const uint16_t regs[len]; // FC16
     cJSON * data = NULL;
     
     switch (fc)
@@ -410,7 +410,7 @@ bool mbtcp_do_connect(mbtcp_handle_s *handle, char ** reason)
     if (modbus_connect(handle->ctx) == -1) 
     {
         ERR(enable_syslog, "Connection failed: %s", modbus_strerror(errno));
-        *reason = modbus_strerror(errno);
+        *reason = (char *)modbus_strerror(errno);
         return false;
     }
     else
