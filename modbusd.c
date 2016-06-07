@@ -311,15 +311,16 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int len  = json_get_int(req, "len");
     int tid  = json_get_int(req, "tid");
     
-    int ret = 0;
-    uint8_t bits[len];  // FC15
-    uint16_t regs[len]; // FC16
+    uint8_t *bits;      // FC15
+    uint16_t *regs;     // FC16
     cJSON * data = NULL;
-    
+    int ret = 0;
+
     switch (fc)
     {
         case 15:
             // memory reset for variable length array
+            bits = (uint8_t *) malloc(len * sizeof(uint8_t));
             memset(bits, 0, len * sizeof(uint8_t));
             // handle uint8_t array
             data = cJSON_GetObjectItem(req, "data");
@@ -329,11 +330,13 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 bits[i] = subitem;
                 LOG(enable_syslog, "[%d]=%d", i, bits[i]);
             }
-            ret = modbus_write_bits(handle->ctx, addr, len, &bits);
+            ret = modbus_write_bits(handle->ctx, addr, len, bits);
+            free(bits);
             break;
         case 16:
             
             // memory reset for variable length array
+            regs = (uint16_t *) malloc(len * sizeof(uint16_t));
             memset(regs, 0, len * sizeof(uint16_t));
             // handle uint16_t array
             data = cJSON_GetObjectItem(req, "data");
@@ -343,7 +346,8 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 regs[i] = subitem;
                 LOG(enable_syslog, "[%d]=%d", i, regs[i]);
             }
-            ret = modbus_write_registers(handle->ctx, addr, len, &regs);
+            ret = modbus_write_registers(handle->ctx, addr, len, regs);
+            free(regs);
             break;
         default:
             return set_modbus_error_resp(tid, "Wrong function code");
