@@ -21,7 +21,7 @@ static void load_config(const char *fname)
     BEGIN(enable_syslog);
     if (file_to_json(config_fname, &config_json) < 0)
     {
-        ERR(enable_syslog, "Failed to parse setting json: %d! Bye!", config_fname);
+        ERR(enable_syslog, "Failed to parse setting json: %s! Bye!", config_fname);
         exit(EXIT_FAILURE);
     }
 }
