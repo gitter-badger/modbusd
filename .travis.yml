@@ -8,8 +8,10 @@ script:
 # docker build and push
   - docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
   - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_SERVER_IMG
+  
   - docker build -t $MODBUS_ZCLIENT_IMG tests/zclient/.
   - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_ZCLIENT_IMG:latest $MODBUS_ZCLIENT_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_ZCLIENT_IMG
+  
   - docker build -t $MODBUSD_IMG .
   - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG; fi && docker push $MODBUSD_IMG
 
@@ -19,10 +21,9 @@ script:
 #- docker run -v /tmp:/tmp --link slave:slave -it takawang/modbus-zclient /bin/bash
 
 env:
-  matrix:
+  global:
   - MODBUS_SERVER_IMG=takawang/modbus-server
   - MODBUS_ZCLIENT_IMG=takawang/modbus-zclient
   - MODBUSD_IMG=takawang/modbusd
-  global:
   - secure: FrCMjU233KiRXywfBCe7xb366BtMgMrmghOd0YDa6u1d+gz32doLJ3oJJRvwJTBDUZeapmVe+cB09tK671m/P5fG/HeAfSR7CdDpBEMMzrZTUEkzduePlBv9lGYRujyxW8vhmApIXgcMhT3CRCMaibaFbRLYGCLnNuaRH2bn1/OJyjGkyxLwgHc8cUkkTaeauHqkd0XEPXIJgoPbuvmpY/53mfjjkx6nNmLUkju9o/qk9Ovss3EObEE5hMpAlvv0rf8EJsSQKf8clVutLH+qtdo65U2tEKOUhm4+3qCt5xRu44vgJirvd3J33RiRbpW/5Uw10eg5btCNUZhCl2K0ZSg/NeABNIIbhrCbxGSfVslSMtZn6kDdwbjOP8UD5eLk9WLVOf7Cg/l8KDEIaXToN7lSAQUu5eaRdu29kxJFGjIK5ZTRzN0wnysh1pI8nTfvRi/OavlwBbtdXdEmaj9JrrVOK8xlU0JSuGrhG84FX+GoK6GBVLlFjsQwwDtGty0WVT20T/LMhdNVKS5CK5FjBMc+mjtGpJefxGpC3E4yQPkcN7RRK4AqcNwjeY32AkxD5Qd3mvRTtX9WzlSZRYzfVI2o5GEfxs23qL30HRyuQDyhsgFJX8lMZW3umXj2su5CdRuaUZydi8anN2LoYlRfeZgDRoWBIR6uzSEw/G5dohE=
   - secure: ms1BU9/+lqPgV9kfX6jahTU/tc8Yh3xlqSwEf03gkbjidas4qGQe5Xn43Ml2eeKNUd/zFSUxhxRBXYFoTx9Fk9ox5NP8pHyPd3bbCb5xWu6Zzs+2c0ITf3d3BcUd/haueue/jo7Sua5VeT255lKK1bzRgfQgyMqn/bUb3zMp/kCODHMRfq1Vge9d/V2918JSE9lqMabrpxAxPoV+vmCHpz1QVNnOoC2VcFA0dHctgp3ZEoSgvIuD+c47G/tulrT5F9fMhs3p4QO8vM7vIdkXsWZAbCTDQHpYIYkp5jwHqz6EqVaZgwU0NrrmhpRoxEyBzC+F9+ydYAhSuosvyzNwengFs5LxYDWsiO8YkuA/FIVEiKOYtuhhzqZ7jUHH0KTU3M27dHNgNBAPv9BMo/h33nU00d+f+81hkww30bQq8ssKG2jllsh60whM/TY9hc5gnBAV6eIYK0qnDND19jwoGKf5DM0NmfeodOaAZrgFBcp5kY8CM+t5s6NhES8v3hGsBT3NoSZiKvQcbw9vaMrKAqzdjbx5mou1H3m8Fdpvgi8pfchejSRHfNWEUWS9tJG1VajQGnylzTuLBKRvizIyabaJcdUsfOAXJia88L9xkRSbcOOp7IXQpeUQS+lQGjEORyk7Z0/hUUcH2Id9u5dOvC5yxB0unnUvqYgag0dWx58=
