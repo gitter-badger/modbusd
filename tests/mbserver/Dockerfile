@@ -8,6 +8,3 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN git clone https://github.com/taka-wang/modbusd.git
 WORKDIR  /modbusd/tests/mbserver
 
-## Checkout to v1.0 branch
-RUN git checkout dev
-RUN npm install
