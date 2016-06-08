@@ -166,7 +166,9 @@ make
 
 ---
 
-## Docker CI [optional]
+## Continuous Integration [optional]
+
+We do continuous integration and update docker images after git push by [Travis CI](https://travis-ci.org/taka-wang/modbusd).
 
 ### Docker images registry
 
