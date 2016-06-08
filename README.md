@@ -168,14 +168,19 @@ make
 
 # Dockerlize test
 ```bash
-# build docker image
+# build simulation server image
+docker build -t takawang/modbus-server tests/mbserver/.
+# build zclient image
+docker build -t takawang/modbus-zclient tests/zclient/.
+# build modbusd image
 docker build -t takawang/modbusd .
-# mount file system
-docker run -v /tmp:/tmp -it takawang/modbusd /bin/bash
-# Print app output
-docker logs <container id>
-# Enter the container
-docker exec -it <container id> /bin/bash
+
+# run modbus server
+docker run -d -P --name slave takawang/modbus-server
+# run modbusd
+docker run -v /tmp:/tmp -d -P --name modbusd --link slave:slave  -it takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
+# run zclient
+docker run -v /tmp:/tmp -it takawang/modbus-zclient /bin/bash
 ```
 
 ## Note
