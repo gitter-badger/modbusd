@@ -6,9 +6,14 @@ services:
   - docker
 
 before_install:
+# build simulation server
 - docker build -t takawang/modbus-server tests/mbserver/.
-- docker run -p 502:502 -d takawang/modbus-server
+# build zclient
 - docker build -t takawang/modbus-zclient tests/zclient/.
-#docker run -v /tmp:/tmp -it takawang/modbus-zclient /bin/bash
+# Install depends
 - docker build -t takawang/modbusd .
-- docker ps -a
+
+script:
+# run modbus simulation server
+- docker run -p 502:502 -d takawang/modbus-server
+#docker run -v /tmp:/tmp -it takawang/modbus-zclient /bin/bash
