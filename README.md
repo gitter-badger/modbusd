@@ -1,4 +1,4 @@
-# modbusd
+# modbusd [![Build Status](https://travis-ci.org/taka-wang/modbusd.svg?branch=dev)](https://travis-ci.org/taka-wang/modbusd)
 Modbus daemon 
 
 ## Setup development dependencies
