@@ -8,5 +8,9 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN git clone -b dev https://github.com/taka-wang/modbusd.git
 WORKDIR  /modbusd/tests/mbserver
 
+## Install app dependencies
 RUN npm install
+
+EXPOSE 502
+CMD [ "npm", "start" ]
 
