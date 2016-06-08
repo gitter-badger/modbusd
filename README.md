@@ -166,7 +166,16 @@ make
 
 ---
 
-# Dockerlize test
+# Docker images registry
+
+You can download pre-built docker images according to the following commands.
+
+- docker pull [takawang/modbus-server](https://hub.docker.com/r/takawang/modbus-server/)
+- docker pull [takawang/modbus-zclient](https://hub.docker.com/r/takawang/modbus-zclient/)
+- docker pull [takawang/modbusd](https://hub.docker.com/r/takawang/modbusd/)
+
+
+# Docker from the scratch
 ```bash
 # build simulation server image
 docker build -t takawang/modbus-server tests/mbserver/.
