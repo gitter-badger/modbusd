@@ -189,9 +189,9 @@ docker build -t takawang/modbus-zclient tests/zclient/.
 docker build -t takawang/modbusd .
 
 # run modbus server
-docker run -d -P --name slave takawang/modbus-server
+docker run -d --name slave takawang/modbus-server
 # run modbusd
-docker run -v /tmp:/tmp -d -P --name modbusd --link slave:slave  -it takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
+docker run -v /tmp:/tmp -d --name modbusd --link slave:slave  -it takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
 # run zclient
 #docker run -v /tmp:/tmp --link slave:slave takawang/modbus-zclient
 docker run -v /tmp:/tmp --link slave:slave -it takawang/modbus-zclient /bin/bash
