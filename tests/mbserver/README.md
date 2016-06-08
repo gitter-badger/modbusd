@@ -13,7 +13,11 @@ sudo node server
 
 ## Dockerized test
 ```bash
+# build docker image 
+docker build -t takawang/modbus-server .
+# or pull images
 docker pull takawang/modbus-server
+# run the image
 docker run -p host_port:502 -d takawang/modbus-server
 # Print app output
 docker logs <container id>

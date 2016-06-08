@@ -166,6 +166,18 @@ make
 
 ---
 
+# Dockerlize test
+```bash
+# build docker image
+docker build -t takawang/modbusd .
+# mount file system
+docker run -v /tmp:/tmp -it takawang/modbusd /bin/bash
+# Print app output
+docker logs <container id>
+# Enter the container
+docker exec -it <container id> /bin/bash
+```
+
 ## Note
 - Support doxygen style comments.
 - ZMQ is a high-level message library, you can plug in your own socket implemetations without losing the core functionalities.
