@@ -1,16 +1,18 @@
+#
+# modbus simulation slave
+#
 FROM node:4.4.5
 MAINTAINER Taka Wang <taka.wang@adlinktech.com>
  
 ## Set environment variable
 ENV DEBIAN_FRONTEND noninteractive
 
-## Clone modbusd
-RUN git clone -b dev https://github.com/taka-wang/modbusd.git
-WORKDIR  /modbusd/tests/mbserver
-
-## Install app dependencies
-RUN npm install
+## Install node packages
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install && \
+    mkdir -p /mbserver && \
+    cp -a /tmp/node_modules /mbserver/
 
 EXPOSE 502
-CMD [ "npm", "start" ]
+CMD [ "node", "server.js" ]
 

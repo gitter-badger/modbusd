@@ -1,3 +1,5 @@
+// Tester for docker
+
 var 
 zmq = require('zmq')
 , links = require('docker-links').parseLinks(process.env)

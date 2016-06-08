@@ -6,14 +6,14 @@ services:
   - docker
 
 before_install:
-# build simulation server
+# build simulation server image
 - docker build -t takawang/modbus-server tests/mbserver/.
-# build zclient
+# build zclient image
 - docker build -t takawang/modbus-zclient tests/zclient/.
-# Install depends
+# build modbusd image
 - docker build -t takawang/modbusd .
 
 script:
-# run modbus simulation server
-- docker run -p 502:502 -d takawang/modbus-server
-#docker run -v /tmp:/tmp -it takawang/modbus-zclient /bin/bash
+- docker run -d -P --name slave takawang/modbus-server
+- docker run -v /tmp:/tmp -d -P --name modbusd --link slave:slave  -it takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
+# docker run -v /tmp:/tmp --link slave:slave -it takawang/modbus-zclient /bin/bash

@@ -180,6 +180,7 @@ docker run -d -P --name slave takawang/modbus-server
 # run modbusd
 docker run -v /tmp:/tmp -d -P --name modbusd --link slave:slave  -it takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
 # run zclient
+#docker run -v /tmp:/tmp --link slave:slave takawang/modbus-zclient
 docker run -v /tmp:/tmp --link slave:slave -it takawang/modbus-zclient /bin/bash
 ```
 

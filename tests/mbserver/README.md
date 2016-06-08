@@ -18,7 +18,7 @@ docker build -t takawang/modbus-server .
 # or pull images
 docker pull takawang/modbus-server
 # run the image (host_port:container_port)
-docker run -p 502:502 -d takawang/modbus-server
+docker run -p 502:502 -d --name slave takawang/modbus-server
 # Print app output
 docker logs <container id>
 # Enter the container
