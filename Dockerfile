@@ -29,3 +29,12 @@ WORKDIR  /
 RUN git clone git://github.com/zeromq/czmq.git
 WORKDIR  /czmq
 RUN ./autogen.sh && ./configure && make && make install && ldconfig
+
+## Clone modbusd
+WORKDIR  /
+RUN git clone -b dev https://github.com/taka-wang/modbusd.git
+RUN mkdir -p /modbusd/build
+WORKDIR /modbusd/build
+RUN cmake .. && make && make install
+
+EXPOSE 502
