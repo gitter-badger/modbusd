@@ -166,7 +166,9 @@ make
 
 ---
 
-# Docker images registry
+## Docker CI [optional]
+
+### Docker images registry
 
 You can download pre-built docker images according to the following commands.
 
@@ -175,7 +177,7 @@ You can download pre-built docker images according to the following commands.
 - docker pull [takawang/modbusd](https://hub.docker.com/r/takawang/modbusd/)
 
 
-# Docker from the scratch
+### Docker images and testing from the scratch
 ```bash
 # build simulation server image
 docker build -t takawang/modbus-server tests/mbserver/.
