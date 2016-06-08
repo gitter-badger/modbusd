@@ -5,7 +5,7 @@ MAINTAINER Taka Wang <taka@cmwang.net>
 ENV DEBIAN_FRONTEND noninteractive
 
 ## Install required development packages
-RUN sudo apt-get update && apt-get install -y git build-essential autoconf libtool pkg-config cmake
+RUN sudo apt-get update && apt-get install -y git wget build-essential autoconf libtool pkg-config cmake
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
