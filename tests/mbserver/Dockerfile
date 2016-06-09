@@ -2,7 +2,7 @@
 # modbus simulation slave
 #
 FROM node:4.4.5
-MAINTAINER Taka Wang <taka.wang@adlinktech.com>
+MAINTAINER Taka Wang <taka@cmwang.net>
  
 ## Set environment variable
 ENV DEBIAN_FRONTEND noninteractive
@@ -13,6 +13,9 @@ RUN cd /tmp && npm install && \
     mkdir -p /mbserver && \
     cp -a /tmp/node_modules /mbserver/
 
+
 EXPOSE 502
+
+## Default command
 CMD [ "node", "server.js" ]
 

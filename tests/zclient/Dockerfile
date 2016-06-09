@@ -3,7 +3,7 @@
 #
 
 FROM node:4.4.5
-MAINTAINER Taka Wang <taka.wang@adlinktech.com>
+MAINTAINER Taka Wang <taka@cmwang.net>
  
 ## Set environment variable
 ENV DEBIAN_FRONTEND noninteractive
@@ -21,4 +21,5 @@ RUN cd /tmp && npm install && \
 WORKDIR /zclient
 ADD . /zclient
 
+## Default command
 CMD ["node", "client2.js"]
