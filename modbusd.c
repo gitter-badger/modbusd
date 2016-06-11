@@ -436,12 +436,12 @@ void mbtcp_list_handles()
     }
 }
 
-bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ipv4, int port)
+bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
 
     // create a mbtcp context
-    modbus_t *ctx = modbus_new_tcp_pi(ipv4, port);
+    modbus_t *ctx = modbus_new_tcp_pi(ip, port);
     
     if (ctx == NULL)
     {
@@ -458,7 +458,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ipv4, int port)
     // let alignment bytes being set to zero-value!!
     memset(handle, 0, sizeof(mbtcp_handle_s));
     handle->connected = false;
-    strcpy(handle->key.ip, ipv4);
+    strcpy(handle->key.ip, ip);
     handle->key.port  = port;
     handle->ctx = ctx;
 
@@ -474,7 +474,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ipv4, int port)
     return true;
 }
 
-bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ipv4, int port)
+bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
 {
     BEGIN(enable_syslog);
     

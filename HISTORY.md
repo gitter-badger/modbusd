@@ -16,8 +16,7 @@
 - read config
 - default config
 - implement dummy modbus server for testing
-
+- Ipv4, v6 support
 
 ## TODO List
 - daemon pid
-- IPv4
