@@ -20,3 +20,4 @@
 
 ## TODO List
 - daemon pid
+- rewrite int port to char * port
