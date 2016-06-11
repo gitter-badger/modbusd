@@ -13,6 +13,9 @@ RUN cd /tmp && npm install && \
     mkdir -p /mbserver && \
     cp -a /tmp/node_modules /mbserver/
 
+## Load app files
+WORKDIR /mbserver
+ADD . /mbserver
 
 EXPOSE 502
 
