@@ -110,7 +110,7 @@ void test_multiple_add_find_zhahs()
         handle->connected = false;
         strcpy(handle->key.ip, "192.168.10.12");
         handle->key.port = idx;
-        handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
+        handle->ctx = modbus_new_tcp_pi(handle->key.ip, handle->key.port);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
        
         int key = idx;        
@@ -136,7 +136,7 @@ void test_multiple_add_find()
         handle->connected = false;
         strcpy(handle->key.ip, "192.168.10.12");
         handle->key.port = idx;
-        handle->ctx = modbus_new_tcp(handle->key.ip, handle->key.port);
+        handle->ctx = modbus_new_tcp_pi(handle->key.ip, handle->key.port);
         HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), handle);
         LOG(enable_syslog, "handle:%d, %p\n", idx, handle);
     }
@@ -179,7 +179,7 @@ void test_single_zhash()
     h1->connected = false;
     strcpy(h1->key.ip, "192.168.10.1");
     h1->key.port = 555;
-    h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
+    h1->ctx = modbus_new_tcp_pi(h1->key.ip, h1->key.port);
     //HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), h1);
     
     mbtcp_key_s key = {"192.168.10.1", 555};
@@ -213,7 +213,7 @@ void test_single_add_find()
     h1->connected = false;
     strcpy(h1->key.ip, "192.168.10.1");
     h1->key.port = 555;
-    h1->ctx = modbus_new_tcp(h1->key.ip, h1->key.port);
+    h1->ctx = modbus_new_tcp_pi(h1->key.ip, h1->key.port);
     HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), h1);
     
     // server #2
@@ -222,7 +222,7 @@ void test_single_add_find()
     h2->connected = false;
     strcpy(h2->key.ip, "192.168.10.2");
     h2->key.port = 556;
-    h2->ctx = modbus_new_tcp(h2->key.ip, h2->key.port);
+    h2->ctx = modbus_new_tcp_pi(h2->key.ip, h2->key.port);
     HASH_ADD(hh, servers, key, sizeof(mbtcp_key_s), h2);
     
     // find #1

@@ -441,7 +441,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ipv4, int port)
     BEGIN(enable_syslog);
 
     // create a mbtcp context
-    modbus_t *ctx = modbus_new_tcp(ipv4, port);
+    modbus_t *ctx = modbus_new_tcp_pi(ipv4, port);
     
     if (ctx == NULL)
     {
