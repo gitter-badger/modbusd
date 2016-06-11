@@ -20,3 +20,4 @@
 
 ## TODO List
 - daemon pid
+- IPv4
