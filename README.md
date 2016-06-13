@@ -191,7 +191,7 @@ docker build -t takawang/modbusd .
 # run modbus server
 docker run -itd --name=slave takawang/modbus-server
 # run modbusd
-docker run -v /tmp:/tmp -itd --link slave --name=modbusd takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
+docker run -v /tmp:/tmp -itd --link slave --name=modbusd takawang/modbusd /bin/sh -c "service modbusd start"
 
 # run zclient
 #docker run -v /tmp:/tmp --link slave:slave takawang/modbus-zclient

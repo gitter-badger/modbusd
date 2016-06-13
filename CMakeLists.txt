@@ -13,6 +13,7 @@ set(bin_source json/cJSON.c json.c main.c modbusd.c)
 # cflag
 set(EXT_C_FLAGS "-W -Wall -O3 -std=c99")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXT_C_FLAGS}")
+SET(CMAKE_INSTALL_PREFIX /)
 
 include_directories(${modbus_include})
 add_executable(${bin_name} ${bin_source} modbusd.json)
