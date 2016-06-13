@@ -20,7 +20,7 @@ script:
   # run modbusd
   - docker run -v /tmp:/tmp -itd --link slave --name=modbusd takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
   # run zclient
-  - docker run -itd /tmp:/tmp --link slave -it takawang/modbus-zclient
+  - docker run -v /tmp:/tmp --link slave -itd takawang/modbus-zclient
   # stop modbusd
   - sleep 3; docker stop modbusd
 
