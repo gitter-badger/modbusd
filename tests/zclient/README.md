@@ -11,7 +11,9 @@ sudo npm install
 node client.js
 ```
 
-# Dockerlize test
+## Docker
+
+### From the scratch
 ```bash
 # build docker image 
 docker build -t takawang/modbus-zclient .
@@ -21,6 +23,11 @@ docker run -v /tmp:/tmp -it takawang/modbus-zclient /bin/bash
 docker logs <container id>
 # Enter the container
 docker exec -it <container id> /bin/bash
+```
+
+### Pull pre-built docker image
+```bash
+docker pull takawang/modbus-zclient
 ```
 
 ## Note
