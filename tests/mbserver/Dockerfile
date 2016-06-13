@@ -1,11 +1,8 @@
 #
 # modbus simulation slave
 #
-FROM node:4.4.5
+FROM takawang/ubuntu-node-zmq
 MAINTAINER Taka Wang <taka@cmwang.net>
- 
-## Set environment variable
-ENV DEBIAN_FRONTEND noninteractive
 
 ## Install node packages
 ADD package.json /tmp/package.json
