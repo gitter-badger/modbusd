@@ -17,7 +17,7 @@ RUN cd /tmp && npm install && \
     mkdir -p /zclient && \
     cp -a /tmp/node_modules /zclient/
 
-## Load app files
+## Load test files
 WORKDIR /zclient
 ADD . /zclient
 

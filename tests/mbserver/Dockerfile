@@ -17,6 +17,7 @@ RUN cd /tmp && npm install && \
 WORKDIR /mbserver
 ADD . /mbserver
 
+## Default exported port
 EXPOSE 502
 
 ## Default command
