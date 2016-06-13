@@ -8,7 +8,7 @@
 # Description:       modbus daemon
 ### END INIT INFO
 
-SCRIPT=/usr/bin/modbusd /etc/modbusd/modbusd.json
+SCRIPT="/usr/bin/modbusd /etc/modbusd/modbusd.json"
 RUNAS=root
 
 PIDFILE=/var/run/modbusd.pid
