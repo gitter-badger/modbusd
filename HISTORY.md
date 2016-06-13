@@ -20,5 +20,5 @@
 - rewrite int port to char * port
 
 ## TODO List
-- daemon pid
+- daemon pid, service
 - support change timeout command

@@ -50,8 +50,14 @@ RUN mkdir -p /modbusd/build
 WORKDIR /modbusd/build
 RUN cmake .. && \
     make && \
-    make install && \
-    cp modbusd /usr/bin/ && \
-    cp ../modbusd.json /usr/bin
+    make install
+
+## Install init script
+WORKDIR /modbusd/
+RUN cp "service.sh" "/etc/init.d/modbusd" && \
+    chmod +x /etc/init.d/modbusd
 
 EXPOSE 502
+
+## Default command
+CMD ["modbusd", "start"]
