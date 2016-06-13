@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='utf-8'?>
+<struct id="mbtcp_handle_s" name="mbtcp_handle_s" typedef="yes" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>*</brief>
+  <doc>Hashable tcp handle strucut for keeping connection.
+</doc>
+  <field id="mbtcp_handle_s::key" name="key">
+    <type name="mbtcp_key_s" ref="mbtcp_key_s#mbtcp_key_s" />
+  </field>
+  <field id="mbtcp_handle_s::connected" name="connected">
+    <brief>* key </brief>
+    <type builtin="yes" name="bool" />
+  </field>
+  <field id="mbtcp_handle_s::ctx" name="ctx">
+    <brief>* is connect to modbus slave? </brief>
+    <type name="modbus_t" qualifier="*" />
+  </field>
+  <field id="mbtcp_handle_s::hh" name="hh">
+    <brief>* modbus context pointer </brief>
+    <type name="UT_hash_handle" ref="UT_hash_handle#UT_hash_handle" />
+  </field>
+  <function id="mbtcp_do_connect" name="mbtcp_do_connect">
+    <brief>*</brief>
+    <return>
+      <doc>Success or not.</doc>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="mbtcp_do_connect::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_do_connect::reason" name="reason">
+      <type builtin="yes" name="char" qualifier="**" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc1_req" name="mbtcp_fc1_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc1_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc1_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc2_req" name="mbtcp_fc2_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc2_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc2_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc3_req" name="mbtcp_fc3_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc3_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc3_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc4_req" name="mbtcp_fc4_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc4_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc4_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc5_req" name="mbtcp_fc5_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc5_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc5_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc6_req" name="mbtcp_fc6_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc6_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc6_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc15_req" name="mbtcp_fc15_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc15_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc15_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_fc16_req" name="mbtcp_fc16_req">
+    <brief>*</brief>
+    <return>
+      <doc>Modbus response string in JSON format.</doc>
+      <type builtin="yes" name="char" qualifier="*" />
+    </return>
+    <argument id="mbtcp_fc16_req::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_fc16_req::req" name="req">
+      <type name="cJSON" qualifier="*" ref="cJSON#cJSON" />
+    </argument>
+  </function>
+  <function id="mbtcp_get_connection_status" name="mbtcp_get_connection_status">
+    <brief>*</brief>
+    <return>
+      <doc>Success or not.</doc>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="mbtcp_get_connection_status::handle" name="handle">
+      <type name="mbtcp_handle_s" qualifier="*" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+  </function>
+  <function id="mbtcp_get_handle" name="mbtcp_get_handle">
+    <brief>*</brief>
+    <return>
+      <doc>Success or not.</doc>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="mbtcp_get_handle::ptr_handle" name="ptr_handle">
+      <type name="mbtcp_handle_s" qualifier="**" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_get_handle::ip" name="ip">
+      <type builtin="yes" name="char" qualifier="*" />
+    </argument>
+    <argument id="mbtcp_get_handle::port" name="port">
+      <type builtin="yes" name="char" qualifier="*" />
+    </argument>
+  </function>
+  <function id="mbtcp_init_handle" name="mbtcp_init_handle">
+    <brief>*</brief>
+    <return>
+      <doc>Success or not.</doc>
+      <type builtin="yes" name="bool" />
+    </return>
+    <argument id="mbtcp_init_handle::ptr_handle" name="ptr_handle">
+      <type name="mbtcp_handle_s" qualifier="**" ref="mbtcp_handle_s#mbtcp_handle_s" />
+    </argument>
+    <argument id="mbtcp_init_handle::ip" name="ip">
+      <type builtin="yes" name="char" qualifier="*" />
+    </argument>
+    <argument id="mbtcp_init_handle::port" name="port">
+      <type builtin="yes" name="char" qualifier="*" />
+    </argument>
+  </function>
+</struct>

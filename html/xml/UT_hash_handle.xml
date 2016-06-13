@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<struct id="UT_hash_handle" name="UT_hash_handle" typedef="yes" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <field id="UT_hash_handle::tbl" name="tbl">
+    <type name="UT_hash_table" qualifier="*" ref="UT_hash_table#UT_hash_table" />
+  </field>
+  <field id="UT_hash_handle::prev" name="prev">
+    <type builtin="yes" name="void" qualifier="*" />
+  </field>
+  <field id="UT_hash_handle::next" name="next">
+    <brief>prev element in app order</brief>
+    <type builtin="yes" name="void" qualifier="*" />
+  </field>
+  <field id="UT_hash_handle::hh_prev" name="hh_prev">
+    <brief>next element in app order</brief>
+    <type name="UT_hash_handle" qualifier="*" ref="UT_hash_handle#UT_hash_handle" />
+  </field>
+  <field id="UT_hash_handle::hh_next" name="hh_next">
+    <brief>previous hh in bucket order</brief>
+    <type name="UT_hash_handle" qualifier="*" ref="UT_hash_handle#UT_hash_handle" />
+  </field>
+  <field id="UT_hash_handle::key" name="key">
+    <brief>next hh in bucket order</brief>
+    <type builtin="yes" name="void" qualifier="*" />
+  </field>
+  <field id="UT_hash_handle::keylen" name="keylen">
+    <brief>ptr to enclosing struct's key</brief>
+    <type builtin="yes" name="unsigned int" />
+  </field>
+  <field id="UT_hash_handle::hashv" name="hashv">
+    <brief>enclosing struct's key len</brief>
+    <type builtin="yes" name="unsigned int" />
+  </field>
+</struct>

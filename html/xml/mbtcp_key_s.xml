@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<struct id="mbtcp_key_s" name="mbtcp_key_s" typedef="yes" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>*</brief>
+  <doc>Hash key. Ip v4/v6 address and port composition.
+</doc>
+  <field id="mbtcp_key_s::ip" name="ip">
+    <type class="array" size="50">
+      <type builtin="yes" name="char" />
+    </type>
+  </field>
+  <field id="mbtcp_key_s::port" name="port">
+    <brief>* IP v4/v6 address or hostname </brief>
+    <type class="array" size="50">
+      <type builtin="yes" name="char" />
+    </type>
+  </field>
+</struct>

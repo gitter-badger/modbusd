@@ -1,0 +1,515 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report id="report" title="Documention generator" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <doc>
+This page provides a documentation coverage report. Any undocumented symbols
+are reported here together with the location of where you should document them.
+
+This report contains the following sections:
+
+1. [Coverage](#report/coverage): The documented symbols coverage.
+2. [Arguments](#report/arguments): Errors about undocumented, misspelled function arguments and
+return values.
+3. [References](#report/references): Unresolved cross references.
+</doc>
+  <coverage>
+    <type documented="46" name="function" undocumented="22">
+      <undocumented id="cJSONUtils_AddPatchToArray" name="cJSONUtils_AddPatchToArray">
+        <location column="1" file="json/cJSON_Utils.h" line="8" />
+        <location column="1" file="json/cJSON_Utils.c" line="238" />
+      </undocumented>
+      <undocumented id="cJSON_AddItemReferenceToObject" name="cJSON_AddItemReferenceToObject">
+        <location column="1" file="json/cJSON.h" line="122" />
+        <location column="1" file="json/cJSON.c" line="679" />
+      </undocumented>
+      <undocumented id="cJSON_AddItemToObject" name="cJSON_AddItemToObject">
+        <location column="1" file="json/cJSON.h" line="118" />
+        <location column="1" file="json/cJSON.c" line="676" />
+      </undocumented>
+      <undocumented id="cJSON_AddItemToObjectCS" name="cJSON_AddItemToObjectCS">
+        <location column="1" file="json/cJSON.h" line="119" />
+        <location column="1" file="json/cJSON.c" line="677" />
+      </undocumented>
+      <undocumented id="cJSON_CreateArray" name="cJSON_CreateArray">
+        <location column="1" file="json/cJSON.h" line="103" />
+        <location column="1" file="json/cJSON.c" line="707" />
+      </undocumented>
+      <undocumented id="cJSON_CreateBool" name="cJSON_CreateBool">
+        <location column="1" file="json/cJSON.h" line="100" />
+        <location column="1" file="json/cJSON.c" line="699" />
+      </undocumented>
+      <undocumented id="cJSON_CreateDoubleArray" name="cJSON_CreateDoubleArray">
+        <location column="1" file="json/cJSON.h" line="113" />
+        <location column="1" file="json/cJSON.c" line="717" />
+      </undocumented>
+      <undocumented id="cJSON_CreateFalse" name="cJSON_CreateFalse">
+        <location column="1" file="json/cJSON.h" line="99" />
+        <location column="1" file="json/cJSON.c" line="698" />
+      </undocumented>
+      <undocumented id="cJSON_CreateFloatArray" name="cJSON_CreateFloatArray">
+        <location column="1" file="json/cJSON.h" line="112" />
+        <location column="1" file="json/cJSON.c" line="716" />
+      </undocumented>
+      <undocumented id="cJSON_CreateIntArray" name="cJSON_CreateIntArray">
+        <location column="1" file="json/cJSON.h" line="111" />
+        <location column="1" file="json/cJSON.c" line="715" />
+      </undocumented>
+      <undocumented id="cJSON_CreateNumber" name="cJSON_CreateNumber">
+        <location column="1" file="json/cJSON.h" line="101" />
+        <location column="1" file="json/cJSON.c" line="705" />
+      </undocumented>
+      <undocumented id="cJSON_CreateObject" name="cJSON_CreateObject">
+        <location column="1" file="json/cJSON.h" line="104" />
+        <location column="1" file="json/cJSON.c" line="708" />
+      </undocumented>
+      <undocumented id="cJSON_CreateString" name="cJSON_CreateString">
+        <location column="1" file="json/cJSON.h" line="102" />
+        <location column="1" file="json/cJSON.c" line="706" />
+      </undocumented>
+      <undocumented id="cJSON_CreateStringArray" name="cJSON_CreateStringArray">
+        <location column="1" file="json/cJSON.h" line="114" />
+        <location column="1" file="json/cJSON.c" line="718" />
+      </undocumented>
+      <undocumented id="cJSON_CreateTrue" name="cJSON_CreateTrue">
+        <location column="1" file="json/cJSON.h" line="98" />
+        <location column="1" file="json/cJSON.c" line="697" />
+      </undocumented>
+      <undocumented id="cJSON_CreateUInt16Array" name="cJSON_CreateUInt16Array">
+        <location column="1" file="json/cJSON.h" line="109" />
+        <location column="1" file="json/cJSON.c" line="713" />
+      </undocumented>
+      <undocumented id="cJSON_DeleteItemFromArray" name="cJSON_DeleteItemFromArray">
+        <location column="1" file="json/cJSON.h" line="126" />
+        <location column="1" file="json/cJSON.c" line="683" />
+      </undocumented>
+      <undocumented id="cJSON_DeleteItemFromObject" name="cJSON_DeleteItemFromObject">
+        <location column="1" file="json/cJSON.h" line="128" />
+        <location column="1" file="json/cJSON.c" line="685" />
+      </undocumented>
+      <undocumented id="cJSON_DetachItemFromObject" name="cJSON_DetachItemFromObject">
+        <location column="1" file="json/cJSON.h" line="127" />
+        <location column="1" file="json/cJSON.c" line="684" />
+      </undocumented>
+      <undocumented id="cJSON_HasObjectItem" name="cJSON_HasObjectItem">
+        <location column="1" file="json/cJSON.h" line="92" />
+        <location column="1" file="json/cJSON.c" line="667" />
+      </undocumented>
+      <undocumented id="cJSON_Minify" name="cJSON_Minify">
+        <location column="1" file="json/cJSON.h" line="145" />
+        <location column="1" file="json/cJSON.c" line="748" />
+      </undocumented>
+      <undocumented id="cJSON_ReplaceItemInObject" name="cJSON_ReplaceItemInObject">
+        <location column="1" file="json/cJSON.h" line="133" />
+        <location column="1" file="json/cJSON.c" line="693" />
+      </undocumented>
+    </type>
+    <type documented="22" name="field" undocumented="18">
+      <undocumented id="UT_hash_bucket::count" name="count">
+        <location column="4" file="uthash.h" line="900" />
+        <location column="4" file="uthash.h" line="900" />
+      </undocumented>
+      <undocumented id="UT_hash_bucket::hh_head" name="hh_head">
+        <location column="4" file="uthash.h" line="899" />
+        <location column="4" file="uthash.h" line="899" />
+      </undocumented>
+      <undocumented id="UT_hash_handle::prev" name="prev">
+        <location column="4" file="uthash.h" line="957" />
+        <location column="4" file="uthash.h" line="957" />
+      </undocumented>
+      <undocumented id="UT_hash_handle::tbl" name="tbl">
+        <location column="4" file="uthash.h" line="956" />
+        <location column="4" file="uthash.h" line="956" />
+      </undocumented>
+      <undocumented id="UT_hash_table::buckets" name="buckets">
+        <location column="4" file="uthash.h" line="923" />
+        <location column="4" file="uthash.h" line="923" />
+      </undocumented>
+      <undocumented id="UT_hash_table::log2_num_buckets" name="log2_num_buckets">
+        <location column="4" file="uthash.h" line="924" />
+        <location column="4" file="uthash.h" line="924" />
+      </undocumented>
+      <undocumented id="UT_hash_table::num_buckets" name="num_buckets">
+        <location column="4" file="uthash.h" line="924" />
+        <location column="4" file="uthash.h" line="924" />
+      </undocumented>
+      <undocumented id="UT_hash_table::num_items" name="num_items">
+        <location column="4" file="uthash.h" line="925" />
+        <location column="4" file="uthash.h" line="925" />
+      </undocumented>
+      <undocumented id="UT_hash_table::signature" name="signature">
+        <location column="4" file="uthash.h" line="946" />
+        <location column="4" file="uthash.h" line="946" />
+      </undocumented>
+      <undocumented id="UT_hash_table::tail" name="tail">
+        <location column="4" file="uthash.h" line="926" />
+        <location column="4" file="uthash.h" line="926" />
+      </undocumented>
+      <undocumented id="cJSON::next" name="next">
+        <location column="2" file="json/cJSON.h" line="48" />
+        <location column="2" file="json/cJSON.h" line="48" />
+      </undocumented>
+      <undocumented id="cJSON::prev" name="prev">
+        <location column="2" file="json/cJSON.h" line="48" />
+        <location column="2" file="json/cJSON.h" line="48" />
+      </undocumented>
+      <undocumented id="cJSON::valueint" name="valueint">
+        <location column="2" file="json/cJSON.h" line="60" />
+        <location column="2" file="json/cJSON.h" line="60" />
+      </undocumented>
+      <undocumented id="cJSON::valueuint16" name="valueuint16">
+        <location column="3" file="json/cJSON.h" line="57" />
+        <location column="3" file="json/cJSON.h" line="57" />
+      </undocumented>
+      <undocumented id="cJSON_Hooks::free_fn" name="free_fn">
+        <location column="7" file="json/cJSON.h" line="68" />
+        <location column="7" file="json/cJSON.h" line="68" />
+      </undocumented>
+      <undocumented id="cJSON_Hooks::malloc_fn" name="malloc_fn">
+        <location column="7" file="json/cJSON.h" line="67" />
+        <location column="7" file="json/cJSON.h" line="67" />
+      </undocumented>
+      <undocumented id="mbtcp_handle_s::key" name="key">
+        <location column="5" file="modbusd.h" line="46" />
+        <location column="5" file="modbusd.h" line="46" />
+      </undocumented>
+      <undocumented id="mbtcp_key_s::ip" name="ip">
+        <location column="5" file="modbusd.h" line="35" />
+        <location column="5" file="modbusd.h" line="35" />
+      </undocumented>
+    </type>
+    <type documented="1" name="typedef" undocumented="0" />
+    <type documented="3" name="struct" undocumented="4">
+      <undocumented id="UT_hash_bucket" name="UT_hash_bucket">
+        <location column="9" file="uthash.h" line="898" />
+        <location column="1" file="uthash.h" line="898" />
+      </undocumented>
+      <undocumented id="UT_hash_handle" name="UT_hash_handle">
+        <location column="4" file="uthash.h" line="899" />
+        <location column="4" file="uthash.h" line="899" />
+        <location column="9" file="uthash.h" line="955" />
+        <location column="1" file="uthash.h" line="955" />
+      </undocumented>
+      <undocumented id="UT_hash_table" name="UT_hash_table">
+        <location column="9" file="uthash.h" line="922" />
+        <location column="1" file="uthash.h" line="922" />
+      </undocumented>
+      <undocumented id="cJSON_Hooks" name="cJSON_Hooks">
+        <location column="9" file="json/cJSON.h" line="66" />
+        <location column="1" file="json/cJSON.h" line="66" />
+      </undocumented>
+    </type>
+    <type documented="0" name="variable" undocumented="1">
+      <undocumented id="cstr" name="cstr">
+        <location column="1" file="log.h" line="22" />
+      </undocumented>
+    </type>
+  </coverage>
+  <arguments>
+    <function id="cJSON_InitHooks" name="cJSON_InitHooks">
+      <location column="1" file="json/cJSON.h" line="72" />
+      <location column="1" file="json/cJSON.c" line="60" />
+      <undocumented name="hooks" />
+    </function>
+    <function id="cJSON_Parse" name="cJSON_Parse">
+      <location column="1" file="json/cJSON.h" line="76" />
+      <location column="1" file="json/cJSON.c" line="343" />
+      <undocumented-return />
+      <undocumented name="value" />
+    </function>
+    <function id="cJSON_Print" name="cJSON_Print">
+      <location column="1" file="json/cJSON.h" line="78" />
+      <location column="1" file="json/cJSON.c" line="346" />
+      <undocumented-return />
+      <undocumented name="item" />
+    </function>
+    <function id="cJSON_PrintUnformatted" name="cJSON_PrintUnformatted">
+      <location column="1" file="json/cJSON.h" line="80" />
+      <location column="1" file="json/cJSON.c" line="347" />
+      <undocumented-return />
+      <undocumented name="item" />
+    </function>
+    <function id="cJSON_PrintBuffered" name="cJSON_PrintBuffered">
+      <location column="1" file="json/cJSON.h" line="82" />
+      <location column="1" file="json/cJSON.c" line="349" />
+      <undocumented-return />
+      <undocumented name="item" />
+      <undocumented name="fmt" />
+      <undocumented name="prebuffer" />
+    </function>
+    <function id="cJSON_Delete" name="cJSON_Delete">
+      <location column="1" file="json/cJSON.h" line="84" />
+      <location column="1" file="json/cJSON.c" line="81" />
+      <undocumented name="c" />
+    </function>
+    <function id="cJSON_GetArraySize" name="cJSON_GetArraySize">
+      <location column="1" file="json/cJSON.h" line="87" />
+      <location column="1" file="json/cJSON.c" line="664" />
+      <undocumented-return />
+      <undocumented name="array" />
+    </function>
+    <function id="cJSON_GetArrayItem" name="cJSON_GetArrayItem">
+      <location column="1" file="json/cJSON.h" line="89" />
+      <location column="1" file="json/cJSON.c" line="665" />
+      <undocumented-return />
+      <undocumented name="item" />
+      <undocumented name="array" />
+    </function>
+    <function id="cJSON_GetObjectItem" name="cJSON_GetObjectItem">
+      <location column="1" file="json/cJSON.h" line="91" />
+      <location column="1" file="json/cJSON.c" line="666" />
+      <undocumented-return />
+      <undocumented name="object" />
+      <undocumented name="string" />
+    </function>
+    <function id="cJSON_GetErrorPtr" name="cJSON_GetErrorPtr">
+      <location column="1" file="json/cJSON.h" line="94" />
+      <location column="1" file="json/cJSON.c" line="37" />
+      <undocumented-return />
+    </function>
+    <function id="cJSON_CreateNull" name="cJSON_CreateNull">
+      <location column="1" file="json/cJSON.h" line="97" />
+      <location column="1" file="json/cJSON.c" line="696" />
+      <undocumented-return />
+    </function>
+    <function id="cJSON_CreateUInt8Array" name="cJSON_CreateUInt8Array">
+      <location column="1" file="json/cJSON.h" line="108" />
+      <location column="1" file="json/cJSON.c" line="712" />
+      <undocumented-return />
+      <undocumented name="count" />
+      <undocumented name="numbers" />
+    </function>
+    <function id="cJSON_AddItemToArray" name="cJSON_AddItemToArray">
+      <location column="1" file="json/cJSON.h" line="117" />
+      <location column="1" file="json/cJSON.c" line="675" />
+      <undocumented name="item" />
+      <undocumented name="array" />
+    </function>
+    <function id="cJSON_AddItemReferenceToArray" name="cJSON_AddItemReferenceToArray">
+      <location column="1" file="json/cJSON.h" line="121" />
+      <location column="1" file="json/cJSON.c" line="678" />
+      <undocumented name="item" />
+      <undocumented name="array" />
+    </function>
+    <function id="cJSON_DetachItemFromArray" name="cJSON_DetachItemFromArray">
+      <location column="1" file="json/cJSON.h" line="125" />
+      <location column="1" file="json/cJSON.c" line="681" />
+      <undocumented-return />
+      <undocumented name="array" />
+      <undocumented name="which" />
+    </function>
+    <function id="cJSON_InsertItemInArray" name="cJSON_InsertItemInArray">
+      <location column="1" file="json/cJSON.h" line="131" />
+      <location column="1" file="json/cJSON.c" line="688" />
+      <undocumented name="newitem" />
+      <undocumented name="array" />
+      <undocumented name="which" />
+    </function>
+    <function id="cJSON_ReplaceItemInArray" name="cJSON_ReplaceItemInArray">
+      <location column="1" file="json/cJSON.h" line="132" />
+      <location column="1" file="json/cJSON.c" line="690" />
+      <undocumented name="newitem" />
+      <undocumented name="array" />
+      <undocumented name="which" />
+    </function>
+    <function id="cJSON_Duplicate" name="cJSON_Duplicate">
+      <location column="1" file="json/cJSON.h" line="136" />
+      <location column="1" file="json/cJSON.c" line="721" />
+      <undocumented-return />
+      <undocumented name="item" />
+      <undocumented name="recurse" />
+    </function>
+    <function id="cJSON_ParseWithOpts" name="cJSON_ParseWithOpts">
+      <location column="1" file="json/cJSON.h" line="143" />
+      <location column="1" file="json/cJSON.c" line="327" />
+      <undocumented-return />
+      <undocumented name="return_parse_end" />
+      <undocumented name="require_null_terminated" />
+      <undocumented name="value" />
+    </function>
+    <function id="cJSONUtils_GetPointer" name="cJSONUtils_GetPointer">
+      <location column="1" file="json/cJSON_Utils.h" line="4" />
+      <location column="1" file="json/cJSON_Utils.c" line="72" />
+      <undocumented-return />
+      <undocumented name="object" />
+      <undocumented name="pointer" />
+    </function>
+    <function id="cJSONUtils_GeneratePatches" name="cJSONUtils_GeneratePatches">
+      <location column="1" file="json/cJSON_Utils.h" line="7" />
+      <location column="1" file="json/cJSON_Utils.c" line="298" />
+      <undocumented-return />
+      <undocumented name="to" />
+      <undocumented name="from" />
+    </function>
+    <function id="cJSONUtils_ApplyPatches" name="cJSONUtils_ApplyPatches">
+      <location column="1" file="json/cJSON_Utils.h" line="9" />
+      <location column="1" file="json/cJSON_Utils.c" line="209" />
+      <undocumented-return />
+      <undocumented name="object" />
+      <undocumented name="patches" />
+    </function>
+    <function id="cJSONUtils_MergePatch" name="cJSONUtils_MergePatch">
+      <location column="1" file="json/cJSON_Utils.h" line="25" />
+      <location column="1" file="json/cJSON_Utils.c" line="346" />
+      <undocumented-return />
+      <undocumented name="target" />
+      <undocumented name="patch" />
+    </function>
+    <function id="cJSONUtils_GenerateMergePatch" name="cJSONUtils_GenerateMergePatch">
+      <location column="1" file="json/cJSON_Utils.h" line="26" />
+      <location column="1" file="json/cJSON_Utils.c" line="365" />
+      <undocumented-return />
+      <undocumented name="to" />
+      <undocumented name="from" />
+    </function>
+    <function id="cJSONUtils_FindPointerFromObjectTo" name="cJSONUtils_FindPointerFromObjectTo">
+      <location column="1" file="json/cJSON_Utils.h" line="28" />
+      <location column="1" file="json/cJSON_Utils.c" line="39" />
+      <undocumented-return />
+      <undocumented name="object" />
+      <undocumented name="target" />
+    </function>
+    <function id="cJSONUtils_SortObject" name="cJSONUtils_SortObject">
+      <location column="1" file="json/cJSON_Utils.h" line="30" />
+      <location column="1" file="json/cJSON_Utils.c" line="344" />
+      <undocumented name="object" />
+    </function>
+    <function id="json_get_char" name="json_get_char">
+      <location column="1" file="json.h" line="19" />
+      <location column="1" file="json.c" line="11" />
+      <undocumented name="inJson" />
+      <undocumented name="key" />
+      <misspelled name="brief" />
+    </function>
+    <function id="json_get_int" name="json_get_int">
+      <location column="1" file="json.h" line="28" />
+      <location column="1" file="json.c" line="16" />
+      <undocumented name="inJson" />
+      <undocumented name="key" />
+      <misspelled name="brief" />
+    </function>
+    <function id="file_to_json" name="file_to_json">
+      <location column="1" file="json.h" line="37" />
+      <location column="1" file="json.c" line="21" />
+      <undocumented name="outJson" />
+      <undocumented name="fname" />
+      <misspelled name="brief" />
+    </function>
+    <function id="json_to_file" name="json_to_file">
+      <location column="1" file="json.h" line="46" />
+      <location column="1" file="json.c" line="42" />
+      <undocumented name="inJson" />
+      <undocumented name="fname" />
+      <misspelled name="brief" />
+    </function>
+    <function id="json_release" name="json_release">
+      <location column="1" file="json.h" line="54" />
+      <location column="1" file="json.c" line="57" />
+      <undocumented name="inJson" />
+      <misspelled name="brief" />
+    </function>
+    <function id="set_modbus_error_resp" name="set_modbus_error_resp">
+      <location column="1" file="modbusd.h" line="76" />
+      <location column="1" file="modbusd.c" line="372" />
+      <undocumented name="tid" />
+      <undocumented name="reason" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_init_handle" name="mbtcp_init_handle">
+      <location column="1" file="modbusd.h" line="86" />
+      <location column="1" file="modbusd.c" line="441" />
+      <undocumented name="ptr_handle" />
+      <undocumented name="port" />
+      <undocumented name="ip" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_get_handle" name="mbtcp_get_handle">
+      <location column="1" file="modbusd.h" line="96" />
+      <location column="1" file="modbusd.c" line="479" />
+      <undocumented name="ptr_handle" />
+      <undocumented name="port" />
+      <undocumented name="ip" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_list_handles" name="mbtcp_list_handles">
+      <location column="1" file="modbusd.h" line="103" />
+      <location column="1" file="modbusd.c" line="430" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_do_connect" name="mbtcp_do_connect">
+      <location column="1" file="modbusd.h" line="112" />
+      <location column="1" file="modbusd.c" line="405" />
+      <undocumented name="reason" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_get_connection_status" name="mbtcp_get_connection_status">
+      <location column="1" file="modbusd.h" line="120" />
+      <location column="1" file="modbusd.c" line="389" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_cmd_hanlder" name="mbtcp_cmd_hanlder">
+      <location column="1" file="modbusd.h" line="129" />
+      <location column="1" file="modbusd.c" line="504" />
+      <undocumented name="req" />
+      <undocumented name="fc" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc1_req" name="mbtcp_fc1_req">
+      <location column="1" file="modbusd.h" line="138" />
+      <location column="1" file="modbusd.c" line="533" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc2_req" name="mbtcp_fc2_req">
+      <location column="1" file="modbusd.h" line="147" />
+      <location column="1" file="modbusd.c" line="540" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc3_req" name="mbtcp_fc3_req">
+      <location column="1" file="modbusd.h" line="156" />
+      <location column="1" file="modbusd.c" line="547" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc4_req" name="mbtcp_fc4_req">
+      <location column="1" file="modbusd.h" line="165" />
+      <location column="1" file="modbusd.c" line="554" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc5_req" name="mbtcp_fc5_req">
+      <location column="1" file="modbusd.h" line="174" />
+      <location column="1" file="modbusd.c" line="561" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc6_req" name="mbtcp_fc6_req">
+      <location column="1" file="modbusd.h" line="183" />
+      <location column="1" file="modbusd.c" line="568" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc15_req" name="mbtcp_fc15_req">
+      <location column="1" file="modbusd.h" line="192" />
+      <location column="1" file="modbusd.c" line="575" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+    <function id="mbtcp_fc16_req" name="mbtcp_fc16_req">
+      <location column="1" file="modbusd.h" line="201" />
+      <location column="1" file="modbusd.c" line="582" />
+      <undocumented name="req" />
+      <undocumented name="handle" />
+      <misspelled name="brief" />
+    </function>
+  </arguments>
+  <references />
+</report>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<struct id="cJSON_Hooks" name="cJSON_Hooks" typedef="yes" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <field id="cJSON_Hooks::malloc_fn" name="malloc_fn">
+    <type class="function" qualifier="*">
+      <result>
+        <type builtin="yes" name="void" qualifier="*" />
+      </result>
+      <arguments>
+        <type builtin="yes" name="unsigned long" />
+      </arguments>
+    </type>
+  </field>
+  <field id="cJSON_Hooks::free_fn" name="free_fn">
+    <type class="function" qualifier="*">
+      <result>
+        <type builtin="yes" name="void" />
+      </result>
+      <arguments>
+        <type builtin="yes" name="void" qualifier="*" />
+      </arguments>
+    </type>
+  </field>
+  <function id="cJSON_InitHooks" name="cJSON_InitHooks">
+    <brief>Supply malloc, realloc and free functions to cJSON</brief>
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="cJSON_InitHooks::hooks" name="hooks">
+      <type name="cJSON_Hooks" qualifier="*" ref="cJSON_Hooks#cJSON_Hooks" />
+    </argument>
+  </function>
+</struct>
