@@ -584,3 +584,4 @@ char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
     BEGIN(enable_syslog);
     return mbtcp_multi_write_req(16, handle, req);
 }
+
