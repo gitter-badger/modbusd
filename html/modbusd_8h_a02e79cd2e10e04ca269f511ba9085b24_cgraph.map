@@ -1,8 +1,0 @@
-<map id="mbtcp_cmd_hanlder" name="mbtcp_cmd_hanlder">
-<area shape="rect" id="node2" href="$json_8c.html#ac981dc081af7677ea42735759628fb25" title="Get int via key from cJSON object. " alt="" coords="247,19,345,45"/>
-<area shape="rect" id="node4" href="$modbusd_8c.html#a75c0fd1f10ffe35103ea034792d66ba6" title="Generic modbus (TCP/RTU) error response handler. " alt="" coords="209,95,383,121"/>
-<area shape="rect" id="node3" href="$c_j_s_o_n_8c.html#aba766c9d2c20996e323522cbf2ba46c6" title="cJSON_GetObjectItem" alt="" coords="441,5,602,32"/>
-<area shape="rect" id="node5" href="$c_j_s_o_n_8c.html#a9c5f44afdd781b16dead90042fe74085" title="cJSON_CreateObject" alt="" coords="445,56,597,83"/>
-<area shape="rect" id="node6" href="$c_j_s_o_n_8c.html#a5539c9504a8e65390a94852707f105d4" title="cJSON_PrintUnformatted" alt="" coords="432,107,611,133"/>
-<area shape="rect" id="node7" href="$c_j_s_o_n_8c.html#ab18060251de70a2b55a18dec694f8f8a" title="cJSON_Delete" alt="" coords="466,181,577,208"/>
-</map>

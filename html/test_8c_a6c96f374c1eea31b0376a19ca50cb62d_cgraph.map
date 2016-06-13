@@ -1,9 +1,0 @@
-<map id="test_json_decode" name="test_json_decode">
-<area shape="rect" id="node2" href="$c_j_s_o_n_8c.html#ad3df5f943457d4befebe4109d48e4a50" title="cJSON_Parse" alt="" coords="219,5,322,32"/>
-<area shape="rect" id="node4" href="$c_j_s_o_n_8c.html#ab18060251de70a2b55a18dec694f8f8a" title="cJSON_Delete" alt="" coords="609,31,719,57"/>
-<area shape="rect" id="node5" href="$c_j_s_o_n_8c.html#aea4f15b04dba4dff2edc2bb1d387b555" title="cJSON_Print" alt="" coords="222,107,319,133"/>
-<area shape="rect" id="node6" href="$c_j_s_o_n_8c.html#aba766c9d2c20996e323522cbf2ba46c6" title="cJSON_GetObjectItem" alt="" coords="190,157,351,184"/>
-<area shape="rect" id="node7" href="$c_j_s_o_n_8c.html#adb5c049d3211599c90cd5a3d5e68d854" title="cJSON_GetArraySize" alt="" coords="195,208,347,235"/>
-<area shape="rect" id="node8" href="$c_j_s_o_n_8c.html#ac48335f22f743aff913991d809e0d620" title="cJSON_GetArrayItem" alt="" coords="193,259,348,285"/>
-<area shape="rect" id="node3" href="$c_j_s_o_n_8c.html#a9c63df4d9350bee4bd1726f8f23ad536" title="cJSON_ParseWithOpts" alt="" coords="400,5,560,32"/>
-</map>
