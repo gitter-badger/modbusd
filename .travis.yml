@@ -16,8 +16,8 @@ script:
 - docker run -itd --name=slave takawang/modbus-server
 - docker run -v /tmp:/tmp -itd --link slave --name=modbusd takawang/modbusd /bin/sh
   -c "./modbusd ../modbusd.json"
-- docker logs -f modbusd && docker run -v /tmp:/tmp --link slave -itd takawang/modbus-zclient
-- sleep 5; docker stop slave modbusd
+- docker run -v /tmp:/tmp --link slave -it --name=zclient takawang/modbus-zclient
+- sleep 3; docker stop slave modbusd zclient
 env:
   global:
   - MODBUS_SERVER_IMG=takawang/modbus-server

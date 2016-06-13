@@ -164,6 +164,6 @@ setInterval(function() {
     if (counter >= 10) {
         process.exit();
     }
-}, 200); // emit every 0.5 seconds
+}, 300); // emit every 0.5 seconds
 
 
