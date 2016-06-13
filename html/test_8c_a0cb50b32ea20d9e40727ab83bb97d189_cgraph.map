@@ -1,0 +1,6 @@
+<map id="test_init_tcp_handle_and_connect" name="test_init_tcp_handle_and_connect">
+<area shape="rect" id="node2" href="$modbusd_8c.html#a7349aa568dc3288417d52543988729f8" title="Init mbtcp handle (to hashtable) and try to connect. " alt="" coords="220,5,359,32"/>
+<area shape="rect" id="node3" href="$modbusd_8c.html#a819f6eb596caa2acb6344aecd5daf51a" title="Connect to mbtcp slave via mbtcp hashed handle. " alt="" coords="421,31,565,57"/>
+<area shape="rect" id="node4" href="$modbusd_8c.html#a457458d6f5fef93f9bac1bf9365b8a61" title="Get mbtcp handle from hashtable. " alt="" coords="219,107,360,133"/>
+<area shape="rect" id="node5" href="$modbusd_8c.html#a10fdba0f8df3a84f6a1edd2ce82fb746" title="Get mbtcp handle&#39;s connection status. " alt="" coords="205,158,373,199"/>
+</map>
