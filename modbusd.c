@@ -31,7 +31,7 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
     BEGIN(enable_syslog);
     
     char *ip = json_get_char (req, "ip");
-    int port = json_get_int  (req, "port");
+    char *port = json_get_char  (req, "port");
     
     if (mbtcp_get_handle (ptr_handle, ip, port))
     {
@@ -394,7 +394,7 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *handle)
         return false;
     }
     
-    LOG(enable_syslog, "%s:%d connected: %s", handle->key.ip, 
+    LOG(enable_syslog, "%s:%s connected: %s", handle->key.ip, 
                                               handle->key.port, 
                                               handle->connected ? "true" : "false");
     return handle->connected;
@@ -419,7 +419,7 @@ bool mbtcp_do_connect(mbtcp_handle_s *handle, char ** reason)
     }
     else
     {
-        LOG(enable_syslog, "%s:%d connected", handle->key.ip, handle->key.port);
+        LOG(enable_syslog, "%s:%s connected", handle->key.ip, handle->key.port);
         handle->connected = true;
         return true;
     }
@@ -432,11 +432,11 @@ void mbtcp_list_handles()
 
     for (handle = mbtcp_htable; handle != NULL; handle = handle->hh.next)
     {
-        printf("ip:%s, port:%d\n", handle->key.ip, handle->key.port);
+        printf("ip:%s, port:%s\n", handle->key.ip, handle->key.port);
     }
 }
 
-bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
+bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port)
 {
     BEGIN(enable_syslog);
 
@@ -459,11 +459,11 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     memset(handle, 0, sizeof(mbtcp_handle_s));
     handle->connected = false;
     strcpy(handle->key.ip, ip);
-    handle->key.port  = port;
+    strcpy(handle->key.port, port);
     handle->ctx = ctx;
 
     HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_s), handle);
-    LOG(enable_syslog, "Add %s:%d to mbtcp hashtable", handle->key.ip, mbtcp_htable->key.port);
+    LOG(enable_syslog, "Add %s:%s to mbtcp hashtable", handle->key.ip, mbtcp_htable->key.port);
 
     // call by reference to `mbtcp handle address`
     *ptr_handle = handle;
@@ -474,26 +474,26 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     return true;
 }
 
-bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
+bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port)
 {
     BEGIN(enable_syslog);
     
     mbtcp_handle_s query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_s));
     strcpy(query.key.ip, ip);
-    query.key.port = port;
+    strcpy(query.key.port, port);
     HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_s), hash_ctx);
     
     if (hash_ctx != NULL)
     {
-        LOG(enable_syslog, "tcp server %s:%d found", hash_ctx->key.ip, hash_ctx->key.port);
+        LOG(enable_syslog, "tcp server %s:%s found", hash_ctx->key.ip, hash_ctx->key.port);
         // call by reference to `mbtcp handle address`
         *ptr_handle = hash_ctx; 
         return true;
     }
     else
     {
-        ERR(enable_syslog, "tcp server %s:%d not found", query.key.ip, query.key.port);
+        ERR(enable_syslog, "tcp server %s:%s not found", query.key.ip, query.key.port);
         *ptr_handle = NULL; 
         return false; // not found
     }

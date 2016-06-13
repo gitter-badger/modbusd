@@ -23,7 +23,7 @@ sub.on("message", function(mode, jstr) {
 var fc1 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc1",
@@ -39,7 +39,7 @@ var fc1 = function(){
 var fc2 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc2",
@@ -55,7 +55,7 @@ var fc2 = function(){
 var fc3 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc3",
@@ -71,7 +71,7 @@ var fc3 = function(){
 var fc4 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc4",
@@ -87,7 +87,7 @@ var fc4 = function(){
 var fc5 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc5",
@@ -103,7 +103,7 @@ var fc5 = function(){
 var fc6 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc6",
@@ -119,7 +119,7 @@ var fc6 = function(){
 var fc15 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc15",
@@ -136,7 +136,7 @@ var fc15 = function(){
 var fc16 = function(){
     var cmd = {
         "ip": links.slave.hostname,
-        "port": 502,
+        "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc16",

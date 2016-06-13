@@ -33,7 +33,7 @@
 typedef struct 
 {
     char ip[50]; /** ip v4 or v6 address or hostname */
-    int port;
+    char port[6];
 } mbtcp_key_s;
 
 /**
@@ -79,21 +79,21 @@ char * set_modbus_error_resp(int tid, const char *reason);
  * @brief Init mbtcp handle (to hashtable) and try to connect
  *
  * @param ptr_handle Pointer to mbtcp handle.
- * @param ip IPv4 address string.
- * @param port Modbus TCP server port number.
+ * @param ip IP address string.
+ * @param port Modbus TCP server port string.
  * @return Success or not.
  */
-bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
+bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port);
 
 /**
  * @brief Get mbtcp handle from hashtable
  *
  * @param ptr_handle Pointer to mbtcp handle.
- * @param ip IPv4 address string.
- * @param port Modbus TCP server port number.
+ * @param ip IP address string.
+ * @param port Modbus TCP server port string.
  * @return Success or not.
  */
-bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port);
+bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port);
 
 /**
  * @brief List mbtcp hash table
