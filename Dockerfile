@@ -11,7 +11,7 @@ RUN cmake .. && \
 
 ## Install init script
 WORKDIR /modbusd/
-RUN cp "service.sh" "/etc/init.d/modbusd" && \
+RUN cp "config/service.sh" "/etc/init.d/modbusd" && \
     chmod +x /etc/init.d/modbusd && \
     update-rc.d modbusd defaults
 

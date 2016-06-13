@@ -96,7 +96,7 @@ Modbus daemon
 
 ## Flow Chart
 
-![flow](flow.png)
+![flow](image/flow.png)
 
 ---
 
@@ -217,4 +217,4 @@ docker run -v /tmp:/tmp -it --link slave takawang/modbus-zclient
 
 ## Deployment Diagram
 
-![deployment](deployment.png)
+![deployment](image/deployment.png)

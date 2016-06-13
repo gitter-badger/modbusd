@@ -18,7 +18,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXT_C_FLAGS}")
 SET(CMAKE_INSTALL_PREFIX /)
 
 include_directories(${modbus_include})
-add_executable(${bin_name} ${bin_source} modbusd.json)
+add_executable(${bin_name} ${bin_source} config/modbusd.json)
 target_link_libraries(${bin_name} LINK_PUBLIC zmq czmq modbus m)
 
 # install binary
