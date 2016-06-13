@@ -24,4 +24,4 @@ target_link_libraries(${bin_name} LINK_PUBLIC zmq czmq modbus m)
 # install binary
 install(TARGETS ${bin_name} DESTINATION /usr/bin COMPONENT binaries)
 # install config
-install(FILES modbusd.json DESTINATION /etc/${bin_name} COMPONENT config)
+install(FILES config/modbusd.json DESTINATION /etc/${bin_name} COMPONENT config)
