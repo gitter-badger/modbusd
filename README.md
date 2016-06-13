@@ -106,7 +106,7 @@ Modbus daemon
 
 ---
 
-# Step by step or ([Travis CI](https://travis-ci.org) + [Docker](#Docker))
+#  Step by Step from Scratch or ([Travis CI](https://travis-ci.org) + [Docker](#Docker))
 
 ## Setup development dependencies
 
