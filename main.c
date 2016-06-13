@@ -10,12 +10,12 @@
  *  global variable
 ================================================== */
 
-int enable_syslog  = 1;             // syslog flag
-static cJSON * config_json;         // config in cJSON object format
-static char *config_fname = "";     // config filename
-static char ipc_sub[200]  = "ipc:///tmp/to.modbus";
-static char ipc_pub[200]  = "ipc:///tmp/from.modbus";
-extern tcp_conn_timeout_usec;       // from modbusd.c
+int enable_syslog  = 1;                 // syslog flag
+static cJSON * config_json;             // config in cJSON object format
+static char *config_fname = "";         // config filename
+static char *ipc_sub      = "ipc:///tmp/to.modbus";
+static char *ipc_pub      = "ipc:///tmp/from.modbus";
+extern uint32_t tcp_conn_timeout_usec;  // from modbusd.c
 
 
 /* ==================================================
@@ -26,12 +26,13 @@ extern tcp_conn_timeout_usec;       // from modbusd.c
  * @brief Load configuration file
  *
  * @param fname Configuration file name.
+ * @param ptr_config Pointer to config cJSON object.
  * @return Void.
  */
-static void load_config(const char *fname)
+static void load_config(const char *fname, cJSON ** ptr_config)
 {
     BEGIN(enable_syslog);
-    if (file_to_json(config_fname, &config_json) < 0)
+    if (file_to_json(fname, ptr_config) < 0)
     {
         ERR(enable_syslog, "Failed to parse setting json: %s! Bye!", config_fname);
         exit(EXIT_FAILURE);
@@ -39,8 +40,8 @@ static void load_config(const char *fname)
     else
     {
         enable_syslog = json_get_int(config_json, "syslog");
-        strcpy(ipc_sub, json_get_char(config_json, "ipc_sub"));
-        strcpy(ipc_pub, json_get_char(config_json, "ipc_pub"));
+        ipc_sub = json_get_char(config_json, "ipc_sub");
+        ipc_pub = json_get_char(config_json, "ipc_pub");
         tcp_conn_timeout_usec = json_get_int(config_json, "mbtcp_connect_timeout");
     }
     END(enable_syslog);
@@ -50,12 +51,13 @@ static void load_config(const char *fname)
  * @brief Save configuration to file
  *
  * @param fname Configuration file name.
+ * @param config Config cJSON object.
  * @return Void.
  */
-static void save_config(const char *fname)
+static void save_config(const char *fname, cJSON * config)
 {
     BEGIN(enable_syslog);
-    json_to_file(fname, config_json);
+    json_to_file(fname, config);
 }
 
 /**
@@ -92,7 +94,7 @@ int main(int argc, char *argv[])
 
     // @load config
     config_fname = argc > 1 ? argv[1] : "./modbusd.json";
-    load_config(config_fname);
+    load_config(config_fname, &config_json);
 
     // @setup zmq
     zctx_t *zmq_context = zctx_new ();
@@ -139,52 +141,55 @@ int main(int argc, char *argv[])
                 // @handle modbus tcp requests
                 if (strcmp(mode, "tcp") == 0)
                 {
+                    LOG(enable_syslog, "@@@req: %s", cmd);
+                    
                     // c doesn't support string switch case,
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
                     {
-                        LOG(enable_syslog, "send fc1 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {
-                        LOG(enable_syslog, "send fc2 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc2_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc2_req));
                     }
                     else if (strcmp(cmd, "fc3") == 0)
                     {
-                        LOG(enable_syslog, "send fc3 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc3_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc3_req));
                     }
                     else if (strcmp(cmd, "fc4") == 0)
                     {
-                        LOG(enable_syslog, "send fc4 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc4_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc4_req));
                     }
                     else if (strcmp(cmd, "fc5") == 0)
                     {
-                        LOG(enable_syslog, "send fc5 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc5_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc5_req));
                     }
                     else if (strcmp(cmd, "fc6") == 0)
                     {
-                        LOG(enable_syslog, "send fc6 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc6_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc6_req));
                     }
                     else if (strcmp(cmd, "fc15") == 0)
                     {
-                        LOG(enable_syslog, "send fc15 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc15_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc15_req));
                     }
                     else if (strcmp(cmd, "fc16") == 0)
                     {
-                        LOG(enable_syslog, "send fc16 req");
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc16_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc16_req));
                     }
                     else
                     {
                         LOG(enable_syslog, "unsupport request");
-                        send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "unsupport request"));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            set_modbus_error_resp(tid, "unsupport request"));
                     }
                 }
                 // @handle modbus rtu requests
@@ -198,13 +203,15 @@ int main(int argc, char *argv[])
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
-                    send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "unsupport mode"));
+                    send_modbus_zmq_resp(zmq_pub, mode, 
+                        set_modbus_error_resp(tid, "unsupport mode"));
                 }
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
-                send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "Fail to parse command string"));
+                send_modbus_zmq_resp(zmq_pub, mode, 
+                    set_modbus_error_resp(tid, "Fail to parse command string"));
             }
             
             // @cleanup cJson object (auto mode)
@@ -221,5 +228,5 @@ int main(int argc, char *argv[])
     LOG(enable_syslog, "clean up");
     zctx_destroy(&zmq_context);
     // save config
-    save_config(config_fname); 
+    save_config(config_fname, config_json); 
 }

@@ -1,9 +1,13 @@
+// Tester for docker
+
 var 
 zmq = require('zmq')
+, links = require('docker-links').parseLinks(process.env)
 , pub = zmq.socket('pub')
 , sub = zmq.socket('sub')
 , ipc_pub = "ipc:///tmp/to.modbus"
 , ipc_sub = "ipc:///tmp/from.modbus"
+
 
 pub.connect(ipc_pub); // connect to zmq endpoint
 sub.connect(ipc_sub); // bind to zmq endpoint
@@ -18,7 +22,7 @@ sub.on("message", function(mode, jstr) {
 // FC1
 var fc1 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -34,7 +38,7 @@ var fc1 = function(){
 // FC2
 var fc2 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -50,7 +54,7 @@ var fc2 = function(){
 // FC3
 var fc3 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -66,7 +70,7 @@ var fc3 = function(){
 // FC4
 var fc4 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -82,7 +86,7 @@ var fc4 = function(){
 // FC5
 var fc5 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -98,7 +102,7 @@ var fc5 = function(){
 // FC6
 var fc6 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -114,7 +118,7 @@ var fc6 = function(){
 // FC15
 var fc15 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -131,7 +135,7 @@ var fc15 = function(){
 // FC16
 var fc16 = function(){
     var cmd = {
-        "ip": "127.0.0.1",
+        "ip": links.slave.hostname,
         "port": "502",
         "slave": 1,
         "tid": Math.floor((Math.random() * 10000) + 1),
@@ -145,8 +149,10 @@ var fc16 = function(){
     console.log("Send FC16");
 }
 
+var counter = 0;
 // main
 setInterval(function() {
+    counter++;
     fc1();
     fc2();
     fc3();
@@ -155,6 +161,9 @@ setInterval(function() {
     fc6();
     fc15();
     fc16();
-}, 500); // emit every 0.5 seconds
+    if (counter >= 10) {
+        process.exit();
+    }
+}, 300); // emit every 0.5 seconds
 
 

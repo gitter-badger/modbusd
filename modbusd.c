@@ -12,8 +12,8 @@
 
 extern int enable_syslog;                   // syslog flag
 static mbtcp_handle_s *mbtcp_htable = NULL; // hashtable header
-// tcp connection timeout in usec
-uint32_t tcp_conn_timeout_usec = 200000;    // tcp conn timeout
+uint32_t tcp_conn_timeout_usec = 200000;    /* tcp connection
+                                               timeout in usec */
 
 /* ==================================================
  *  static functions
@@ -30,8 +30,8 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     
-    char *ip = json_get_char (req, "ip");
-    int port = json_get_int  (req, "port");
+    char *ip   = json_get_char (req, "ip");
+    char *port = json_get_char (req, "port");
     
     if (mbtcp_get_handle (ptr_handle, ip, port))
     {
@@ -60,7 +60,7 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
  * @param reason Pointer to fail reason string.
  * @return Success or not.
  */
-static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
+static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char **reason)
 {
     BEGIN(enable_syslog);
         
@@ -94,7 +94,9 @@ static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
 {
     BEGIN(enable_syslog);
     // [todo][enhance] reconnect proactively?
-    // ... if the request interval is very large, we should try to reconnect automatically
+    // ... if the request interval is very large, 
+    // we should try to reconnect automatically
+    
     if (errnum == 104) // Connection reset by peer (i.e, tcp connection timeout)
     {
         handle->connected = false;
@@ -311,15 +313,16 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int len  = json_get_int(req, "len");
     int tid  = json_get_int(req, "tid");
     
-    int ret = 0;
-    uint8_t bits[len];  // FC15
-    uint16_t regs[len]; // FC16
+    uint8_t *bits;      // FC15
+    uint16_t *regs;     // FC16
     cJSON * data = NULL;
-    
+    int ret = 0;
+
     switch (fc)
     {
         case 15:
             // memory reset for variable length array
+            bits = (uint8_t *) malloc(len * sizeof(uint8_t));
             memset(bits, 0, len * sizeof(uint8_t));
             // handle uint8_t array
             data = cJSON_GetObjectItem(req, "data");
@@ -329,11 +332,13 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 bits[i] = subitem;
                 LOG(enable_syslog, "[%d]=%d", i, bits[i]);
             }
-            ret = modbus_write_bits(handle->ctx, addr, len, &bits);
+            ret = modbus_write_bits(handle->ctx, addr, len, bits);
+            free(bits);
             break;
         case 16:
             
             // memory reset for variable length array
+            regs = (uint16_t *) malloc(len * sizeof(uint16_t));
             memset(regs, 0, len * sizeof(uint16_t));
             // handle uint16_t array
             data = cJSON_GetObjectItem(req, "data");
@@ -343,7 +348,8 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 regs[i] = subitem;
                 LOG(enable_syslog, "[%d]=%d", i, regs[i]);
             }
-            ret = modbus_write_registers(handle->ctx, addr, len, &regs);
+            ret = modbus_write_registers(handle->ctx, addr, len, regs);
+            free(regs);
             break;
         default:
             return set_modbus_error_resp(tid, "Wrong function code");
@@ -390,7 +396,7 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *handle)
         return false;
     }
     
-    LOG(enable_syslog, "%s:%d connected: %s", handle->key.ip, 
+    LOG(enable_syslog, "%s:%s connected: %s", handle->key.ip, 
                                               handle->key.port, 
                                               handle->connected ? "true" : "false");
     return handle->connected;
@@ -410,12 +416,12 @@ bool mbtcp_do_connect(mbtcp_handle_s *handle, char ** reason)
     if (modbus_connect(handle->ctx) == -1) 
     {
         ERR(enable_syslog, "Connection failed: %s", modbus_strerror(errno));
-        *reason = modbus_strerror(errno);
+        *reason = (char *)modbus_strerror(errno);
         return false;
     }
     else
     {
-        LOG(enable_syslog, "%s:%d connected", handle->key.ip, handle->key.port);
+        LOG(enable_syslog, "%s:%s connected", handle->key.ip, handle->key.port);
         handle->connected = true;
         return true;
     }
@@ -428,16 +434,16 @@ void mbtcp_list_handles()
 
     for (handle = mbtcp_htable; handle != NULL; handle = handle->hh.next)
     {
-        printf("ip:%s, port:%d\n", handle->key.ip, handle->key.port);
+        printf("ip:%s, port:%s\n", handle->key.ip, handle->key.port);
     }
 }
 
-bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
+bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port)
 {
     BEGIN(enable_syslog);
 
     // create a mbtcp context
-    modbus_t *ctx = modbus_new_tcp(ip, port);
+    modbus_t *ctx = modbus_new_tcp_pi(ip, port);
     
     if (ctx == NULL)
     {
@@ -455,11 +461,11 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     memset(handle, 0, sizeof(mbtcp_handle_s));
     handle->connected = false;
     strcpy(handle->key.ip, ip);
-    handle->key.port  = port;
+    strcpy(handle->key.port, port);
     handle->ctx = ctx;
 
     HASH_ADD(hh, mbtcp_htable, key, sizeof(mbtcp_key_s), handle);
-    LOG(enable_syslog, "Add %s:%d to mbtcp hashtable", handle->key.ip, mbtcp_htable->key.port);
+    LOG(enable_syslog, "Add %s:%s to mbtcp hashtable", handle->key.ip, mbtcp_htable->key.port);
 
     // call by reference to `mbtcp handle address`
     *ptr_handle = handle;
@@ -470,26 +476,26 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
     return true;
 }
 
-bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, int port)
+bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port)
 {
     BEGIN(enable_syslog);
     
     mbtcp_handle_s query, *hash_ctx;
     memset(&query, 0, sizeof(mbtcp_handle_s));
     strcpy(query.key.ip, ip);
-    query.key.port = port;
+    strcpy(query.key.port, port);
     HASH_FIND(hh, mbtcp_htable, &query.key, sizeof(mbtcp_key_s), hash_ctx);
     
     if (hash_ctx != NULL)
     {
-        LOG(enable_syslog, "tcp server %s:%d found", hash_ctx->key.ip, hash_ctx->key.port);
+        LOG(enable_syslog, "tcp server %s:%s found", hash_ctx->key.ip, hash_ctx->key.port);
         // call by reference to `mbtcp handle address`
         *ptr_handle = hash_ctx; 
         return true;
     }
     else
     {
-        ERR(enable_syslog, "tcp server %s:%d not found", query.key.ip, query.key.port);
+        ERR(enable_syslog, "tcp server %s:%s not found", query.key.ip, query.key.port);
         *ptr_handle = NULL; 
         return false; // not found
     }
@@ -578,3 +584,4 @@ char * mbtcp_fc16_req(mbtcp_handle_s *handle, cJSON *req)
     BEGIN(enable_syslog);
     return mbtcp_multi_write_req(16, handle, req);
 }
+

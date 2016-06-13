@@ -1,3 +1,6 @@
+#VS Code
+.vscode/
+
 # Object files
 *.o
 *.ko
