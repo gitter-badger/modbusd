@@ -149,8 +149,10 @@ var fc16 = function(){
     console.log("Send FC16");
 }
 
+var counter = 0;
 // main
 setInterval(function() {
+    counter++;
     fc1();
     fc2();
     fc3();
@@ -159,6 +161,9 @@ setInterval(function() {
     fc6();
     fc15();
     fc16();
-}, 500); // emit every 0.5 seconds
+    if (counter >= 2) {
+        process.exit();
+    }
+}, 200); // emit every 0.5 seconds
 
 

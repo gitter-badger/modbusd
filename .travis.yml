@@ -15,10 +15,14 @@ script:
   - docker build -t $MODBUSD_IMG .
   - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG; fi && docker push $MODBUSD_IMG
 
-#
-#- docker run -d -P --name slave takawang/modbus-server
-#- docker run -v /tmp:/tmp -d -P --name modbusd --link slave:slave  -it takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
-#- docker run -v /tmp:/tmp --link slave:slave -it takawang/modbus-zclient /bin/bash
+  # run modbus server
+  - docker run -itd --name=slave takawang/modbus-server
+  # run modbusd
+  - docker run -v /tmp:/tmp -itd --link slave --name=modbusd takawang/modbusd /bin/sh -c "./modbusd ../modbusd.json"
+  # run zclient
+  - docker run -v /tmp:/tmp --link slave -it takawang/modbus-zclient /bin/bash
+  # stop modbusd
+  - sleep 3; docker stop modbusd
 
 env:
   global:
