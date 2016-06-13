@@ -1,77 +1,6 @@
 # modbusd [![Build Status](https://travis-ci.org/taka-wang/modbusd.svg?branch=dev)](https://travis-ci.org/taka-wang/modbusd)
 Modbus daemon 
 
-## Setup development dependencies
-
-```bash
-sudo apt-get update
-sudo apt-get install -y git build-essential autoconf libtool pkg-config cmake
-```
-
----
-
-## Setup OSS libs dependencies
-
-### Install libmodbus library (3.1.4)
-
-```bash
-git clone https://github.com/stephane/libmodbus/
-cd libmodbus
-./autogen.sh
-./configure
-# ./configure --prefix=/usr/local/
-make
-sudo make install
-sudo ldconfig
-```
-
-### Install libzmq (3.2.5)
-
-```bash
-wget https://github.com/zeromq/zeromq3-x/releases/download/v3.2.5/zeromq-3.2.5.tar.gz
-tar xvzf zeromq-3.2.5.tar.gz
-cd zeromq-3.2.5
-./configure
-make
-sudo make install
-sudo ldconfig # refresh shared library cache
-#sudo ln -sf /usr/local/lib/libzmq.so /usr/lib/libzmq.so
-```
-
-### Install czmq (high-level C binding for zeromq)
-
-```bash
-git clone git://github.com/zeromq/czmq.git
-cd czmq
-./autogen.sh
-./configure
-make
-sudo make install
-sudo ldconfig
-```
-
-## Setup testing environment
-
-### Install node.js 4.x & zmq binding on ubuntu
-
-```bash
-curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo npm install -g zmq              # zmq lib
-```
----
-
-## Build
-```bash
-git clone modbusd
-cd modbusd
-mkdir build
-cd build
-cmake ..
-make
-./modbusd ../modbusd.json # load external configuration file
-```
-
 ---
 
 ## Implemented modbus function codes
@@ -164,11 +93,101 @@ make
 - [libmodbus header](https://github.com/stephane/libmodbus/blob/master/src/modbus.h)
 - [cJSON examples](https://github.com/DaveGamble/cJSON)
 
+
+## Flow Chart
+
+![flow](flow.png)
+
 ---
 
-## Continuous Integration [optional]
+## Note
+- Support doxygen style comments.
+- ZMQ is a high-level message library, you can plug in your own socket implemetations without losing the core functionalities.
+
+---
+
+# Step by step or ([Travis CI](https://travis-ci.org) + [Docker](#Docker))
+
+## Setup development dependencies
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git build-essential autoconf libtool pkg-config cmake
+```
+
+---
+
+## Setup OSS libs dependencies
+
+### Install libmodbus library (3.1.4)
+
+```bash
+git clone https://github.com/stephane/libmodbus/
+cd libmodbus
+./autogen.sh
+./configure
+# ./configure --prefix=/usr/local/
+make
+sudo make install
+sudo ldconfig
+```
+
+### Install libzmq (3.2.5)
+
+```bash
+wget https://github.com/zeromq/zeromq3-x/releases/download/v3.2.5/zeromq-3.2.5.tar.gz
+tar xvzf zeromq-3.2.5.tar.gz
+cd zeromq-3.2.5
+./configure
+make
+sudo make install
+sudo ldconfig # refresh shared library cache
+#sudo ln -sf /usr/local/lib/libzmq.so /usr/lib/libzmq.so
+```
+
+### Install czmq (high-level C binding for zeromq)
+
+```bash
+git clone git://github.com/zeromq/czmq.git
+cd czmq
+./autogen.sh
+./configure
+make
+sudo make install
+sudo ldconfig
+```
+
+## Setup testing environment
+
+### Install node.js 4.x & zmq binding on ubuntu
+
+```bash
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install -g zmq              # zmq lib
+```
+---
+
+## Build
+```bash
+git clone modbusd
+cd modbusd
+mkdir build
+cd build
+cmake ..
+make
+./modbusd ../modbusd.json # load external configuration file
+```
+---
+
+<a name="Docker"></a>
+# Continuous Integration Setup
 
 We do continuous integration and update docker images after git push by [Travis CI](https://travis-ci.org/taka-wang/modbusd).
+
+### Docker base images
+- [git repo](https://github.com/taka-wang/docker-ubuntu)
+- [docker hub](https://hub.docker.com/u/takawang/)
 
 ### Docker images registry
 
@@ -195,14 +214,6 @@ docker run -v /tmp:/tmp --link slave -itd --name=modbusd takawang/modbusd
 # run zclient
 docker run -v /tmp:/tmp -it --link slave takawang/modbus-zclient
 ```
-
-## Note
-- Support doxygen style comments.
-- ZMQ is a high-level message library, you can plug in your own socket implemetations without losing the core functionalities.
-
-## Flow Chart
-
-![flow](flow.png)
 
 ## Deployment Diagram
 
