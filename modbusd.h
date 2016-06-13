@@ -28,18 +28,18 @@
 /**
  * @brief `structure key` for modbus tcp hash table
  *
- * Hash key. Ipv4/v6 address and port composition.
+ * Hash key. Ip v4/v6 address and port composition.
  */
 typedef struct 
 {
-    char ip[50]; /** ip v4 or v6 address or hostname */
-    char port[6];
+    char ip[50];        /** IP v4/v6 address or hostname */
+    char port[50];      /** service name/port number to connect to */
 } mbtcp_key_s;
 
 /**
- * @brief mbtcp handle type
+ * @brief hashable mbtcp handle type
  *
- * Hashable tcp handle strucut for connection keeping.
+ * Hashable tcp handle strucut for keeping connection.
  */
 typedef struct 
 {
@@ -90,13 +90,13 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port);
  *
  * @param ptr_handle Pointer to mbtcp handle.
  * @param ip IP address string.
- * @param port Modbus TCP server port string.
+ * @param port Modbus TCP server port string or service name.
  * @return Success or not.
  */
 bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port);
 
 /**
- * @brief List mbtcp hash table
+ * @brief List all handles in mbtcp hash table
  *
  * @return Void.
  */

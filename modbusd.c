@@ -12,8 +12,8 @@
 
 extern int enable_syslog;                   // syslog flag
 static mbtcp_handle_s *mbtcp_htable = NULL; // hashtable header
-// tcp connection timeout in usec
-uint32_t tcp_conn_timeout_usec = 200000;    // tcp conn timeout
+uint32_t tcp_conn_timeout_usec = 200000;    /* tcp connection
+                                               timeout in usec */
 
 /* ==================================================
  *  static functions
@@ -30,8 +30,8 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
 {
     BEGIN(enable_syslog);
     
-    char *ip = json_get_char (req, "ip");
-    char *port = json_get_char  (req, "port");
+    char *ip   = json_get_char (req, "ip");
+    char *port = json_get_char (req, "port");
     
     if (mbtcp_get_handle (ptr_handle, ip, port))
     {
@@ -60,7 +60,7 @@ static bool lazy_init_mbtcp_handle(mbtcp_handle_s **ptr_handle, cJSON *req)
  * @param reason Pointer to fail reason string.
  * @return Success or not.
  */
-static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char ** reason)
+static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char **reason)
 {
     BEGIN(enable_syslog);
         
@@ -94,7 +94,9 @@ static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
 {
     BEGIN(enable_syslog);
     // [todo][enhance] reconnect proactively?
-    // ... if the request interval is very large, we should try to reconnect automatically
+    // ... if the request interval is very large, 
+    // we should try to reconnect automatically
+    
     if (errnum == 104) // Connection reset by peer (i.e, tcp connection timeout)
     {
         handle->connected = false;

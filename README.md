@@ -105,7 +105,7 @@ make
 ```javascript
 {
 	"ip": "192.168.3.2",
-	"port": 502,
+	"port": "502",
 	"slave": 22,
 	"tid": 1,
     "mode": "tcp",
@@ -128,7 +128,7 @@ make
 ```javascript
 {
 	"ip": "192.168.3.2",
-	"port": 502,
+	"port": "502",
 	"slave": 22,
 	"tid": 1,
     "mode": "tcp",

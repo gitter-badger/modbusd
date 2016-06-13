@@ -17,7 +17,8 @@
 - default config
 - implement dummy modbus server for testing
 - Ipv4, v6 support
+- rewrite int port to char * port
 
 ## TODO List
 - daemon pid
-- rewrite int port to char * port
+- support change timeout command

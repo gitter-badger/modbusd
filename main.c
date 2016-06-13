@@ -147,40 +147,49 @@ int main(int argc, char *argv[])
                     // but if-else style should be okay for small set.
                     if (strcmp(cmd, "fc1") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc1_req));
                     }
                     else if (strcmp(cmd, "fc2") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc2_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc2_req));
                     }
                     else if (strcmp(cmd, "fc3") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc3_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc3_req));
                     }
                     else if (strcmp(cmd, "fc4") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc4_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc4_req));
                     }
                     else if (strcmp(cmd, "fc5") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc5_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc5_req));
                     }
                     else if (strcmp(cmd, "fc6") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc6_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc6_req));
                     }
                     else if (strcmp(cmd, "fc15") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc15_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc15_req));
                     }
                     else if (strcmp(cmd, "fc16") == 0)
                     {
-                        send_modbus_zmq_resp(zmq_pub, mode, mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc16_req));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc16_req));
                     }
                     else
                     {
                         LOG(enable_syslog, "unsupport request");
-                        send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "unsupport request"));
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            set_modbus_error_resp(tid, "unsupport request"));
                     }
                 }
                 // @handle modbus rtu requests
@@ -194,13 +203,15 @@ int main(int argc, char *argv[])
                 else
                 {
                     ERR(enable_syslog, "unsupport mode");
-                    send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "unsupport mode"));
+                    send_modbus_zmq_resp(zmq_pub, mode, 
+                        set_modbus_error_resp(tid, "unsupport mode"));
                 }
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
-                send_modbus_zmq_resp(zmq_pub, mode, set_modbus_error_resp(tid, "Fail to parse command string"));
+                send_modbus_zmq_resp(zmq_pub, mode, 
+                    set_modbus_error_resp(tid, "Fail to parse command string"));
             }
             
             // @cleanup cJson object (auto mode)
