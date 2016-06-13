@@ -65,8 +65,6 @@ var mserver = net.createServer(function (socket) {
             return reply(new Error(helpers.modbus.Exceptions.ILLEGAL_DATA_ADDRESS));
         }
         console.log(val);
-        // auto exit
-        setTimeout(function() { process.exit(); }, 3000);
         return reply();
     });
 

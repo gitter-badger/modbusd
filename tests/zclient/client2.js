@@ -161,7 +161,7 @@ setInterval(function() {
     fc6();
     fc15();
     fc16();
-    if (counter >= 2) {
+    if (counter >= 10) {
         process.exit();
     }
 }, 200); // emit every 0.5 seconds
