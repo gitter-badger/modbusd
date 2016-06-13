@@ -206,3 +206,7 @@ docker run -v /tmp:/tmp --link slave -it takawang/modbus-zclient /bin/bash
 ## Flow Chart
 
 ![flow](flow.png)
+
+## Deployment Diagram
+
+![deployment](deployment.png)
