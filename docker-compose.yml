@@ -1,23 +1,16 @@
-version: '2'
-services:
-    slave:
-        build: tests/mbserver/.
-        image: takawang/modbus-server
+slave:
+    build: tests/mbserver/.
+
+zclient:
+    build: tests/zclient/.
+    volumes_from:
+        - modbusd
+    links:
+        - slave
     
-    modbusd:
-        build: .
-        image: takawang/modbusd
-        volumes:
-            - /tmp:/tmp
-        links:
-            - slave
-    zclient:
-        build: tests/zclient/.
-        image: takawang/modbus-zclient
-        volumes_from:
-            - modbusd
-        links:
-            - slave
-networks:
-  default:
-    driver: zmq
+modbusd:
+    build: .
+    volumes:
+        - /tmp:/tmp
+    links:
+        - slave
