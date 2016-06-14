@@ -23,4 +23,5 @@
 
 ## TODO List
 - enhance test cases
-- enhance reconnect mechanism 
+- enhance reconnect mechanism
+- deploy doxygen document automatically
