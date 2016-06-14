@@ -11,7 +11,7 @@ script:
 - docker build -t $MODBUSD_IMG .
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG; fi && docker push $MODBUSD_IMG
 - docker run -itd --name=slave takawang/modbus-server
-- docker run -v /tmp:/tmp --link slave -itd --name=modbusd takawang/modbusd
+- docker run -v /tmp:/tmp --link slave -it --name=modbusd takawang/modbusd /bin/sh -c "valgrind --leak-check=full /usr/bin/modbusd /etc/modbusd/modbusd.json"
 - docker run -v /tmp:/tmp --link slave -it --name=zclient takawang/modbus-zclient
 - docker stop slave modbusd zclient
 env:
