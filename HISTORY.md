@@ -7,20 +7,20 @@
 ---
 
 ## Done
-- libmodbus version number
-- keep connection 
-- FC(1~6, 15, 16)
-- FC argument
+- implement keep connection mechanism 
+- implement FC (1~6, 15, 16)
 - daemon version number
 - syslog (flag)
-- read config
-- default config
+- implement read config
+- implement default config
 - implement dummy modbus server for testing
-- Ipv4, v6 support
-- rewrite int port to char * port
+- support ipv4/v6 string
+- refactor int port to char * port
 - support docker compose
 - support valgrind
+- implement change timeout command
+- support mocha and async test
 
 ## TODO List
-- daemon pid, service
-- support change timeout command
+- enhance test cases
+- enhance reconnect mechanism 
