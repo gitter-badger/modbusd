@@ -5,6 +5,9 @@
   "main": "client2.js",
   "dependencies": {
     "zmq": "~2.15.3",
+    "should": "2.1.x",
+    "semver": "~4.1.1",
+    "mocha": "~1.13.0",
     "docker-links": "*"
   },
   "author": "Taka Wang",
