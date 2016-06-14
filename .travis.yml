@@ -8,32 +8,35 @@ install:
 
 script:
 
-# build modbus slave server image
+### build modbus slave server image
 - docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_SERVER_IMG
 
-# build zclient image
+### build zclient image
 - docker build -t $MODBUS_ZCLIENT_IMG tests/zclient/.
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_ZCLIENT_IMG:latest $MODBUS_ZCLIENT_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_ZCLIENT_IMG
 
-# build modbusd image
+### build modbusd image
 - docker build -t $MODBUSD_IMG .
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG; fi && docker push $MODBUSD_IMG
 
-# run modbus slave server
+### run modbus slave server
 - docker run -itd --name=$MODBUS_SERVER_NAME $MODBUS_SERVER_IMG
 
-# run modbusd
-- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -itd --name=$MODBUSD_NAME $MODBUSD_IMG /bin/sh -c "valgrind --log-file="/tmp/valgrind.log" --tool=memcheck --leak-check=full --show-leak-kinds=all --verbose /usr/bin/modbusd /etc/modbusd/modbusd.json"
+### run modbusd
+#- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -itd --name=$MODBUSD_NAME $MODBUSD_IMG /bin/sh -c "valgrind --log-file="/tmp/valgrind.log" --tool=memcheck --leak-check=full --show-leak-kinds=all --verbose /usr/bin/modbusd /etc/modbusd/modbusd.json"
+- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -itd --name=$MODBUSD_NAME $MODBUSD_IMG
 
-# run zclient
-- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -it --name=$MODBUS_ZCLIENT_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "node client3"
+### run zclient
+#- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -it --name=$MODBUS_ZCLIENT_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "node client3"
+- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -it --name=$MODBUS_ZCLIENT_NAME $MODBUS_ZCLIENT_IMG
 
-# print valgrind
-- docker run -v /tmp:/tmp -it --name=$VALGRIND_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "cat /tmp/valgrind.log"
+### print valgrind
+#- docker run -v /tmp:/tmp -it --name=$VALGRIND_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "cat /tmp/valgrind.log"
 
-# stop all containers
-- docker stop $MODBUS_SERVER_NAME $MODBUSD_NAME $VALGRIND_NAME
+### stop all containers
+#- docker stop $MODBUS_SERVER_NAME $MODBUSD_NAME $VALGRIND_NAME
+- docker stop $MODBUS_SERVER_NAME $MODBUSD_NAME
 
 env:
   global:
