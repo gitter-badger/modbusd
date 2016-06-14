@@ -20,6 +20,7 @@
 - support valgrind
 - implement change timeout command
 - support mocha and async test
+- add versioneye support
 
 ## TODO List
 - enhance test cases
