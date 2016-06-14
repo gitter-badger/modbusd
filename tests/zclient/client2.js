@@ -7,9 +7,9 @@ zmq = require('zmq')
 , ipc_pub = "ipc:///tmp/to.modbus"
 , ipc_sub = "ipc:///tmp/from.modbus"
 
-, zmq_send = function(data, mode, str){
-    pub.send(mode, zmq.ZMQ_SNDMORE);
-    pub.send(JSON.stringify(data));
+, zmq_send = function(socket, data, mode, str){
+    socket.send(mode, zmq.ZMQ_SNDMORE);
+    socket.send(JSON.stringify(data));
     console.log("send " + data.cmd);
 }
 , fc1 = {
@@ -116,7 +116,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(set_timeout, "tcp");
+            zmq_send(pub, set_timeout, "tcp");
         }, 100.0);
     });
     
@@ -135,7 +135,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc1, "tcp");
+            zmq_send(pub, fc1, "tcp");
         }, 100.0);
     });
     
@@ -154,7 +154,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc2, "tcp");
+            zmq_send(pub, fc2, "tcp");
         }, 100.0);        
     });
 
@@ -173,7 +173,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc3, "tcp");
+            zmq_send(pub, fc3, "tcp");
         }, 100.0);        
     });
 
@@ -192,7 +192,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc4, "tcp");
+            zmq_send(pub, fc4, "tcp");
         }, 100.0);        
     });
 
@@ -211,7 +211,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc5, "tcp");
+            zmq_send(pub, fc5, "tcp");
         }, 100.0);        
     });
 
@@ -230,7 +230,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc6, "tcp");
+            zmq_send(pub, fc6, "tcp");
         }, 100.0);        
     });
     
@@ -249,7 +249,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc15, "tcp");
+            zmq_send(pub, fc15, "tcp");
         }, 100.0);        
     });
 
@@ -268,7 +268,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc16, "tcp");
+            zmq_send(pub, fc16, "tcp");
         }, 100.0);        
     });
 
@@ -289,7 +289,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(set_timeout, "tcp");
+            zmq_send(pub, set_timeout, "tcp");
         }, 100.0);
     });
     
@@ -308,7 +308,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc1, "tcp");
+            zmq_send(pub, fc1, "tcp");
         }, 100.0);
     });
     
@@ -327,7 +327,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc2, "tcp");
+            zmq_send(pub, fc2, "tcp");
         }, 100.0);        
     });
 
@@ -346,7 +346,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc3, "tcp");
+            zmq_send(pub, fc3, "tcp");
         }, 100.0);        
     });
 
@@ -365,7 +365,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc4, "tcp");
+            zmq_send(pub, fc4, "tcp");
         }, 100.0);        
     });
 
@@ -384,7 +384,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc5, "tcp");
+            zmq_send(pub, fc5, "tcp");
         }, 100.0);        
     });
 
@@ -403,7 +403,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc6, "tcp");
+            zmq_send(pub, fc6, "tcp");
         }, 100.0);        
     });
     
@@ -422,7 +422,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc15, "tcp");
+            zmq_send(pub, fc15, "tcp");
         }, 100.0);        
     });
 
@@ -441,7 +441,7 @@ describe('Test modbusd TCP functions', function() {
         });
         
         setTimeout(function() {
-            zmq_send(fc16, "tcp");
+            zmq_send(pub, fc16, "tcp");
         }, 100.0);        
     });
 
