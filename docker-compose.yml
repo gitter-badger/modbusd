@@ -14,4 +14,4 @@ modbusd:
         - /tmp:/tmp
     links:
         - slave
-    command: valgrind --leak-check=full --show-leak-kinds=all --verbose /usr/bin/modbusd /etc/modbusd/modbusd.json
+    command: valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --verbose /usr/bin/modbusd /etc/modbusd/modbusd.json
