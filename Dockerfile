@@ -19,4 +19,4 @@ RUN cp "config/service.sh" "/etc/init.d/modbusd" && \
 EXPOSE 502
 
 ## Default command
-CMD service modbusd start && tail -F /var/log/modbusd.log
+CMD service modbusd start && tail -F /tmp/modbusd.log

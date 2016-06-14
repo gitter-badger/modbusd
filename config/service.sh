@@ -12,7 +12,8 @@ SCRIPT="/usr/bin/modbusd /etc/modbusd/modbusd.json"
 RUNAS=root
 
 PIDFILE=/var/run/modbusd.pid
-LOGFILE=/var/log/modbusd.log
+#LOGFILE=/var/log/modbusd.log
+LOGFILE=/tmp/modbusd.log
 
 start() {
   if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then

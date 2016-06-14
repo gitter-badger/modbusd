@@ -29,8 +29,8 @@ script:
 # run zclient
 - docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -it --name=$MODBUS_ZCLIENT_NAME $MODBUS_ZCLIENT_IMG
 
-# print valgrind log
-- docker run -v /tmp:/tmp -it --name=$VALGRIND_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "cat /tmp/valgrind.log"
+# print valgrind & modbusd log
+- docker run -v /tmp:/tmp -it --name=$VALGRIND_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "cat /tmp/valgrind.log; cat /tmp/modbusd.log"
 
 # stop all containers
 - docker stop $MODBUS_SERVER_NAME $MODBUSD_NAME $VALGRIND_NAME
