@@ -19,6 +19,7 @@
 - Ipv4, v6 support
 - rewrite int port to char * port
 - support docker compose
+- support valgrind
 
 ## TODO List
 - daemon pid, service
