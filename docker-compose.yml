@@ -1,14 +1,14 @@
 slave:
-    image: takawang/modbus-server
+    build: tests/mbserver/.
     
 modbusd:
-    image: takawang/modbusd
+    build: .
     volumes:
         - /tmp:/tmp
     links:
         - slave
 zclient:
-    image: takawang/modbus-zclient
+    image: tests/zclient/.
     volumes_from:
         - modbusd
     links:
