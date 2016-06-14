@@ -24,7 +24,7 @@ Modbus daemon
     "syslog": 1,
     "ipc_sub": "ipc:///tmp/to.modbus",
     "ipc_pub": "ipc:///tmp/from.modbus",
-    "mbtcp_connect_timeout": 210000
+    "mbtcp_connect_timeout": 200000
 }
 ```
 
@@ -37,7 +37,6 @@ Modbus daemon
 	"port": "502",
 	"slave": 22,
 	"tid": 1,
-    "mode": "tcp",
 	"cmd": "fc1",
 	"addr": 250,
 	"len": 10
@@ -60,7 +59,6 @@ Modbus daemon
 	"port": "502",
 	"slave": 22,
 	"tid": 1,
-    "mode": "tcp",
 	"cmd": "fc5",
 	"addr": 80,
 	"len": 4,
@@ -69,6 +67,23 @@ Modbus daemon
 ```
 
 ### @mbtcp write response
+```javascript
+{
+	"tid": 1,
+	"status": "ok"
+}
+```
+
+### @mbtcp set timeout
+```javascript
+{
+	"tid": 1,
+	"cmd": "timeout",
+	"data": 210000
+}
+```
+
+### @mbtcp set timeout response
 ```javascript
 {
 	"tid": 1,

@@ -185,11 +185,17 @@ int main(int argc, char *argv[])
                         send_modbus_zmq_resp(zmq_pub, mode, 
                             mbtcp_cmd_hanlder(req_json_obj, mbtcp_fc16_req));
                     }
+                    else if (strcmp(cmd, "timeout") == 0)
+                    {
+                        long int timeout = json_get_int(req_json_obj, "timeout");
+                        send_modbus_zmq_resp(zmq_pub, mode, 
+                            mbtcp_set_response_timeout(tid, timeout));
+                    }
                     else
                     {
                         LOG(enable_syslog, "unsupport request");
                         send_modbus_zmq_resp(zmq_pub, mode, 
-                            set_modbus_error_resp(tid, "unsupport request"));
+                            modbus_set_error_resp(tid, "unsupport request"));
                     }
                 }
                 // @handle modbus rtu requests
@@ -204,14 +210,14 @@ int main(int argc, char *argv[])
                 {
                     ERR(enable_syslog, "unsupport mode");
                     send_modbus_zmq_resp(zmq_pub, mode, 
-                        set_modbus_error_resp(tid, "unsupport mode"));
+                        modbus_set_error_resp(tid, "unsupport mode"));
                 }
             }
             else
             {
                 ERR(enable_syslog, "Fail to parse command string");
                 send_modbus_zmq_resp(zmq_pub, mode, 
-                    set_modbus_error_resp(tid, "Fail to parse command string"));
+                    modbus_set_error_resp(tid, "Fail to parse command string"));
             }
             
             // @cleanup cJson object (auto mode)

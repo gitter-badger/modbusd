@@ -149,6 +149,17 @@ var fc16 = function(){
     console.log("Send FC16");
 }
 
+var set_timeout = function(){
+    var cmd = {
+        "tid": Math.floor((Math.random() * 10000) + 1),
+        "cmd": "timeout",
+        "data": 210000
+    };
+    pub.send("tcp", zmq.ZMQ_SNDMORE);
+    pub.send(JSON.stringify(cmd));
+    console.log("Set Timeout");    
+}
+
 var counter = 0;
 // main
 setInterval(function() {
@@ -161,6 +172,7 @@ setInterval(function() {
     fc6();
     fc15();
     fc16();
+    set_timeout();
     if (counter >= 10) {
         process.exit();
     }

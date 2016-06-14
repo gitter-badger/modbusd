@@ -73,7 +73,7 @@ typedef char * (*mbtcp_fc)(mbtcp_handle_s *handle, cJSON *req);
  * @param reason Fail reason string.
  * @return Modbus response string in JSON format.
  */
-char * set_modbus_error_resp(int tid, const char *reason);
+char * modbus_set_error_resp(int tid, const char *reason);
 
 /**
  * @brief Init mbtcp handle (to hashtable) and try to connect
@@ -127,6 +127,16 @@ bool mbtcp_get_connection_status(mbtcp_handle_s *handle);
  * @return Modbus response string in JSON format.
  */
 char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc);
+
+
+/**
+ * @brief Set mbtcp response timeout in usec
+ *
+ * @param tid Transaction ID.
+ * @param timeout Timeout in usec.
+ * @return Modbus response string in JSON format.
+ */
+char * mbtcp_set_response_timeout(int tid, long int timeout);
 
 /**
  * @brief Modbus TCP Read coils.

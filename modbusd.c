@@ -102,7 +102,7 @@ static char * set_modbus_errno_resp(int tid, mbtcp_handle_s *handle, int errnum)
         handle->connected = false;
     }
     ERR(enable_syslog, "%s:%d", modbus_strerror(errnum), errnum);
-    return set_modbus_error_resp(tid, modbus_strerror(errnum));
+    return modbus_set_error_resp(tid, modbus_strerror(errnum));
 }
 
 /**
@@ -165,7 +165,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_BITS) // 2000
     {
-        return set_modbus_error_resp(tid, "Too many bits requested");
+        return modbus_set_error_resp(tid, "Too many bits requested");
     }
     else
     {
@@ -182,7 +182,7 @@ static char * mbtcp_read_bit_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 ret = modbus_read_input_bits(handle->ctx, addr, len, bits);
                 break;
             default:
-                return set_modbus_error_resp(tid, "Wrong function code");
+                return modbus_set_error_resp(tid, "Wrong function code");
         }
 
         if (ret < 0) 
@@ -221,7 +221,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
     int tid  = json_get_int(req, "tid");
     if (len > MODBUS_MAX_READ_REGISTERS) // 125
     {
-        return set_modbus_error_resp(tid, "Too many registers requested");
+        return modbus_set_error_resp(tid, "Too many registers requested");
     }
     else
     {
@@ -238,7 +238,7 @@ static char * mbtcp_read_reg_req(int fc, mbtcp_handle_s *handle, cJSON *req)
                 ret = modbus_read_input_registers(handle->ctx, addr, len, regs);
                 break;
             default:
-                return set_modbus_error_resp(tid, "Wrong function code");
+                return modbus_set_error_resp(tid, "Wrong function code");
         }
         
         if (ret < 0) 
@@ -285,7 +285,7 @@ static char * mbtcp_single_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             ret = modbus_write_register(handle->ctx, addr, data);
             break;
         default:
-            return set_modbus_error_resp(tid, "Wrong function code");
+            return modbus_set_error_resp(tid, "Wrong function code");
     }
 
     if (ret < 0) 
@@ -352,7 +352,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
             free(regs);
             break;
         default:
-            return set_modbus_error_resp(tid, "Wrong function code");
+            return modbus_set_error_resp(tid, "Wrong function code");
     }
 
     if (ret < 0) 
@@ -369,7 +369,7 @@ static char * mbtcp_multi_write_req(int fc, mbtcp_handle_s *handle, cJSON *req)
  *  public functions
 ================================================== */
 
-char * set_modbus_error_resp(int tid, const char *reason)
+char * modbus_set_error_resp(int tid, const char *reason)
 {
     BEGIN(enable_syslog);
     
@@ -453,6 +453,7 @@ bool mbtcp_init_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port)
         
     // set tcp connection timeout
     modbus_set_response_timeout(ctx, 0, tcp_conn_timeout_usec);
+    LOG(enable_syslog, "set response timeout:%d", tcp_conn_timeout_usec);
     
     // @add context to mbtcp hashtable
     mbtcp_handle_s *handle;
@@ -520,13 +521,48 @@ char * mbtcp_cmd_hanlder(cJSON *req, mbtcp_fc fc)
         else
         {
             // [enhance]: get reason from modbus response
-            return set_modbus_error_resp(tid, reason);
+            return modbus_set_error_resp(tid, reason);
         }
     }
     else
     {
-        return set_modbus_error_resp(tid, "init modbus tcp handle fail");
+        return modbus_set_error_resp(tid, "init modbus tcp handle fail");
     }
+}
+
+char * mbtcp_set_response_timeout(int tid, long int timeout)
+{
+    BEGIN(enable_syslog);
+
+    // set timeout
+    tcp_conn_timeout_usec = timeout;
+    
+    cJSON *resp_root;
+    resp_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(resp_root, "tid", tid);
+    cJSON_AddStringToObject(resp_root, "status", "ok");
+    char * resp_json_string = cJSON_PrintUnformatted(resp_root);
+    LOG(enable_syslog, "resp: %s", resp_json_string);
+    
+    // clean up
+    cJSON_Delete(resp_root);
+    return resp_json_string;
+}
+
+char * modbus_set_error_resp(int tid, const char *reason)
+{
+    BEGIN(enable_syslog);
+    
+    cJSON *resp_root;
+    resp_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(resp_root, "tid", tid);
+    cJSON_AddStringToObject(resp_root, "status", reason);
+    char * resp_json_string = cJSON_PrintUnformatted(resp_root);
+    LOG(enable_syslog, "resp: %s", resp_json_string);
+    
+    // clean up
+    cJSON_Delete(resp_root);
+    return resp_json_string;
 }
 
 // Read coils.
