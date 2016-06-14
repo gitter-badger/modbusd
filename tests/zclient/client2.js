@@ -95,7 +95,7 @@ zmq = require('zmq')
 //
 describe('Test modbusd TCP functions', function() {
     // define test timeout
-    this.timeout(20000);
+    this.timeout(50000);
     
     var pub, sub;
     
@@ -110,11 +110,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -129,11 +131,14 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc1.len);
+            obj.cmd.should.equal(fc1.cmd);
             done();
         });
         
@@ -148,17 +153,20 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc2.len);
+            obj.cmd.should.equal(fc2.cmd);
             done();
         });
         
         setTimeout(function() {
             zmq_send(pub, fc2, "tcp");
-        }, 100.0);        
+        }, 100.0);    
     });
 
     it("should return fc3 response", function (done) {
@@ -167,17 +175,20 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc3.len);
+            obj.cmd.should.equal(fc3.cmd);
             done();
         });
         
         setTimeout(function() {
             zmq_send(pub, fc3, "tcp");
-        }, 100.0);        
+        }, 100.0);    
     });
 
     it("should return fc4 response", function (done) {
@@ -186,17 +197,20 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc4.len);
+            obj.cmd.should.equal(fc4.cmd);
             done();
         });
         
         setTimeout(function() {
             zmq_send(pub, fc4, "tcp");
-        }, 100.0);        
+        }, 100.0);  
     });
 
     it("should return fc5 response", function (done) {
@@ -205,11 +219,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -224,11 +240,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -243,11 +261,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -262,11 +282,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -283,11 +305,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -302,11 +326,14 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc1.len);
+            obj.cmd.should.equal(fc1.cmd);
             done();
         });
         
@@ -321,17 +348,20 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc2.len);
+            obj.cmd.should.equal(fc2.cmd);
             done();
         });
         
         setTimeout(function() {
             zmq_send(pub, fc2, "tcp");
-        }, 100.0);        
+        }, 100.0);    
     });
 
     it("should return fc3 response", function (done) {
@@ -340,17 +370,20 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc3.len);
+            obj.cmd.should.equal(fc3.cmd);
             done();
         });
         
         setTimeout(function() {
             zmq_send(pub, fc3, "tcp");
-        }, 100.0);        
+        }, 100.0);    
     });
 
     it("should return fc4 response", function (done) {
@@ -359,17 +392,20 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.data.should.be.instanceof(Array).and.have.lengthOf(fc4.len);
+            obj.cmd.should.equal(fc4.cmd);
             done();
         });
         
         setTimeout(function() {
             zmq_send(pub, fc4, "tcp");
-        }, 100.0);        
+        }, 100.0);  
     });
 
     it("should return fc5 response", function (done) {
@@ -378,11 +414,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -397,11 +435,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -416,11 +456,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -435,11 +477,13 @@ describe('Test modbusd TCP functions', function() {
         sub.subscribe("");
         
         sub.on("message", function(mode, jstr) {
+            var obj = JSON.parse(jstr);
             pub.close();
             sub.close();
             console.log(jstr.toString());
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
+            obj.status.should.equal("ok");
             done();
         });
         
