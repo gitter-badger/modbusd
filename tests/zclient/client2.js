@@ -122,7 +122,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, set_timeout, "tcp");
-        }, 100.0);
+        }, 1.0);
     });
     
     it("should return fc1 response", function (done) {
@@ -144,7 +144,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc1, "tcp");
-        }, 100.0);
+        }, 1.0);
     });
     
     it("should return fc2 response", function (done) {
@@ -166,7 +166,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc2, "tcp");
-        }, 100.0);    
+        }, 1.0);    
     });
 
     it("should return fc3 response", function (done) {
@@ -188,7 +188,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc3, "tcp");
-        }, 100.0);    
+        }, 1.0);    
     });
 
     it("should return fc4 response", function (done) {
@@ -210,7 +210,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc4, "tcp");
-        }, 100.0);  
+        }, 1.0);  
     });
 
     it("should return fc5 response", function (done) {
@@ -231,7 +231,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc5, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
 
     it("should return fc6 response", function (done) {
@@ -252,7 +252,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc6, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
     
     it("should return fc15 response", function (done) {
@@ -273,7 +273,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc15, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
 
     it("should return fc16 response", function (done) {
@@ -294,7 +294,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc16, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
 
     // repeat
@@ -317,7 +317,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, set_timeout, "tcp");
-        }, 100.0);
+        }, 1.0);
     });
     
     it("should return fc1 response", function (done) {
@@ -339,7 +339,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc1, "tcp");
-        }, 100.0);
+        }, 1.0);
     });
     
     it("should return fc2 response", function (done) {
@@ -361,7 +361,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc2, "tcp");
-        }, 100.0);    
+        }, 1.0);    
     });
 
     it("should return fc3 response", function (done) {
@@ -383,7 +383,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc3, "tcp");
-        }, 100.0);    
+        }, 1.0);    
     });
 
     it("should return fc4 response", function (done) {
@@ -405,7 +405,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc4, "tcp");
-        }, 100.0);  
+        }, 1.0);  
     });
 
     it("should return fc5 response", function (done) {
@@ -426,7 +426,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc5, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
 
     it("should return fc6 response", function (done) {
@@ -447,7 +447,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc6, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
     
     it("should return fc15 response", function (done) {
@@ -468,7 +468,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc15, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
 
     it("should return fc16 response", function (done) {
@@ -489,7 +489,7 @@ describe('Test modbusd TCP functions', function() {
         
         setTimeout(function() {
             zmq_send(pub, fc16, "tcp");
-        }, 100.0);        
+        }, 1.0);        
     });
 
 
