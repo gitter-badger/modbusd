@@ -195,7 +195,7 @@ describe('modbus.tcp.test.all', function() {
             fc2(pub);
         }, 100.0);        
     });
-}
+});
 
 /*
 
