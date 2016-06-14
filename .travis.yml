@@ -28,7 +28,7 @@ script:
 - docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -itd --name=$MODBUSD_NAME $MODBUSD_IMG
 
 ### run zclient
-- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -it --name=$MODBUS_ZCLIENT_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "node client3"
+- docker run -v /tmp:/tmp --link $MODBUS_SERVER_NAME -it --name=$MODBUS_ZCLIENT_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "mocha client3"
 
 ### print valgrind
 #- docker run -v /tmp:/tmp -it --name=$VALGRIND_NAME $MODBUS_ZCLIENT_IMG /bin/sh -c "cat /tmp/valgrind.log"
