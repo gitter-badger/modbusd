@@ -7,7 +7,7 @@ services:
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
@@ -25,7 +25,6 @@ script:
   - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG; fi && docker push $MODBUSD_IMG
 
   - docker-compose up &
-  - docker-compose ps
   - wait 4
   - docker-compose stop
   
