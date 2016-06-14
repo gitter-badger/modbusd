@@ -225,7 +225,7 @@ docker build -t takawang/modbusd .
 # run modbus server
 docker run -itd --name=slave takawang/modbus-server
 # run modbusd
-docker run -v /tmp:/tmp --link slave -itd --name=modbusd takawang/modbusd
+docker run -v /tmp:/tmp --link slave -it --name=modbusd takawang/modbusd
 # run zclient
 docker run -v /tmp:/tmp -it --link slave takawang/modbus-zclient
 ```
