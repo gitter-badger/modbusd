@@ -215,6 +215,14 @@ docker run -v /tmp:/tmp --link slave -itd --name=modbusd takawang/modbusd
 docker run -v /tmp:/tmp -it --link slave takawang/modbus-zclient
 ```
 
+### Docker images and testing from docker compose
+```bash
+# build & run
+docker-compose up 
+# exit test
+ctrl+c
+```
+
 ## Deployment Diagram
 
 ![deployment](image/deployment.png)

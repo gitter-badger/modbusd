@@ -18,6 +18,7 @@
 - implement dummy modbus server for testing
 - Ipv4, v6 support
 - rewrite int port to char * port
+- support docker compose
 
 ## TODO List
 - daemon pid, service
