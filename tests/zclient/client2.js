@@ -138,7 +138,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc1.len);
-            (obj.cmd).should.equal(fc1.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -160,7 +160,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc2.len);
-            (obj.cmd).should.equal(fc2.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -182,7 +182,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc3.len);
-            (obj.cmd).should.equal(fc3.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -204,7 +204,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc4.len);
-            (obj.cmd).should.equal(fc4.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -333,7 +333,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc1.len);
-            (obj.cmd).should.equal(fc1.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -355,7 +355,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc2.len);
-            (obj.cmd).should.equal(fc2.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -377,7 +377,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc3.len);
-            (obj.cmd).should.equal(fc3.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
@@ -399,7 +399,7 @@ describe('Test modbusd TCP functions', function() {
             mode.toString().should.equal('tcp');
             jstr.should.be.an.instanceof(Buffer);
             obj.data.should.be.instanceof(Array).and.have.lengthOf(fc4.len);
-            (obj.cmd).should.equal(fc4.cmd);
+            obj.status.should.equal("ok");
             done();
         });
         
