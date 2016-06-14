@@ -385,7 +385,6 @@ char * modbus_set_error_resp(int tid, const char *reason)
     return resp_json_string;
 }
 
-
 bool mbtcp_get_connection_status(mbtcp_handle_s *handle)
 {
     BEGIN(enable_syslog);
@@ -541,22 +540,6 @@ char * mbtcp_set_response_timeout(int tid, long int timeout)
     resp_root = cJSON_CreateObject();
     cJSON_AddNumberToObject(resp_root, "tid", tid);
     cJSON_AddStringToObject(resp_root, "status", "ok");
-    char * resp_json_string = cJSON_PrintUnformatted(resp_root);
-    LOG(enable_syslog, "resp: %s", resp_json_string);
-    
-    // clean up
-    cJSON_Delete(resp_root);
-    return resp_json_string;
-}
-
-char * modbus_set_error_resp(int tid, const char *reason)
-{
-    BEGIN(enable_syslog);
-    
-    cJSON *resp_root;
-    resp_root = cJSON_CreateObject();
-    cJSON_AddNumberToObject(resp_root, "tid", tid);
-    cJSON_AddStringToObject(resp_root, "status", reason);
     char * resp_json_string = cJSON_PrintUnformatted(resp_root);
     LOG(enable_syslog, "resp: %s", resp_json_string);
     
