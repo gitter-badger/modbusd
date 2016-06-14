@@ -95,7 +95,7 @@ zmq = require('zmq')
 //
 describe('Test modbusd TCP functions', function() {
     // define test timeout
-    this.timeout(5000);
+    this.timeout(20000);
     
     var pub, sub;
     
