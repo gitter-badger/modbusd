@@ -7,13 +7,9 @@ modbusd:
         - /tmp:/tmp
     links:
         - slave
-    depends_on:
-        - slave
 zclient:
     image: takawang/modbus-zclient
     volumes:
         - /tmp:/tmp
     links:
-        - slave
-    depends_on:
         - slave
