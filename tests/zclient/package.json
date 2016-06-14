@@ -1,13 +1,13 @@
 {
   "name": "zmq-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Naive zmq client for testing",
-  "main": "client2.js",
+  "main": "client3.js",
   "dependencies": {
-    "zmq": "~2.15.3",
-    "should": "2.1.x",
-    "mocha": "~1.13.0",
-    "docker-links": "*"
+    "zmq": "2.15.3",
+    "should": "9.0.2",
+    "mocha": "2.5.3",
+    "docker-links": "1.0.2"
   },
   "author": "Taka Wang",
   "license": "MIT"
