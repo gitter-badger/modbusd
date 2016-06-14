@@ -1,4 +1,7 @@
-# Node.js ZMQ Tester [![Dependency Status](https://www.versioneye.com/user/projects/57600571433d18005179252e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57600571433d18005179252e)
+# Modbus daemon tester in node.js 
+
+[![Dependency Status](https://www.versioneye.com/user/projects/57600571433d18005179252e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57600571433d18005179252e)
+
 A naive zmq client to simulate proactive server
 
 ## Installation

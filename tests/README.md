@@ -1,4 +1,7 @@
 #Tests
+
+[![Node version](https://img.shields.io/badge/node-4.x-brightgreen.svg)](https://nodejs.org/dist/v4.4.5/)
+
 Unit test cases
 
 # Test files
