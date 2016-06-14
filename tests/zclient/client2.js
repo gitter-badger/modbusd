@@ -164,6 +164,7 @@ var counter = 0;
 // main
 setInterval(function() {
     counter++;
+    set_timeout();
     fc1();
     fc2();
     fc3();
@@ -171,8 +172,7 @@ setInterval(function() {
     fc5();
     fc6();
     fc15();
-    fc16();
-    set_timeout();
+    fc16();    
     if (counter >= 10) {
         process.exit();
     }
