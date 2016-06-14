@@ -200,6 +200,8 @@ make
 
 We do continuous integration and update docker images after git push by [Travis CI](https://travis-ci.org/taka-wang/modbusd).
 
+![ci](image/ci.png)
+
 ### Docker base images
 - [git repo](https://github.com/taka-wang/docker-ubuntu)
 - [docker hub](https://hub.docker.com/u/takawang/)
