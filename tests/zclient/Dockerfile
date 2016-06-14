@@ -16,4 +16,4 @@ WORKDIR /zclient
 ADD . /zclient
 
 ## Default command
-CMD ["node", "client2.js"]
+CMD ["mocha", "client2.js"]
