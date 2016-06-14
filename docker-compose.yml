@@ -1,6 +1,14 @@
 slave:
     build: tests/mbserver/.
 
+modbusd:
+    build: .
+    volumes:
+        - /tmp:/tmp
+    links:
+        - slave
+    command: valgrind --leak-check=full --verbose /usr/bin/modbusd /etc/modbusd/modbusd.json
+
 zclient:
     build: tests/zclient/.
     volumes_from:
@@ -8,10 +16,3 @@ zclient:
     links:
         - slave
     
-modbusd:
-    build: .
-    volumes:
-        - /tmp:/tmp
-    links:
-        - slave
-    command: valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --verbose /usr/bin/modbusd /etc/modbusd/modbusd.json
