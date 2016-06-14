@@ -19,4 +19,5 @@ RUN cp "config/service.sh" "/etc/init.d/modbusd" && \
 EXPOSE 502
 
 ## Default command
+# note: log file does not exist, just keep container running
 CMD service modbusd start && tail -F /var/log/modbusd.log
