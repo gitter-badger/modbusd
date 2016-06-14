@@ -9,7 +9,7 @@ modbusd:
         - slave
 zclient:
     image: takawang/modbus-zclient
-    volumes:
-        - /tmp:/tmp
+    volumes_from:
+        - modbusd
     links:
         - slave

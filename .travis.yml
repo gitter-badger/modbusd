@@ -1,24 +1,38 @@
 sudo: required
+
 services:
-- docker
+  - docker
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 install:
-- docker login --email=$DOCKER_HUB_EMAIL --username=takawang --password=$DOCKER_HUB_PASSWORD
+  - docker login --email=$DOCKER_HUB_EMAIL --username=takawang --password=$DOCKER_HUB_PASSWORD
+
 script:
-- docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
-- if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG;
+  - docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
+  - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG;
   fi && docker push $MODBUS_SERVER_IMG
-- docker build -t $MODBUS_ZCLIENT_IMG tests/zclient/.
-- if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_ZCLIENT_IMG:latest $MODBUS_ZCLIENT_IMG:$TRAVIS_TAG;
+
+  - docker build -t $MODBUS_ZCLIENT_IMG tests/zclient/.
+  - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_ZCLIENT_IMG:latest $MODBUS_ZCLIENT_IMG:$TRAVIS_TAG;
   fi && docker push $MODBUS_ZCLIENT_IMG
-- docker build -t $MODBUSD_IMG .
-- if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG;
+  
+  - docker build -t $MODBUSD_IMG .
+  - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUSD_IMG:latest $MODBUSD_IMG:$TRAVIS_TAG;
   fi && docker push $MODBUSD_IMG
-- docker run -itd --name=slave takawang/modbus-server
-- docker run -v /tmp:/tmp --link slave -itd --name=modbusd takawang/modbusd
-- docker run -v /tmp:/tmp --link slave -it --name=zclient takawang/modbus-zclient
-- docker stop slave modbusd zclient
+
+  - docker-compose up &
+  - docker-compose ps
+  - wait 4
+  - docker-compose stop
+  
 env:
   global:
+  - DOCKER_COMPOSE_VERSION: 1.7.1
   - MODBUS_SERVER_IMG=takawang/modbus-server
   - MODBUS_ZCLIENT_IMG=takawang/modbus-zclient
   - MODBUSD_IMG=takawang/modbusd
