@@ -20,6 +20,10 @@ node client.js
 ```bash
 # build docker image 
 docker build -t takawang/modbus-zclient .
+
+# build arm version image 
+#docker build -t takawang/arm-modbus-zclient -f Dockerfile.arm .
+
 # mount file system
 docker run -v /tmp:/tmp -it takawang/modbus-zclient /bin/bash
 # Print app output
@@ -31,6 +35,9 @@ docker exec -it <container id> /bin/bash
 ### Pull pre-built docker image
 ```bash
 docker pull takawang/modbus-zclient
+
+# arm version
+#docker pull arm-modbus-zclient
 ```
 
 ## Note

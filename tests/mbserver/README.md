@@ -20,6 +20,10 @@ sudo node server
 ```bash
 # build docker image 
 docker build -t takawang/modbus-server .
+
+# build arm version image 
+#docker build -t takawang/arm-modbus-server -f Dockerfile.arm .
+
 # run the image (host_port:container_port)
 docker run -p 502:502 -d --name slave takawang/modbus-server
 # Print app output
@@ -31,6 +35,9 @@ docker exec -it <container id> /bin/bash
 ### Pull pre-built docker image
 ```bash
 docker pull takawang/modbus-server
+
+# arm version
+#docker pull arm-modbus-server
 ```
 
 ## Credit
