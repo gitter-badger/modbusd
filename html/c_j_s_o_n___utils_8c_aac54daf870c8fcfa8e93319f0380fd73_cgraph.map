@@ -1,0 +1,10 @@
+<map id="cJSONUtils_MergePatch" name="cJSONUtils_MergePatch">
+<area shape="rect" id="node2" href="$c_j_s_o_n_8c.html#a096004811663311569e95aa77518959c" title="cJSON_AddItemToObject" alt="" coords="239,5,414,32"/>
+<area shape="rect" id="node4" href="$c_j_s_o_n_8c.html#a9c5f44afdd781b16dead90042fe74085" title="cJSON_CreateObject" alt="" coords="252,56,401,83"/>
+<area shape="rect" id="node5" href="$c_j_s_o_n_8c.html#ab18060251de70a2b55a18dec694f8f8a" title="cJSON_Delete" alt="" coords="526,181,637,208"/>
+<area shape="rect" id="node6" href="$c_j_s_o_n_8c.html#a148a56617a2a97921d9b9dfbe5dc85bf" title="cJSON_DeleteItemFromObject" alt="" coords="225,232,429,259"/>
+<area shape="rect" id="node7" href="$c_j_s_o_n_8c.html#a7010822d267256f274e0adf22be2b202" title="cJSON_DetachItemFromObject" alt="" coords="477,257,685,284"/>
+<area shape="rect" id="node9" href="$c_j_s_o_n_8c.html#a9acb1410be711f33d7c6d39f916b2d35" title="cJSON_Duplicate" alt="" coords="263,181,390,208"/>
+<area shape="rect" id="node3" href="$c_j_s_o_n_8c.html#a164dcefd36af8654942116c444bd0b6a" title="cJSON_AddItemToArray" alt="" coords="498,5,665,32"/>
+<area shape="rect" id="node8" href="$c_j_s_o_n_8c.html#a68b9e0b2d984f1d873fb571425a98b9b" title="cJSON_DetachItemFromArray" alt="" coords="734,257,935,284"/>
+</map>
