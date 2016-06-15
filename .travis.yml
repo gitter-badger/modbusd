@@ -60,7 +60,7 @@ after_success:
 env:
   global:
   - GH_REPO_NAME: modbusd
-  - DOXYFILE: $TRAVIS_BUILD_DIR/doxygen
+  - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
   - GH_REPO_REF: github.com/taka-wang/modbusd.git
   
   - MODBUS_SERVER_IMG=takawang/modbus-server
