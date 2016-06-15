@@ -3,8 +3,23 @@ sudo: required
 services:
 - docker
 
+# Blacklist
+branches:
+  except:
+    - gh-pages
+
 install:
 - docker login --email=$DOCKER_HUB_EMAIL --username=takawang --password=$DOCKER_HUB_PASSWORD
+
+# Install dependencies
+addons:
+  apt:
+    packages:
+      - doxygen
+      - doxygen-doc
+      - doxygen-latex
+      - doxygen-gui
+      - graphviz
 
 script:
 
@@ -37,8 +52,17 @@ script:
 #- docker stop $MODBUS_SERVER_NAME $MODBUSD_NAME $VALGRIND_NAME
 - docker stop $MODBUS_SERVER_NAME $MODBUSD_NAME
 
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x gendoc.sh
+  - ./gendoc.sh
+
 env:
   global:
+  - GH_REPO_NAME: modbusd
+  - DOXYFILE: $TRAVIS_BUILD_DIR/doxygen
+  - GH_REPO_REF: github.com/taka-wang/modbusd.git
+  
   - MODBUS_SERVER_IMG=takawang/modbus-server
   - MODBUS_ZCLIENT_IMG=takawang/modbus-zclient
   - MODBUSD_IMG=takawang/modbusd
