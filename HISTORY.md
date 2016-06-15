@@ -23,6 +23,7 @@
 - add versioneye support
 
 ## TODO List
+- support armv7
 - enhance test cases
 - enhance reconnect mechanism
 - deploy doxygen document automatically
