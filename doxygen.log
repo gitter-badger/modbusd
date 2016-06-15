@@ -4,12 +4,12 @@ Warning: Tag `CLANG_ASSISTED_PARSING' at line 1045 of file /home/travis/build/ta
 To avoid this warning please remove this line from your configuration file, upgrade it using "doxygen -u", or recompile doxygen with this feature enabled.
 Warning: Tag `CLANG_OPTIONS' at line 1053 of file /home/travis/build/taka-wang/modbusd/Doxyfile belongs to an option that was not enabled at compile time.
 To avoid this warning please remove this line from your configuration file, upgrade it using "doxygen -u", or recompile doxygen with this feature enabled.
-Warning: ignoring unsupported tag `LATEX_EXTRA_STYLESHEET =' at line 1721, file /home/travis/build/taka-wang/modbusd/Doxyfile
-Warning: ignoring unsupported tag `RTF_SOURCE_CODE        =' at line 1846, file /home/travis/build/taka-wang/modbusd/Doxyfile
-Warning: ignoring unsupported tag `MAN_SUBDIR             =' at line 1881, file /home/travis/build/taka-wang/modbusd/Doxyfile
-Warning: ignoring unsupported tag `DOCBOOK_PROGRAMLISTING =' at line 1944, file /home/travis/build/taka-wang/modbusd/Doxyfile
-Warning: ignoring unsupported tag `PLANTUML_JAR_PATH      =' at line 2367, file /home/travis/build/taka-wang/modbusd/Doxyfile
-Warning: ignoring unsupported tag `PLANTUML_INCLUDE_PATH  =' at line 2372, file /home/travis/build/taka-wang/modbusd/Doxyfile
+Warning: ignoring unsupported tag `LATEX_EXTRA_STYLESHEET =' at line 1722, file /home/travis/build/taka-wang/modbusd/Doxyfile
+Warning: ignoring unsupported tag `RTF_SOURCE_CODE        =' at line 1847, file /home/travis/build/taka-wang/modbusd/Doxyfile
+Warning: ignoring unsupported tag `MAN_SUBDIR             =' at line 1882, file /home/travis/build/taka-wang/modbusd/Doxyfile
+Warning: ignoring unsupported tag `DOCBOOK_PROGRAMLISTING =' at line 1945, file /home/travis/build/taka-wang/modbusd/Doxyfile
+Warning: ignoring unsupported tag `PLANTUML_JAR_PATH      =' at line 2368, file /home/travis/build/taka-wang/modbusd/Doxyfile
+Warning: ignoring unsupported tag `PLANTUML_INCLUDE_PATH  =' at line 2373, file /home/travis/build/taka-wang/modbusd/Doxyfile
 Searching for include files...
 Searching for example files...
 Searching for images...
