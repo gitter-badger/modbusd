@@ -82,6 +82,7 @@ static bool lazy_mbtcp_connect(mbtcp_handle_s *handle, char **reason)
     }   
 }
 
+
 /**
  * @brief Generic mbtcp error number handler
  *
