@@ -207,8 +207,10 @@ We do continuous integration and update docker images after git push by [Travis 
 
 ![ci](image/ci.png)
 
+## @x86_64 platform
+
 ### Docker base images
-- [git repo](https://github.com/taka-wang/docker-ubuntu)
+- [x86 git repo](https://github.com/taka-wang/docker-ubuntu)
 - [docker hub](https://hub.docker.com/u/takawang/)
 
 ### Docker images registry
@@ -243,6 +245,38 @@ docker run -v /tmp:/tmp -it --link slave takawang/modbus-zclient
 docker-compose up 
 # exit test
 ctrl+c
+```
+
+## @ARMv7 platform
+
+### Docker base images
+- [ARMv7 git repo](https://github.com/taka-wang/docker-armv7)
+- [docker hub](https://hub.docker.com/u/takawang/)
+
+### Docker images registry
+
+You can download pre-built docker images according to the following commands.
+
+- docker pull [takawang/arm-modbus-server](https://hub.docker.com/r/takawang/arm-modbus-server/)
+- docker pull [takawang/arm-modbus-zclient](https://hub.docker.com/r/takawang/arm-modbus-zclient/)
+- docker pull [takawang/arm-modbusd](https://hub.docker.com/r/takawang/arm-modbusd/)
+
+
+### Docker images and testing from the scratch
+```bash
+# build simulation server image
+docker build -t takawang/arm-modbus-server -f tests/mbserver/Dockerfile.arm .
+# build zclient image
+docker build -t takawang/arm-modbus-zclient tests/zclient/Dockerfile.arm .
+# build modbusd image
+docker build -t takawang/arm-modbusd -f Dockerfile.arm .
+
+# run modbus server
+docker run -itd --name=slave takawang/arm-modbus-server
+# run modbusd
+docker run -v /tmp:/tmp --link slave -it --name=modbusd takawang/arm-modbusd
+# run zclient
+docker run -v /tmp:/tmp -it --link slave takawang/arm-modbus-zclient
 ```
 
 ## Deployment Diagram
