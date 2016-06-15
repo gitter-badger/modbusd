@@ -9,11 +9,12 @@ var indexSectionsWithContent =
 {
   0: "abcdefghijklmnoprstuvz",
   1: "cmpu",
-  2: "chjlmstu",
+  2: "chjlmrstu",
   3: "cfjlmost",
   4: "abcefhiklmnoprstvz",
   5: "cmu",
-  6: "bcdeghlmuv"
+  6: "bcdeghlmuv",
+  7: "cmrs"
 };
 
 var indexSectionNames =
@@ -24,7 +25,8 @@ var indexSectionNames =
   3: "functions",
   4: "variables",
   5: "typedefs",
-  6: "defines"
+  6: "defines",
+  7: "pages"
 };
 
 function convertToId(search)
