@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -93,7 +92,7 @@ $(document).ready(function(){initNavTree('test_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -210,6 +209,8 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>References <a class="el" href="test_8c.html#a56925e79e16dff74446ab63f976df8b2">enable_syslog</a>, <a class="el" href="log_8h.html#a19057be3f2da2871a0eb191602d01555">LOG</a>, <a class="el" href="modbusd_8c.html#a819f6eb596caa2acb6344aecd5daf51a">mbtcp_do_connect()</a>, <a class="el" href="modbusd_8c.html#a10fdba0f8df3a84f6a1edd2ce82fb746">mbtcp_get_connection_status()</a>, <a class="el" href="modbusd_8c.html#a457458d6f5fef93f9bac1bf9365b8a61">mbtcp_get_handle()</a>, and <a class="el" href="modbusd_8c.html#a7349aa568dc3288417d52543988729f8">mbtcp_init_handle()</a>.</p>
+
+<p>Referenced by <a class="el" href="test_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="log_8h.html#a19057be3f2da2871a0eb191602d01555">LOG</a>(<a class="code" href="test_8c.html#a56925e79e16dff74446ab63f976df8b2">enable_syslog</a>, <span class="stringliteral">&quot;Init TCP handle&quot;</span>);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="structmbtcp__handle__s.html">mbtcp_handle_s</a> *handle = NULL;</div>
@@ -270,6 +271,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>References <a class="el" href="c_j_s_o_n_8c.html#ab18060251de70a2b55a18dec694f8f8a">cJSON_Delete()</a>, <a class="el" href="c_j_s_o_n_8c.html#ac48335f22f743aff913991d809e0d620">cJSON_GetArrayItem()</a>, <a class="el" href="c_j_s_o_n_8c.html#adb5c049d3211599c90cd5a3d5e68d854">cJSON_GetArraySize()</a>, <a class="el" href="c_j_s_o_n_8c.html#aba766c9d2c20996e323522cbf2ba46c6">cJSON_GetObjectItem()</a>, <a class="el" href="c_j_s_o_n_8c.html#ad3df5f943457d4befebe4109d48e4a50">cJSON_Parse()</a>, <a class="el" href="c_j_s_o_n_8c.html#aea4f15b04dba4dff2edc2bb1d387b555">cJSON_Print()</a>, and <a class="el" href="structc_j_s_o_n.html#af69506d34291edd0be9fa15660ac01ec">cJSON::valueint</a>.</p>
+
+<p>Referenced by <a class="el" href="test_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">char</span> jstr[] = <span class="stringliteral">&quot;{\n&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="stringliteral">&quot;    \&quot;ip\&quot;: \&quot;192.168.3.2\&quot;,\n&quot;</span></div>
@@ -345,6 +348,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>References <a class="el" href="c_j_s_o_n_8c.html#a096004811663311569e95aa77518959c">cJSON_AddItemToObject()</a>, <a class="el" href="c_j_s_o_n_8h.html#aedf8e7037a7332b3653f90be04519862">cJSON_AddNumberToObject</a>, <a class="el" href="c_j_s_o_n_8h.html#a3e2f334ba489b1c267ca40b3e046d5ee">cJSON_AddStringToObject</a>, <a class="el" href="c_j_s_o_n_8c.html#a12576edcea9baca64be6fe7a6ae8d4fa">cJSON_CreateIntArray()</a>, <a class="el" href="c_j_s_o_n_8c.html#a9c5f44afdd781b16dead90042fe74085">cJSON_CreateObject()</a>, <a class="el" href="c_j_s_o_n_8c.html#ab18060251de70a2b55a18dec694f8f8a">cJSON_Delete()</a>, and <a class="el" href="c_j_s_o_n_8c.html#aea4f15b04dba4dff2edc2bb1d387b555">cJSON_Print()</a>.</p>
+
+<p>Referenced by <a class="el" href="test_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">int</span> mdata[4]={116,943,234,38793};</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="structc_j_s_o_n.html">cJSON</a> *root;</div>
@@ -405,6 +410,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>References <a class="el" href="log_8h.html#a89818c7fd76794ec7f5ae7ed337c7f87">BEGIN</a>, <a class="el" href="structmbtcp__handle__s.html#ab36823025f12a809217f7771125658c2">mbtcp_handle_s::connected</a>, <a class="el" href="structmbtcp__handle__s.html#a65b629df22e3e4397451ce47bde4eba6">mbtcp_handle_s::ctx</a>, <a class="el" href="test_8c.html#a56925e79e16dff74446ab63f976df8b2">enable_syslog</a>, <a class="el" href="uthash_8h.html#aaf01358e257c8d838eb5e4b189f0c399">HASH_ADD</a>, <a class="el" href="uthash_8h.html#a7d3edf55a3ee4da1a0e1b477c314342f">HASH_COUNT</a>, <a class="el" href="uthash_8h.html#ad4a1cd39c3044936c0e49d3f372c9dbf">HASH_FIND</a>, <a class="el" href="structmbtcp__key__s.html#a966337fd8a15952d0e85ac3f1f680c8b">mbtcp_key_s::ip</a>, <a class="el" href="structmbtcp__handle__s.html#a43d0c6cd9ffa4b3d4da6c09d95432202">mbtcp_handle_s::key</a>, <a class="el" href="log_8h.html#a19057be3f2da2871a0eb191602d01555">LOG</a>, and <a class="el" href="structmbtcp__key__s.html#a51efbefc3e36d023a7b8420f685b1b35">mbtcp_key_s::port</a>.</p>
+
+<p>Referenced by <a class="el" href="test_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="log_8h.html#a89818c7fd76794ec7f5ae7ed337c7f87">BEGIN</a>(<a class="code" href="test_8c.html#a56925e79e16dff74446ab63f976df8b2">enable_syslog</a>);</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">// important! initialize to NULL</span></div>
@@ -452,7 +459,7 @@ Here is the caller graph for this function:</div>
 <div class="ttc" id="log_8h_html_a89818c7fd76794ec7f5ae7ed337c7f87"><div class="ttname"><a href="log_8h.html#a89818c7fd76794ec7f5ae7ed337c7f87">BEGIN</a></div><div class="ttdeci">#define BEGIN(flag)</div><div class="ttdef"><b>Definition:</b> log.h:49</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a51efbefc3e36d023a7b8420f685b1b35"><div class="ttname"><a href="structmbtcp__key__s.html#a51efbefc3e36d023a7b8420f685b1b35">mbtcp_key_s::port</a></div><div class="ttdeci">char port[50]</div><div class="ttdoc">IP v4/v6 address or hostname. </div><div class="ttdef"><b>Definition:</b> modbusd.h:36</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a966337fd8a15952d0e85ac3f1f680c8b"><div class="ttname"><a href="structmbtcp__key__s.html#a966337fd8a15952d0e85ac3f1f680c8b">mbtcp_key_s::ip</a></div><div class="ttdeci">char ip[50]</div><div class="ttdef"><b>Definition:</b> modbusd.h:35</div></div>
-<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">structure key for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
+<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">`structure key` for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_a43d0c6cd9ffa4b3d4da6c09d95432202"><div class="ttname"><a href="structmbtcp__handle__s.html#a43d0c6cd9ffa4b3d4da6c09d95432202">mbtcp_handle_s::key</a></div><div class="ttdeci">mbtcp_key_s key</div><div class="ttdef"><b>Definition:</b> modbusd.h:46</div></div>
 <div class="ttc" id="uthash_8h_html_a7d3edf55a3ee4da1a0e1b477c314342f"><div class="ttname"><a href="uthash_8h.html#a7d3edf55a3ee4da1a0e1b477c314342f">HASH_COUNT</a></div><div class="ttdeci">#define HASH_COUNT(head)</div><div class="ttdef"><b>Definition:</b> uthash.h:895</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_ab36823025f12a809217f7771125658c2"><div class="ttname"><a href="structmbtcp__handle__s.html#ab36823025f12a809217f7771125658c2">mbtcp_handle_s::connected</a></div><div class="ttdeci">bool connected</div><div class="ttdoc">key </div><div class="ttdef"><b>Definition:</b> modbusd.h:47</div></div>
@@ -512,7 +519,7 @@ Here is the caller graph for this function:</div>
 <div class="ttc" id="struct_u_t__hash__handle_html_ab5c000aec752f2206131e183daf5efbf"><div class="ttname"><a href="struct_u_t__hash__handle.html#ab5c000aec752f2206131e183daf5efbf">UT_hash_handle::key</a></div><div class="ttdeci">void * key</div><div class="ttdef"><b>Definition:</b> uthash.h:961</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a51efbefc3e36d023a7b8420f685b1b35"><div class="ttname"><a href="structmbtcp__key__s.html#a51efbefc3e36d023a7b8420f685b1b35">mbtcp_key_s::port</a></div><div class="ttdeci">char port[50]</div><div class="ttdoc">IP v4/v6 address or hostname. </div><div class="ttdef"><b>Definition:</b> modbusd.h:36</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a966337fd8a15952d0e85ac3f1f680c8b"><div class="ttname"><a href="structmbtcp__key__s.html#a966337fd8a15952d0e85ac3f1f680c8b">mbtcp_key_s::ip</a></div><div class="ttdeci">char ip[50]</div><div class="ttdef"><b>Definition:</b> modbusd.h:35</div></div>
-<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">structure key for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
+<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">`structure key` for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_a43d0c6cd9ffa4b3d4da6c09d95432202"><div class="ttname"><a href="structmbtcp__handle__s.html#a43d0c6cd9ffa4b3d4da6c09d95432202">mbtcp_handle_s::key</a></div><div class="ttdeci">mbtcp_key_s key</div><div class="ttdef"><b>Definition:</b> modbusd.h:46</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_ab36823025f12a809217f7771125658c2"><div class="ttname"><a href="structmbtcp__handle__s.html#ab36823025f12a809217f7771125658c2">mbtcp_handle_s::connected</a></div><div class="ttdeci">bool connected</div><div class="ttdoc">key </div><div class="ttdef"><b>Definition:</b> modbusd.h:47</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html"><div class="ttname"><a href="structmbtcp__handle__s.html">mbtcp_handle_s</a></div><div class="ttdoc">hashable mbtcp handle type </div><div class="ttdef"><b>Definition:</b> modbusd.h:44</div></div>
@@ -534,6 +541,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>References <a class="el" href="log_8h.html#a89818c7fd76794ec7f5ae7ed337c7f87">BEGIN</a>, <a class="el" href="structmbtcp__handle__s.html#ab36823025f12a809217f7771125658c2">mbtcp_handle_s::connected</a>, <a class="el" href="structmbtcp__handle__s.html#a65b629df22e3e4397451ce47bde4eba6">mbtcp_handle_s::ctx</a>, <a class="el" href="test_8c.html#a56925e79e16dff74446ab63f976df8b2">enable_syslog</a>, <a class="el" href="uthash_8h.html#aaf01358e257c8d838eb5e4b189f0c399">HASH_ADD</a>, <a class="el" href="uthash_8h.html#a48b7ed374602dcb236501aa23a971f05">HASH_DEL</a>, <a class="el" href="uthash_8h.html#ad4a1cd39c3044936c0e49d3f372c9dbf">HASH_FIND</a>, <a class="el" href="uthash_8h.html#a4d524042f1fcb976d8bccae9e4cc63d6">HASH_ITER</a>, <a class="el" href="structmbtcp__key__s.html#a966337fd8a15952d0e85ac3f1f680c8b">mbtcp_key_s::ip</a>, <a class="el" href="structmbtcp__handle__s.html#a43d0c6cd9ffa4b3d4da6c09d95432202">mbtcp_handle_s::key</a>, <a class="el" href="log_8h.html#a19057be3f2da2871a0eb191602d01555">LOG</a>, and <a class="el" href="structmbtcp__key__s.html#a51efbefc3e36d023a7b8420f685b1b35">mbtcp_key_s::port</a>.</p>
+
+<p>Referenced by <a class="el" href="test_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;{</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <a class="code" href="log_8h.html#a89818c7fd76794ec7f5ae7ed337c7f87">BEGIN</a>(<a class="code" href="test_8c.html#a56925e79e16dff74446ab63f976df8b2">enable_syslog</a>);</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    </div>
@@ -606,7 +615,7 @@ Here is the caller graph for this function:</div>
 <div class="ttc" id="uthash_8h_html_a4d524042f1fcb976d8bccae9e4cc63d6"><div class="ttname"><a href="uthash_8h.html#a4d524042f1fcb976d8bccae9e4cc63d6">HASH_ITER</a></div><div class="ttdeci">#define HASH_ITER(hh, head, el, tmp)</div><div class="ttdef"><b>Definition:</b> uthash.h:889</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a51efbefc3e36d023a7b8420f685b1b35"><div class="ttname"><a href="structmbtcp__key__s.html#a51efbefc3e36d023a7b8420f685b1b35">mbtcp_key_s::port</a></div><div class="ttdeci">char port[50]</div><div class="ttdoc">IP v4/v6 address or hostname. </div><div class="ttdef"><b>Definition:</b> modbusd.h:36</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a966337fd8a15952d0e85ac3f1f680c8b"><div class="ttname"><a href="structmbtcp__key__s.html#a966337fd8a15952d0e85ac3f1f680c8b">mbtcp_key_s::ip</a></div><div class="ttdeci">char ip[50]</div><div class="ttdef"><b>Definition:</b> modbusd.h:35</div></div>
-<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">structure key for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
+<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">`structure key` for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
 <div class="ttc" id="uthash_8h_html_a48b7ed374602dcb236501aa23a971f05"><div class="ttname"><a href="uthash_8h.html#a48b7ed374602dcb236501aa23a971f05">HASH_DEL</a></div><div class="ttdeci">#define HASH_DEL(head, delptr)</div><div class="ttdef"><b>Definition:</b> uthash.h:282</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_a43d0c6cd9ffa4b3d4da6c09d95432202"><div class="ttname"><a href="structmbtcp__handle__s.html#a43d0c6cd9ffa4b3d4da6c09d95432202">mbtcp_handle_s::key</a></div><div class="ttdeci">mbtcp_key_s key</div><div class="ttdef"><b>Definition:</b> modbusd.h:46</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_ab36823025f12a809217f7771125658c2"><div class="ttname"><a href="structmbtcp__handle__s.html#ab36823025f12a809217f7771125658c2">mbtcp_handle_s::connected</a></div><div class="ttdeci">bool connected</div><div class="ttdoc">key </div><div class="ttdef"><b>Definition:</b> modbusd.h:47</div></div>
@@ -672,7 +681,7 @@ Here is the caller graph for this function:</div>
 <div class="ttc" id="struct_u_t__hash__handle_html_ab5c000aec752f2206131e183daf5efbf"><div class="ttname"><a href="struct_u_t__hash__handle.html#ab5c000aec752f2206131e183daf5efbf">UT_hash_handle::key</a></div><div class="ttdeci">void * key</div><div class="ttdef"><b>Definition:</b> uthash.h:961</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a51efbefc3e36d023a7b8420f685b1b35"><div class="ttname"><a href="structmbtcp__key__s.html#a51efbefc3e36d023a7b8420f685b1b35">mbtcp_key_s::port</a></div><div class="ttdeci">char port[50]</div><div class="ttdoc">IP v4/v6 address or hostname. </div><div class="ttdef"><b>Definition:</b> modbusd.h:36</div></div>
 <div class="ttc" id="structmbtcp__key__s_html_a966337fd8a15952d0e85ac3f1f680c8b"><div class="ttname"><a href="structmbtcp__key__s.html#a966337fd8a15952d0e85ac3f1f680c8b">mbtcp_key_s::ip</a></div><div class="ttdeci">char ip[50]</div><div class="ttdef"><b>Definition:</b> modbusd.h:35</div></div>
-<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">structure key for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
+<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">`structure key` for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_a43d0c6cd9ffa4b3d4da6c09d95432202"><div class="ttname"><a href="structmbtcp__handle__s.html#a43d0c6cd9ffa4b3d4da6c09d95432202">mbtcp_handle_s::key</a></div><div class="ttdeci">mbtcp_key_s key</div><div class="ttdef"><b>Definition:</b> modbusd.h:46</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html_ab36823025f12a809217f7771125658c2"><div class="ttname"><a href="structmbtcp__handle__s.html#ab36823025f12a809217f7771125658c2">mbtcp_handle_s::connected</a></div><div class="ttdeci">bool connected</div><div class="ttdoc">key </div><div class="ttdef"><b>Definition:</b> modbusd.h:47</div></div>
 <div class="ttc" id="structmbtcp__handle__s_html"><div class="ttname"><a href="structmbtcp__handle__s.html">mbtcp_handle_s</a></div><div class="ttdoc">hashable mbtcp handle type </div><div class="ttdef"><b>Definition:</b> modbusd.h:44</div></div>
@@ -690,6 +699,8 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p>Referenced by <a class="el" href="test_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="modbusd_8h.html#a02e79cd2e10e04ca269f511ba9085b24">mbtcp_cmd_hanlder()</a>, <a class="el" href="modbusd_8h.html#a819f6eb596caa2acb6344aecd5daf51a">mbtcp_do_connect()</a>, <a class="el" href="modbusd_8h.html#a8b17a5dd1810963c72fe7ba7a04c0314">mbtcp_fc15_req()</a>, <a class="el" href="modbusd_8h.html#acd369ce9974848aa5ad7a27d392fdfb7">mbtcp_fc16_req()</a>, <a class="el" href="modbusd_8h.html#a864b1bf1ccf6e307b122ee25204b1df6">mbtcp_fc1_req()</a>, <a class="el" href="modbusd_8h.html#ac8f3f36f27967d28ab4f2cd0e08a51c3">mbtcp_fc2_req()</a>, <a class="el" href="modbusd_8h.html#acb212f2b98b6fbbc259b9035392ee2d6">mbtcp_fc3_req()</a>, <a class="el" href="modbusd_8h.html#abbe9255686fff5715aad8f6f1b29d4a1">mbtcp_fc4_req()</a>, <a class="el" href="modbusd_8h.html#ab9b36dd7f448dcd8cc69b552f72ea1a3">mbtcp_fc5_req()</a>, <a class="el" href="modbusd_8h.html#a9806b741af33fec6c81b162a5c3208e4">mbtcp_fc6_req()</a>, <a class="el" href="modbusd_8h.html#a10fdba0f8df3a84f6a1edd2ce82fb746">mbtcp_get_connection_status()</a>, <a class="el" href="modbusd_8h.html#a457458d6f5fef93f9bac1bf9365b8a61">mbtcp_get_handle()</a>, <a class="el" href="modbusd_8h.html#a7349aa568dc3288417d52543988729f8">mbtcp_init_handle()</a>, <a class="el" href="modbusd_8h.html#a43d25207b1b4a9a85ad60567cd76f622">mbtcp_list_handles()</a>, <a class="el" href="modbusd_8h.html#a983162ba40e602136671415d858b95a4">mbtcp_set_response_timeout()</a>, <a class="el" href="modbusd_8h.html#ab0ce5370d840359eaf57e96e4c66789b">modbus_set_error_resp()</a>, <a class="el" href="test_8c.html#a0cb50b32ea20d9e40727ab83bb97d189">test_init_tcp_handle_and_connect()</a>, <a class="el" href="test_8c.html#a6228c9b381c11fd06589201df6f77a9d">test_multiple_add_find()</a>, <a class="el" href="test_8c.html#a42b396e444f886bde08366cc5ae8e0ed">test_multiple_add_find_zhahs()</a>, and <a class="el" href="test_8c.html#ac7831dc95a6c14e20b642da0ccec7d96">test_single_add_find()</a>.</p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -698,7 +709,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_59425e443f801f1f2fd8bbe4959a3ccf.html">tests</a></li><li class="navelem"><a class="el" href="test_8c.html">test.c</a></li>
-    <li class="footer">Generated on Wed Jun 15 2016 13:27:06 for modbusd by
+    <li class="footer">Generated on Wed Jun 15 2016 13:55:16 for modbusd by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['solve',['Solve',['../md__home_travis_build_taka-wang_modbusd__h_i_s_t_o_r_y.html',1,'']]],
   ['server',['server',['../helpers_8js.html#aff8f9c7d15fadb5807b729b8b5511eab',1,'helpers.js']]],
   ['server_2ejs',['server.js',['../server_8js.html',1,'']]],
   ['set_5ftimeout',['set_timeout',['../client2_8js.html#a860fd462c51643c69e860c3a34183280',1,'client2.js']]],

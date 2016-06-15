@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -93,7 +92,7 @@ $(document).ready(function(){initNavTree('modbusd_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -191,7 +190,7 @@ $(document).ready(function(){initNavTree('modbusd_8h_source.html','');});
 <div class="ttc" id="modbusd_8h_html_a9806b741af33fec6c81b162a5c3208e4"><div class="ttname"><a href="modbusd_8h.html#a9806b741af33fec6c81b162a5c3208e4">mbtcp_fc6_req</a></div><div class="ttdeci">char * mbtcp_fc6_req(mbtcp_handle_s *handle, cJSON *req)</div><div class="ttdoc">Modbus TCP Write single register. </div><div class="ttdef"><b>Definition:</b> modbusd.c:588</div></div>
 <div class="ttc" id="modbusd_8h_html_a8b17a5dd1810963c72fe7ba7a04c0314"><div class="ttname"><a href="modbusd_8h.html#a8b17a5dd1810963c72fe7ba7a04c0314">mbtcp_fc15_req</a></div><div class="ttdeci">char * mbtcp_fc15_req(mbtcp_handle_s *handle, cJSON *req)</div><div class="ttdoc">Modbus TCP Write multiple coils. </div><div class="ttdef"><b>Definition:</b> modbusd.c:595</div></div>
 <div class="ttc" id="modbusd_8h_html_a457458d6f5fef93f9bac1bf9365b8a61"><div class="ttname"><a href="modbusd_8h.html#a457458d6f5fef93f9bac1bf9365b8a61">mbtcp_get_handle</a></div><div class="ttdeci">bool mbtcp_get_handle(mbtcp_handle_s **ptr_handle, char *ip, char *port)</div><div class="ttdoc">Get mbtcp handle from hashtable. </div><div class="ttdef"><b>Definition:</b> modbusd.c:480</div></div>
-<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">structure key for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
+<div class="ttc" id="structmbtcp__key__s_html"><div class="ttname"><a href="structmbtcp__key__s.html">mbtcp_key_s</a></div><div class="ttdoc">`structure key` for modbus tcp hash table </div><div class="ttdef"><b>Definition:</b> modbusd.h:33</div></div>
 <div class="ttc" id="modbusd_8h_html_a43d25207b1b4a9a85ad60567cd76f622"><div class="ttname"><a href="modbusd_8h.html#a43d25207b1b4a9a85ad60567cd76f622">mbtcp_list_handles</a></div><div class="ttdeci">void mbtcp_list_handles()</div><div class="ttdoc">List all handles in mbtcp hash table. </div><div class="ttdef"><b>Definition:</b> modbusd.c:430</div></div>
 <div class="ttc" id="modbusd_8h_html_abbe9255686fff5715aad8f6f1b29d4a1"><div class="ttname"><a href="modbusd_8h.html#abbe9255686fff5715aad8f6f1b29d4a1">mbtcp_fc4_req</a></div><div class="ttdeci">char * mbtcp_fc4_req(mbtcp_handle_s *handle, cJSON *req)</div><div class="ttdoc">Modbus TCP Read input registers. </div><div class="ttdef"><b>Definition:</b> modbusd.c:574</div></div>
 <div class="ttc" id="json_8h_html"><div class="ttname"><a href="json_8h.html">json.h</a></div><div class="ttdoc">cJSON utility wrapper header </div></div>
@@ -219,7 +218,7 @@ $(document).ready(function(){initNavTree('modbusd_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="modbusd_8h.html">modbusd.h</a></li>
-    <li class="footer">Generated on Wed Jun 15 2016 13:27:06 for modbusd by
+    <li class="footer">Generated on Wed Jun 15 2016 13:55:16 for modbusd by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

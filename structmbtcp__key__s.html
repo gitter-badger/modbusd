@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -94,7 +93,7 @@ $(document).ready(function(){initNavTree('structmbtcp__key__s.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -111,7 +110,7 @@ $(document).ready(function(){initNavTree('structmbtcp__key__s.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>structure key</code> for modbus tcp hash table  
+<p>`structure key` for modbus tcp hash table  
  <a href="structmbtcp__key__s.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="modbusd_8h_source.html">modbusd.h</a>&gt;</code></p>
@@ -132,7 +131,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a51efbefc3e36d023a7b8420f685b1b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><code>structure key</code> for modbus tcp hash table </p>
+<div class="textblock"><p>`structure key` for modbus tcp hash table </p>
 <p>Hash key. Ip v4/v6 address and port composition. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a966337fd8a15952d0e85ac3f1f680c8b"></a>
@@ -144,6 +143,8 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Referenced by <a class="el" href="modbusd_8h.html#a819f6eb596caa2acb6344aecd5daf51a">mbtcp_do_connect()</a>, <a class="el" href="modbusd_8h.html#a10fdba0f8df3a84f6a1edd2ce82fb746">mbtcp_get_connection_status()</a>, <a class="el" href="modbusd_8h.html#a457458d6f5fef93f9bac1bf9365b8a61">mbtcp_get_handle()</a>, <a class="el" href="modbusd_8h.html#a7349aa568dc3288417d52543988729f8">mbtcp_init_handle()</a>, <a class="el" href="modbusd_8h.html#a43d25207b1b4a9a85ad60567cd76f622">mbtcp_list_handles()</a>, <a class="el" href="test_8c.html#a6228c9b381c11fd06589201df6f77a9d">test_multiple_add_find()</a>, <a class="el" href="test_8c.html#a42b396e444f886bde08366cc5ae8e0ed">test_multiple_add_find_zhahs()</a>, <a class="el" href="test_8c.html#ac7831dc95a6c14e20b642da0ccec7d96">test_single_add_find()</a>, and <a class="el" href="test_8c.html#a41abec432d1a6697226b286cf4ed7c31">test_single_zhash()</a>.</p>
 
 </div>
 </div>
@@ -159,6 +160,8 @@ Data Fields</h2></td></tr>
 
 <p>IP v4/v6 address or hostname. </p>
 
+<p>Referenced by <a class="el" href="modbusd_8h.html#a819f6eb596caa2acb6344aecd5daf51a">mbtcp_do_connect()</a>, <a class="el" href="modbusd_8h.html#a10fdba0f8df3a84f6a1edd2ce82fb746">mbtcp_get_connection_status()</a>, <a class="el" href="modbusd_8h.html#a457458d6f5fef93f9bac1bf9365b8a61">mbtcp_get_handle()</a>, <a class="el" href="modbusd_8h.html#a7349aa568dc3288417d52543988729f8">mbtcp_init_handle()</a>, <a class="el" href="modbusd_8h.html#a43d25207b1b4a9a85ad60567cd76f622">mbtcp_list_handles()</a>, <a class="el" href="test_8c.html#a6228c9b381c11fd06589201df6f77a9d">test_multiple_add_find()</a>, <a class="el" href="test_8c.html#a42b396e444f886bde08366cc5ae8e0ed">test_multiple_add_find_zhahs()</a>, <a class="el" href="test_8c.html#ac7831dc95a6c14e20b642da0ccec7d96">test_single_add_find()</a>, and <a class="el" href="test_8c.html#a41abec432d1a6697226b286cf4ed7c31">test_single_zhash()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
@@ -170,7 +173,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structmbtcp__key__s.html">mbtcp_key_s</a></li>
-    <li class="footer">Generated on Wed Jun 15 2016 13:27:06 for modbusd by
+    <li class="footer">Generated on Wed Jun 15 2016 13:55:16 for modbusd by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>
