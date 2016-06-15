@@ -1,5 +1,5 @@
 #
-# modbus simulation slave
+# ARMv7. modbus simulation slave
 #
 FROM takawang/arm-node-zmq
 MAINTAINER Taka Wang <taka@cmwang.net>
