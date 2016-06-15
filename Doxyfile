@@ -301,7 +301,7 @@ EXTENSION_MAPPING      =
 # case of backward compatibilities issues.
 # The default value is: YES.
 
-MARKDOWN_SUPPORT       = YES
+MARKDOWN_SUPPORT       = NO
 
 # When enabled doxygen tries to link words that correspond to documented
 # classes, or namespaces to their corresponding documentation. Such a link can
@@ -860,7 +860,7 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = 
+EXCLUDE_PATTERNS       = *.md
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
@@ -977,7 +977,7 @@ STRIP_CODE_COMMENTS    = YES
 # function all documented functions referencing it will be listed.
 # The default value is: NO.
 
-REFERENCED_BY_RELATION = NO
+REFERENCED_BY_RELATION = YES
 
 # If the REFERENCES_RELATION tag is set to YES then for each documented function
 # all documented entities called/used by that function will be listed.
