@@ -6,6 +6,10 @@
 
 Modbus master daemon 
 
+- Support doxygen style comments.
+- ZMQ is a high-level message library, you can plug in your own socket implemetations without losing the core functionalities.
+
+
 # TOC
 
 - [Design](#design)
@@ -18,7 +22,7 @@ Modbus master daemon
 <a name="design"></a>
 # Design
 
-## Implemented modbus function codes
+## Implemented libmodbus function codes
 
 | FC    | Description            |  API                                                                                                                                                 |
 |:-----:|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -45,7 +49,7 @@ Modbus master daemon
 
 ## Modbus TCP Json command format
 
-### - mbtcp read request
+### -> mbtcp read request
 ```javascript
 {
 	"ip": "192.168.3.2",
@@ -58,7 +62,7 @@ Modbus master daemon
 }
 ```
 
-### - mbtcp read reponse
+### <- mbtcp read reponse
 ```javascript
 {
 	"tid": 1,
@@ -67,7 +71,7 @@ Modbus master daemon
 }
 ```
 
-### - mbtcp write request
+### -> mbtcp write request
 ```javascript
 {
 	"ip": "192.168.3.2",
@@ -81,7 +85,7 @@ Modbus master daemon
 }
 ```
 
-### - mbtcp write response
+### <- mbtcp write response
 ```javascript
 {
 	"tid": 1,
@@ -89,7 +93,7 @@ Modbus master daemon
 }
 ```
 
-### - mbtcp set timeout
+### -> mbtcp set timeout
 ```javascript
 {
 	"tid": 1,
@@ -98,7 +102,7 @@ Modbus master daemon
 }
 ```
 
-### - mbtcp set timeout response
+### <- mbtcp set timeout response
 ```javascript
 {
 	"tid": 1,
@@ -106,7 +110,7 @@ Modbus master daemon
 }
 ```
 
-## External libraries list
+## External libraries
 
 - [libmodbus](http://libmodbus.org)
 - [libzmq](https://github.com/zeromq/libzmq)
@@ -116,7 +120,7 @@ Modbus master daemon
 
 ---
 
-## Documentations
+## Library documentations
 
 - [uthash user guide](http://troydhanson.github.io/uthash/userguide.html)
 - [libmodbus api document](http://libmodbus.org/docs/v3.1.4/)
@@ -130,16 +134,10 @@ Modbus master daemon
 
 ---
 
-## Note
-- Support doxygen style comments.
-- ZMQ is a high-level message library, you can plug in your own socket implemetations without losing the core functionalities.
-
----
-
 <a name="setup"></a>
 # Setup
 
-Step by Step from Scratch or ([Travis CI](https://travis-ci.org) + [Docker](#ci))
+Step by step from scratch or ([Travis CI](https://travis-ci.org) + [Docker](#ci))
 
 ## Setup development dependencies
 
@@ -159,7 +157,6 @@ git clone https://github.com/stephane/libmodbus/
 cd libmodbus
 ./autogen.sh
 ./configure
-# ./configure --prefix=/usr/local/
 make
 sudo make install
 sudo ldconfig
@@ -174,8 +171,7 @@ cd zeromq-3.2.5
 ./configure
 make
 sudo make install
-sudo ldconfig # refresh shared library cache
-#sudo ln -sf /usr/local/lib/libzmq.so /usr/lib/libzmq.so
+sudo ldconfig
 ```
 
 ### Install czmq (high-level C binding for zeromq)
@@ -197,7 +193,7 @@ sudo ldconfig
 ```bash
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo npm install -g zmq              # zmq lib
+sudo npm install -g zmq
 ```
 ---
 
@@ -223,7 +219,7 @@ We do continuous integration and update docker images after git push by [Travis 
 ## // x86_64 platform
 
 ### Docker base images
-- [x86 git repo](https://github.com/taka-wang/docker-ubuntu)
+- [x86_64 git repo](https://github.com/taka-wang/docker-ubuntu)
 - [docker hub](https://hub.docker.com/u/takawang/)
 
 ### Docker images registry
@@ -252,7 +248,7 @@ docker run -v /tmp:/tmp --link slave -it --name=modbusd takawang/modbusd
 docker run -v /tmp:/tmp -it --link slave takawang/modbus-zclient
 ```
 
-### Docker images and testing from docker compose
+### Docker composer
 ```bash
 # build & run
 docker-compose up 
@@ -263,7 +259,7 @@ ctrl+c
 ## // armhf
 
 ### Docker base images
-- [ARMv7 git repo](https://github.com/taka-wang/docker-armv7)
+- [armhf git repo](https://github.com/taka-wang/docker-armv7)
 - [docker hub](https://hub.docker.com/u/takawang/)
 
 ### Docker images registry
