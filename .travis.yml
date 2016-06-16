@@ -13,6 +13,8 @@ before_install:
 - export TZ=Asia/Taipei
 # get latest git tag
 - export GIT_TAG=` git describe --abbrev=0 --tags`
+# upgrade docker version for build-arg support
+- sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install docker-engine
 
 install:
 # login to dockerhub
@@ -22,7 +24,6 @@ install:
 addons:
   apt:
     packages:
-      - docker-engine # upgrade docker version for build-arg support
       - doxygen
       - doxygen-doc
       - doxygen-latex
