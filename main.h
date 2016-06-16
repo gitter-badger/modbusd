@@ -12,7 +12,7 @@
 
 // define version string from cmake
 #ifndef VERSION
-    #  define VERSION @MB_VERSION@
+    #define VERSION @MODBUSD_VERSION@
 #endif
 
 #endif  // MAIN_H
