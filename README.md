@@ -6,7 +6,17 @@
 
 Modbus master daemon 
 
+# TOC
+
+- [Design](#design)
+- [Setup](#setup)
+- [Continuous Integration](#ci)
+- [Documentation](#doc)
+
 ---
+
+<a name="design"></a>
+# Design
 
 ## Implemented modbus function codes
 
@@ -35,7 +45,7 @@ Modbus master daemon
 
 ## Modbus TCP Json command format
 
-### @mbtcp read request
+### - mbtcp read request
 ```javascript
 {
 	"ip": "192.168.3.2",
@@ -48,7 +58,7 @@ Modbus master daemon
 }
 ```
 
-### @mbtcp read reponse
+### - mbtcp read reponse
 ```javascript
 {
 	"tid": 1,
@@ -57,7 +67,7 @@ Modbus master daemon
 }
 ```
 
-### @mbtcp write request
+### - mbtcp write request
 ```javascript
 {
 	"ip": "192.168.3.2",
@@ -71,7 +81,7 @@ Modbus master daemon
 }
 ```
 
-### @mbtcp write response
+### - mbtcp write response
 ```javascript
 {
 	"tid": 1,
@@ -79,7 +89,7 @@ Modbus master daemon
 }
 ```
 
-### @mbtcp set timeout
+### - mbtcp set timeout
 ```javascript
 {
 	"tid": 1,
@@ -88,7 +98,7 @@ Modbus master daemon
 }
 ```
 
-### @mbtcp set timeout response
+### - mbtcp set timeout response
 ```javascript
 {
 	"tid": 1,
@@ -126,7 +136,10 @@ Modbus master daemon
 
 ---
 
-#  Step by Step from Scratch or ([Travis CI](https://travis-ci.org) + [Docker](#Docker))
+<a name="setup"></a>
+# Setup
+
+Step by Step from Scratch or ([Travis CI](https://travis-ci.org) + [Docker](#ci))
 
 ## Setup development dependencies
 
@@ -200,14 +213,14 @@ make
 ```
 ---
 
-<a name="Docker"></a>
-# Continuous Integration Setup
+<a name="ci"></a>
+# Continuous Integration
 
 We do continuous integration and update docker images after git push by [Travis CI](https://travis-ci.org/taka-wang/modbusd).
 
 ![ci](image/ci.png)
 
-## @x86_64 platform
+## // x86_64 platform
 
 ### Docker base images
 - [x86 git repo](https://github.com/taka-wang/docker-ubuntu)
@@ -247,7 +260,7 @@ docker-compose up
 ctrl+c
 ```
 
-## @ARMv7 platform
+## // armhf
 
 ### Docker base images
 - [ARMv7 git repo](https://github.com/taka-wang/docker-armv7)
@@ -282,3 +295,10 @@ docker run -v /tmp:/tmp -it --link slave takawang/arm-modbus-zclient
 ## Deployment Diagram
 
 ![deployment](image/deployment.png)
+
+---
+
+<a name="doc"></a>
+# Documentation
+
+- [API Document](http://taka-wang.github.io/modbusd)

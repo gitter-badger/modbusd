@@ -1,4 +1,6 @@
-## Solve
+# v0.2.1
+
+## Fix
 - fix uthash sizeof issue (1000 items)
 - fix char pointer key issue (hash)
 - modbus_connect hang issue (timeout)
@@ -21,9 +23,9 @@
 - implement change timeout command
 - support mocha and async test
 - add versioneye support
+- support armv7
+- deploy doxygen document automatically
 
 ## TODO List
-- support armv7
 - enhance test cases
 - enhance reconnect mechanism
-- deploy doxygen document automatically
