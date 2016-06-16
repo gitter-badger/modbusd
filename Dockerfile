@@ -1,6 +1,13 @@
 FROM takawang/ubuntu-modbus
 MAINTAINER Taka Wang <taka@cmwang.net>
 
+## Get ENV
+ARG MODBUSD_VERSION=local
+ENV MODBUSD_VERSION ${MODBUSD_VERSION}
+
+## test
+RUN echo $MODBUSD_VERSION
+
 ## Build modbusd
 COPY . /modbusd/
 RUN mkdir -p /modbusd/build

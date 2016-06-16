@@ -29,9 +29,9 @@ addons:
       - graphviz
 
 script:
-- echo $GIT_TAG
+
 ### build modbus slave server image
-- docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
+- docker build -t $MODBUS_SERVER_IMG --build-arg MODBUSD_VERSION=$GIT_TAG tests/mbserver/.
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_SERVER_IMG
 
 ### build zclient image
