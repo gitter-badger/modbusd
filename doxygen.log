@@ -19,6 +19,8 @@ Searching for dia files...
 Searching for files to exclude
 Searching for files to process...
 Searching for files in directory /home/travis/build/taka-wang/modbusd
+Searching for files in directory /home/travis/build/taka-wang/modbusd/cmake
+Searching for files in directory /home/travis/build/taka-wang/modbusd/cmake/modules
 Searching for files in directory /home/travis/build/taka-wang/modbusd/code_docs
 Searching for files in directory /home/travis/build/taka-wang/modbusd/code_docs/modbusd
 Searching for files in directory /home/travis/build/taka-wang/modbusd/config
