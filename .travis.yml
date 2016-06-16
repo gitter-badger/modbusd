@@ -13,6 +13,9 @@ before_install:
 - export TZ=Asia/Taipei
 # get latest git tag
 - export GIT_TAG=` git describe --abbrev=0 --tags`
+# upgrade docker version for build-arg support
+- sudo apt-get update
+- sudo apt-get install docker-engine
 
 install:
 # login to dockerhub
