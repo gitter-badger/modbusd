@@ -13,11 +13,9 @@ set(bin_source json/cJSON.c json.c main.c modbusd.c)
 # Appends the cmake/modules path to MAKE_MODULE_PATH variable.
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 include(GetGitRevisionDescription)
-git_describe(VERSION --abbrev=0 --tags)
+git_describe(MB_VERSION --abbrev=0 --tags)
 
-# debug
-#message(${VERSION})
-add_definitions(-DVERSION=${VERSION})
+add_definitions( -DVERSION=${MB_VERSION} )
 
 # cflag
 set(EXT_C_FLAGS "-W -Wall -Wno-format-security -O3 -std=c99")
