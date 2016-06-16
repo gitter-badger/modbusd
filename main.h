@@ -9,7 +9,8 @@
 /* ==================================================
  *  marco
 ================================================== */
-//#define VERSION "0.2.1"
+
+// define version string from cmake
 #ifndef VERSION
     #  define VERSION @MB_VERSION@
 #endif
