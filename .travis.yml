@@ -15,6 +15,7 @@ before_install:
 - export GIT_TAG=` git describe --abbrev=0 --tags`
 
 install:
+# login to dockerhub
 - docker login --email=$DOCKER_HUB_EMAIL --username=takawang --password=$DOCKER_HUB_PASSWORD
 
 # Install dependencies
