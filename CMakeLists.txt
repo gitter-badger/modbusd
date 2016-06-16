@@ -16,7 +16,8 @@ include(GetGitRevisionDescription)
 git_describe(VERSION --abbrev=0 --tags)
 
 # debug
-message(STATUS $ENV{VERSION})
+#message(${VERSION})
+add_definitions(-DVERSION=${VERSION})
 
 # cflag
 set(EXT_C_FLAGS "-W -Wall -Wno-format-security -O3 -std=c99")
