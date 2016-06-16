@@ -1,13 +1,6 @@
 FROM takawang/ubuntu-modbus
 MAINTAINER Taka Wang <taka@cmwang.net>
 
-## Get ENV
-RUN GIT_TAG=` git describe --abbrev=0 --tags`
-ENV GIT_TAG $GIT_TAG
-
-## test
-RUN echo $GIT_TAG
-
 ## Build modbusd
 COPY . /modbusd/
 RUN mkdir -p /modbusd/build
