@@ -15,7 +15,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_P
 include(GetGitRevisionDescription)
 git_describe(MB_VERSION --abbrev=0 --tags)
 
-add_definitions( -DVERSION=${MB_VERSION} )
+add_definitions(-DVERSION="${MB_VERSION}" )
 
 # cflag
 set(EXT_C_FLAGS "-W -Wall -Wno-format-security -O3 -std=c99")
