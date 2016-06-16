@@ -2,11 +2,11 @@ FROM takawang/ubuntu-modbus
 MAINTAINER Taka Wang <taka@cmwang.net>
 
 ## Get ENV
-ARG MODBUSD_VERSION=local
-ENV MODBUSD_VERSION ${MODBUSD_VERSION}
+RUN GIT_TAG=` git describe --abbrev=0 --tags`
+ENV GIT_TAG $GIT_TAG
 
 ## test
-RUN echo $MODBUSD_VERSION
+RUN echo $GIT_TAG
 
 ## Build modbusd
 COPY . /modbusd/

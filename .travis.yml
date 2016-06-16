@@ -13,8 +13,6 @@ before_install:
 - export TZ=Asia/Taipei
 # get latest git tag
 - export GIT_TAG=` git describe --abbrev=0 --tags`
-# upgrade docker version for build-arg support
-- sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install docker-engine
 
 install:
 # login to dockerhub
@@ -33,7 +31,7 @@ addons:
 script:
 
 ### build modbus slave server image
-- docker build -t $MODBUS_SERVER_IMG --build-arg MODBUSD_VERSION=$GIT_TAG tests/mbserver/.
+- docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_SERVER_IMG
 
 ### build zclient image
