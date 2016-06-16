@@ -10,7 +10,8 @@ branches:
 
 before_install:
 - export TZ=Asia/Taipei
-- echo $GIT_TAG
+# get latest git tag
+- export GIT_TAG=` git describe --abbrev=0 --tags`
 
 install:
 - docker login --email=$DOCKER_HUB_EMAIL --username=takawang --password=$DOCKER_HUB_PASSWORD
@@ -26,7 +27,7 @@ addons:
       - graphviz
 
 script:
-
+echo $GIT_TAG
 ### build modbus slave server image
 - docker build -t $MODBUS_SERVER_IMG tests/mbserver/.
 - if [ ! -z "$TRAVIS_TAG" ]; then docker tag $MODBUS_SERVER_IMG:latest $MODBUS_SERVER_IMG:$TRAVIS_TAG; fi && docker push $MODBUS_SERVER_IMG
@@ -63,8 +64,6 @@ after_success:
 
 env:
   global:
-  - GIT_TAG: $TRAVIS_TAG
-  
   - GH_REPO_NAME: modbusd
   - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
   - GH_REPO_REF: github.com/taka-wang/modbusd.git
