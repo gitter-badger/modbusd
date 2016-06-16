@@ -8,6 +8,9 @@ branches:
   except:
     - gh-pages
 
+before_install:
+- export TZ=Asia/Taipei
+
 install:
 - docker login --email=$DOCKER_HUB_EMAIL --username=takawang --password=$DOCKER_HUB_PASSWORD
 
