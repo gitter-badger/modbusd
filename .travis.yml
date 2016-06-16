@@ -9,6 +9,7 @@ branches:
     - gh-pages
 
 before_install:
+# set timezone
 - export TZ=Asia/Taipei
 # get latest git tag
 - export GIT_TAG=` git describe --abbrev=0 --tags`
