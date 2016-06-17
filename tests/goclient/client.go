@@ -28,7 +28,7 @@ func main() {
 
 func publisher() {
 	command := MbReadReq{
-		"slave",
+		"172.17.0.2",
 		"502",
 		1,
 		12,
