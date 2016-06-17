@@ -9,13 +9,13 @@ import (
 )
 
 type MbReadReq struct {
-	IP    string
-	Port  string
-	Slave int
-	Tid   int64
-	Cmd   string
-	Addr  int
-	Len   int
+	IP    string `json:"ip"`
+	Port  string `json:"port"`
+	Slave int    `json:"slave"`
+	Tid   int64  `json:"tid"`
+	Cmd   string `json:"cmd"`
+	Addr  int    `json:"addr"`
+	Len   int    `json:"len"`
 }
 
 func main() {
