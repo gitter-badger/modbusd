@@ -56,7 +56,7 @@ func publisher() {
 func subscriber() {
 	receiver, _ := zmq.NewSocket(zmq.SUB)
 	defer receiver.Close()
-	receiver.Bind("ipc:///tmp/from.modbus")
+	receiver.Connect("ipc:///tmp/from.modbus")
 
 	filter := ""
 	receiver.SetSubscribe(filter) // filter frame 1
@@ -65,5 +65,4 @@ func subscriber() {
 		fmt.Println(msg[0]) // frame 1: method
 		fmt.Println(msg[1]) // frame 2: command
 	}
-
 }
