@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	zmq "github.com/taka-wang/zmq3"
 )
@@ -45,8 +46,11 @@ func publisher() {
 	defer sender.Close()
 	sender.Connect("ipc:///tmp/to.modbus")
 
-	sender.Send("tcp", zmq.SNDMORE) // frame 1
-	sender.Send(string(cmd), 0)     // convert to string; frame 2
+	for {
+		sender.Send("tcp", zmq.SNDMORE) // frame 1
+		sender.Send(string(cmd), 0)     // convert to string; frame 2
+		time.Sleep(time.Duration(3000) * time.Millisecond)
+	}
 }
 
 func subscriber() {
