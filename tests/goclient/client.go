@@ -61,6 +61,6 @@ func subscriber() {
 	filter := ""
 	receiver.SetSubscribe(filter) // filter frame 1
 	msg, _ := receiver.RecvMessage(0)
-	fmt.Println(msg[0])  // frame 1: method
-	fmt.Println(command) // frame 2: command
+	fmt.Println(msg[0]) // frame 1: method
+	fmt.Println(msg[1]) // frame 2: command
 }
