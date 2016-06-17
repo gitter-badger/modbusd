@@ -49,7 +49,7 @@ func publisher() {
 	for {
 		sender.Send("tcp", zmq.SNDMORE) // frame 1
 		sender.Send(string(cmd), 0)     // convert to string; frame 2
-		time.Sleep(time.Duration(3000) * time.Millisecond)
+		time.Sleep(time.Duration(100) * time.Millisecond)
 	}
 }
 
