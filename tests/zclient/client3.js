@@ -28,7 +28,7 @@ var fc1 = function(){
         "tid": Math.floor((Math.random() * 10000) + 1),
         "cmd": "fc1",
         "addr": 10,
-        "len": 10
+        "len": 1
     };
     pub.send("tcp", zmq.ZMQ_SNDMORE);
     pub.send(JSON.stringify(cmd));
