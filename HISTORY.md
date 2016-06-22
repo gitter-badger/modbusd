@@ -29,18 +29,23 @@
 ## TODO List
 - enhance test cases
 - enhance reconnect mechanism
-- should we support float for registers
 
-- set bits from byte (FC15)
-- get bytes from bits (FC1, FC2)
-- get float (FC3, FC4)
-    - ABCD
-    - BADC
-    - CDAB
-    - DCBA
-- set float (FC16)
-- filter
-    - on change (bit, bits, reg, regs)
-    - equality
-    - scaling
-    
+# Backlog/Wish List
+- [] set bits from byte (FC15) (only support big endian, i.e., 0x12345678)
+    - length: 8x
+- [] get bytes from bits (FC1, FC2) (only support big endian, i.e., 0x12345678)
+    - length: 8x
+- [] byte swap (FC3, FC4) (default: big endian, little endian)
+- [] read heximal/decimal (FC3, FC4)
+- [] write heximal/decimal (FC6, FC15, FC16)
+- [] get 32-bit float (FC3, FC4)
+    - length: 2x
+        - ABCD
+        - BADC
+        - CDAB
+        - DCBA
+- [] set 32-bit float (FC16)
+    - length: 2x
+- [] on changed filter (bit, bits, word, words; FC1~FC4)
+- [] threshold (FC3, FC4)
+- [] scaling
