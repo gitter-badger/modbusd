@@ -1,37 +1,33 @@
 # v0.2.1
 
-## Fix
-- fix uthash sizeof issue (1000 items)
-- fix char pointer key issue (hash)
-- modbus_connect hang issue (timeout)
-- handle 'reset by peer' issue 
-
----
-
 ## Done
-- implement keep connection mechanism 
-- implement FC (1~6, 15, 16)
-- daemon version number
-- syslog (flag)
-- implement read config
-- implement default config
-- implement dummy modbus server for testing
-- support ipv4/v6 string
-- refactor int port to char * port
-- support docker compose
-- support valgrind
-- implement change timeout command
-- support mocha and async test
-- add versioneye support
-- support armv7
-- deploy doxygen document automatically
+- [x] fix uthash sizeof issue (1000 items); cause: memset to the wrong size 
+- [x] fix char pointer key issue (hash); use char array instead of char pointer (unkown length)
+- [x] modbus_connect hang issue; set tcp timeout
+- [x] handle 'reset by peer' issue; workaround: set connection flag to false :warning:
+- [x] implement keep connection mechanism via hashtable
+- [x] implement FC (1~6, 15, 16)
+- [x] assign daemon version number from the latest git tag
+- [x] implement syslog and flag mechanism
+- [x] implement read/write config mechanism
+- [x] define default config
+- [x] implement dummy modbus server in node.js for testing
+- [x] support ipv4/v6 ip address string
+- [x] refactor int port to char * port
+- [x] support docker compose
+- [x] support valgrind (disable now)
+- [x] implement set/get timeout command
+- [x] support mocha and async test (runs slow on cloud server)
+- [x] add versioneye support (depends check)
+- [x] support armhf
+- [x] deploy doxygen document automatically
 
 ## TODO List
-- add [libmodbus test cases](https://github.com/stephane/libmodbus/tree/master/tests)
-- enhance test cases
-- enhance reconnect mechanism
-- refine field name
-- add unit test for byte order
+- [ ] add [libmodbus test cases](https://github.com/stephane/libmodbus/tree/master/tests)
+- [ ] enhance test cases
+- [ ] enhance reconnect mechanism :clap:
+- [ ] refine field name for psmb
+- [ ] add unit test for byte order :clap:
 
 # Backlog/Wish List
 - [ ] set bits from byte (FC15) (only support big endian, i.e., 0x12345678)
