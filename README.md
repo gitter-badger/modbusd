@@ -295,6 +295,6 @@ docker run -v /tmp:/tmp -it --link slave takawang/arm-modbus-zclient
 ---
 
 <a name="doc"></a>
-# Documentation
+# Documentations
 
 - [API Document](http://taka-wang.github.io/modbusd)
