@@ -9,7 +9,6 @@ Modbus master daemon
 - Support doxygen style comments.
 - ZMQ is a high-level message library, you can plug in your own socket implemetations without losing the core functionalities.
 
-
 # TOC
 
 - [Design](#design)

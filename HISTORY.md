@@ -29,3 +29,17 @@
 ## TODO List
 - enhance test cases
 - enhance reconnect mechanism
+- should we support float for registers
+
+- set bits from byte (FC15)
+- get bytes from bits (FC1, FC2)
+- get float (FC3, FC4)
+    - ABCD
+    - BADC
+    - CDAB
+    - DCBA
+- set float (FC16)
+- filter
+    - on change (bit, bits, reg, regs)
+    - equality
+    - scaling
