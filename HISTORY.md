@@ -27,6 +27,7 @@
 - deploy doxygen document automatically
 
 ## TODO List
+- add [libmodbus test cases](https://github.com/stephane/libmodbus/tree/master/tests)
 - enhance test cases
 - enhance reconnect mechanism
 - refine field name
