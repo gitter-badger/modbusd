@@ -50,4 +50,5 @@
 - [ ] on changed filter (bit, bits, word, words; FC1~FC4) :clap:
 - [ ] threshold (FC3, FC4) :question:
 - [ ] scaling :scream:
-- [ ] address mapping :fearful:
+- [ ] number and address mapping :fearful:
+

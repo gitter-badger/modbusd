@@ -34,6 +34,14 @@ Modbus master daemon
 | 0x0F  | write multi coils      | [int modbus_write_bits(modbus_t *ctx, int addr, int nb, const uint8_t *src)](http://libmodbus.org/docs/v3.1.4/modbus_write_bits.html)                |
 | 0x10  | write multi registers  | [int modbus_write_registers(modbus_t *ctx, int addr, int nb, const uint16_t *src)](http://libmodbus.org/docs/v3.1.4/modbus_write_registers.html)     |
 
+## coil/register number and address table
+
+|Coil/Register numbers|data address       |type          |table name                     |offset| function code|
+|:--------------------|:------------------|:-------------|:------------------------------|:-----|:-------------|
+|1-9999               |0000 to 270E (9998)|Read-Write    |Discrete Output Coils          |1     | 1, 5, 15     |
+|10001-19999          |0000 to 270E (9998)|Read-Only     |Discrete Input Contacts        |10001 | 2            |
+|30001-39999          |0000 to 270E (9998)|Read-Only     |Analog Input Registers         |30001 | 4            |
+|40001-49999          |0000 to 270E (9998)|Read-Write    |Analog Output Holding Registers|40001 | 3, 6, 16     |
 ---
 
 ## Configuration file format
