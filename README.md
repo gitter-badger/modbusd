@@ -1,5 +1,7 @@
 # modbusd 
 
+[![Join the chat at https://gitter.im/taka-wang/modbusd](https://badges.gitter.im/taka-wang/modbusd.svg)](https://gitter.im/taka-wang/modbusd?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/taka-wang/modbusd.svg?branch=dev)](https://travis-ci.org/taka-wang/modbusd) 
 [![GitHub tag](https://img.shields.io/github/tag/taka-wang/modbusd.svg)](https://github.com/taka-wang/modbusd/tags) 
 [![Release](https://img.shields.io/github/release/taka-wang/modbusd.svg)](https://github.com/taka-wang/modbusd/releases/latest)
